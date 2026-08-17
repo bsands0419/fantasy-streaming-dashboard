@@ -1,0 +1,39 @@
+name: Build rookie prospect models v3
+on:
+  push:
+    paths:
+      - 'rookie_models/stage3.py'
+      - 'rookie_models/stage2.py'
+      - 'rookie_models/modeling.py'
+      - 'rookie_models/requirements_v3.txt'
+      - '.github/workflows/rookie-models-v3.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: rookie-prospect-models-v3
+  cancel-in-progress: false
+jobs:
+  model-v3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: rookie_models/requirements_v3.txt
+      - run: pip install -r rookie_models/requirements_v3.txt
+      - name: Syntax check
+        run: python -m py_compile rookie_models/modeling.py rookie_models/stage2.py rookie_models/stage3.py
+      - name: Run frozen stage 3 model search
+        run: python rookie_models/stage3.py
+      - name: Commit stage 3 outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rookie_models/results_v3 rookie_models/trained_v3
+          git diff --cached --quiet || git commit -m "Update stage 3 rookie prospect model results"
+          git pull --rebase origin main
+          git push
