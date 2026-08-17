@@ -23,6 +23,27 @@ jobs:
           cache: 'pip'
           cache-dependency-path: rookie_models/requirements.txt
       - run: pip install -r rookie_models/requirements.txt
+      - name: Apply validated runtime corrections
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('rookie_models/modeling.py')
+          s=p.read_text()
+          s=s.replace("m['scrim_yards']=m.rush_yards.fillna(0)+m.get('rec_yards',0).fillna(0)", "m['scrim_yards']=m.rush_yards.fillna(0)+(m['rec_yards'].fillna(0) if 'rec_yards' in m.columns else 0)")
+          s=s.replace("m['scrim_ypg']=m.rush_ypg.fillna(0)+m.get('rec_ypg',0).fillna(0)", "m['scrim_ypg']=m.rush_ypg.fillna(0)+(m['rec_ypg'].fillna(0) if 'rec_ypg' in m.columns else 0)")
+          # Hit seasons should be ranked against the whole NFL positional field, including undrafted players, when position is present.
+          old="""            ids=p.loc[p.position==pos,'gsis_id'].dropna().unique() if 'gsis_id' in p else []
+            z=sw[sw[idcol].isin(ids)].copy()
+"""
+          new="""            if 'position' in sw.columns:
+                z=sw[sw['position'].astype(str).str.upper().eq(pos)].copy()
+            else:
+                ids=p.loc[p.position==pos,'gsis_id'].dropna().unique() if 'gsis_id' in p else []
+                z=sw[sw[idcol].isin(ids)].copy()
+"""
+          s=s.replace(old,new)
+          p.write_text(s)
+          PY
       - name: Run leakage-safe four-position model search
         run: python rookie_models/modeling.py
       - name: Commit research outputs
