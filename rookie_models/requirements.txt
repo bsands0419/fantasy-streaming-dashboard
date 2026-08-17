@@ -1,0 +1,7 @@
+pandas>=2.2
+numpy>=2.0
+scikit-learn>=1.5
+scipy>=1.13
+requests>=2.32
+rapidfuzz>=3.9
+joblib>=1.4
