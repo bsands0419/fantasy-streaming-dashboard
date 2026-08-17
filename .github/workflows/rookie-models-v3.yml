@@ -16,7 +16,7 @@ concurrency:
 jobs:
   model-v3:
     runs-on: ubuntu-latest
-    timeout-minutes: 75
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -28,7 +28,9 @@ jobs:
       - name: Syntax check
         run: python -m py_compile rookie_models/modeling.py rookie_models/stage2.py rookie_models/stage3.py
       - name: Run frozen stage 3 model search
-        run: python rookie_models/stage3.py
+        env:
+          PYTHONUNBUFFERED: '1'
+        run: python -u rookie_models/stage3.py
       - name: Commit stage 3 outputs
         run: |
           git config user.name "github-actions[bot]"
