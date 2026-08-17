@@ -1,0 +1,9 @@
+name = "v42-fantasy-refresh"
+main = "src/index.js"
+compatibility_date = "2026-08-16"
+
+[vars]
+OWNER = "bsands0419"
+REPO = "fantasy-streaming-dashboard"
+WORKFLOW = "refresh-model.yml"
+ALLOWED_ORIGIN = "https://bsands0419.github.io"
