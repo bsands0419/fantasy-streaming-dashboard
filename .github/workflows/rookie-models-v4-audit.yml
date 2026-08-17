@@ -1,0 +1,32 @@
+name: Audit rookie prospect models v4
+on:
+  push:
+    paths:
+      - 'rookie_models/results_v3/**'
+      - 'rookie_models/stage4_audit.py'
+      - '.github/workflows/rookie-models-v4-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: rookie-prospect-models-v4-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pandas numpy scipy scikit-learn
+      - name: Run frozen robustness audit
+        run: python rookie_models/stage4_audit.py
+      - name: Commit audit outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rookie_models/results_v4_audit
+          git diff --cached --quiet || git commit -m "Update rookie model stage 4 robustness audit"
+          git push
