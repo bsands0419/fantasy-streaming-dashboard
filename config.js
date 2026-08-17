@@ -5,10 +5,15 @@ window.V42_REFRESH_ENDPOINT = "https://fantasy-streaming-dashboard.bsands0419.wo
 window.addEventListener('DOMContentLoaded',()=>{
   const controls=document.querySelector('.controls');
   const pos=document.getElementById('position');
-  if(!controls||!pos)return;
+  const updatedBadge=document.getElementById('updatedBadge');
+  const header=document.querySelector('.header');
+  if(!controls||!pos||!updatedBadge||!header)return;
 
   const style=document.createElement('style');
   style.textContent=`
+    .header-tools{display:flex;align-items:center;gap:7px;margin-left:auto}
+    #streamWhy{padding:5px 9px;border-radius:999px;font-size:11px;line-height:1.2;white-space:nowrap;background:#15213a;color:var(--text);border:1px solid var(--border)}
+    #streamWhy:hover{filter:brightness(1.08)}
     .stream-explainer{display:none;margin-top:14px;padding:16px;border:1px solid var(--border);border-radius:13px;background:#0e172a;line-height:1.55}
     .stream-explainer.on{display:block}
     .stream-explainer h3{margin:0 0 8px;font-size:17px}
@@ -19,8 +24,8 @@ window.addEventListener('DOMContentLoaded',()=>{
     .stream-stat .k{display:block;color:var(--muted);font-size:11px;margin-bottom:3px}
     .stream-stat .v{font-size:17px;font-weight:750}
     .stream-caveat{font-size:11px!important;color:var(--muted)!important}
-    @media(max-width:700px){.stream-stats{grid-template-columns:1fr}.controls{grid-template-columns:1fr 1fr}}
-    @media(max-width:520px){.controls{grid-template-columns:1fr}}
+    @media(max-width:700px){.stream-stats{grid-template-columns:1fr}.header-tools{width:100%;justify-content:flex-end;margin-left:0}}
+    @media(max-width:520px){#streamWhy{font-size:10px;padding:5px 8px}.header-tools{gap:5px}}
   `;
   document.head.appendChild(style);
 
@@ -29,7 +34,12 @@ window.addEventListener('DOMContentLoaded',()=>{
   btn.type='button';
   btn.textContent='Accuracy & Why Stream?';
   btn.setAttribute('aria-expanded','false');
-  controls.insertBefore(btn,document.getElementById('refreshPage'));
+
+  const tools=document.createElement('div');
+  tools.className='header-tools';
+  header.insertBefore(tools,updatedBadge);
+  tools.appendChild(btn);
+  tools.appendChild(updatedBadge);
 
   const panel=document.createElement('div');
   panel.id='streamExplainer';
@@ -58,7 +68,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     const open=!panel.classList.contains('on');
     panel.classList.toggle('on',open);
     btn.setAttribute('aria-expanded',String(open));
-    btn.textContent=open?'Hide Accuracy Guide':'Accuracy & Why Stream?';
+    btn.textContent=open?'Hide Guide':'Accuracy & Why Stream?';
     if(open)update();
   });
   pos.addEventListener('change',()=>{if(panel.classList.contains('on'))update();});
