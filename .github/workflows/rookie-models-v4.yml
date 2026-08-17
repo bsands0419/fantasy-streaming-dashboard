@@ -2,12 +2,12 @@ name: Build rookie prospect models v4
 on:
   push:
     paths:
+      - 'rookie_models/results_v4_audit/**'
       - 'rookie_models/stage4.py'
       - 'rookie_models/stage3.py'
       - 'rookie_models/stage2.py'
       - 'rookie_models/modeling.py'
       - 'rookie_models/requirements_v3.txt'
-      - '.github/workflows/rookie-models-v4.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -17,7 +17,7 @@ concurrency:
 jobs:
   model-v4:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -26,14 +26,27 @@ jobs:
           cache: 'pip'
           cache-dependency-path: rookie_models/requirements_v3.txt
       - run: pip install -r rookie_models/requirements_v3.txt
+      - name: Cache authenticated SportsDataverse release metadata
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p rookie_models/.cache
+          for tag in espn_cfb_passing espn_cfb_rushing espn_cfb_receiving espn_cfb_team_summaries; do
+            gh api "repos/sportsdataverse/sportsdataverse-data/releases/tags/${tag}" \
+              --jq '.assets | map({key: .name, value: .browser_download_url}) | from_entries' \
+              > "rookie_models/.cache/${tag}_assets.json"
+          done
       - name: Syntax check
-        run: python -m py_compile rookie_models/stage4.py
+        run: python -m py_compile rookie_models/modeling.py rookie_models/stage2.py rookie_models/stage3.py rookie_models/stage4.py
       - name: Run frozen stage 4 architecture test
-        run: python rookie_models/stage4.py
+        env:
+          PYTHONUNBUFFERED: '1'
+        run: python -u rookie_models/stage4.py
       - name: Commit stage 4 outputs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add rookie_models/results_v4
           git diff --cached --quiet || git commit -m "Update stage 4 rookie model results"
+          git pull --rebase origin main
           git push
