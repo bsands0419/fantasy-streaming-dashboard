@@ -1,0 +1,57 @@
+name: Refresh v4.2 model
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Ignore the 10-minute cooldown
+        required: false
+        default: 'false'
+  schedule:
+    - cron: '17 12 * * *'
+    - cron: '17 22 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: v42-model-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+      MODEL_REFRESH_COOLDOWN_MINUTES: '10'
+      FORCE_REFRESH: ${{ github.event.inputs.force || 'false' }}
+      N_SIMS: '5000'
+      MODEL_SEED: '4216'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Verify and extract frozen v4.2 runtime
+        run: |
+          test -f backend/assets/v42_runtime_bundle.zip || (echo 'Upload backend/assets/v42_runtime_bundle.zip first.' && exit 1)
+          rm -rf backend/runtime
+          mkdir -p backend/runtime
+          unzip -q backend/assets/v42_runtime_bundle.zip -d backend/runtime
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check -r backend/runtime/requirements.txt
+      - name: Refresh live inputs and run frozen v4.2
+        run: python backend/runtime/refresh.py
+      - name: Publish refreshed snapshot
+        run: |
+          git config user.name "v4.2 refresh bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add snapshot.js components.js refresh_status.json
+          if git diff --cached --quiet; then
+            echo "No snapshot changes to publish."
+          else
+            git commit -m "Refresh v4.2 model snapshot"
+            git push
+          fi
