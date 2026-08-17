@@ -5,9 +5,10 @@ Standalone web dashboard for the v4.2 D/ST and kicker streaming model.
 - D/ST: no-yards, yards-allowed, and custom scoring
 - Kicker: bucket, decimal, and custom scoring
 - P(10+), P(Top 5), and P(Top 10)
-- Week 1 snapshot last updated Aug. 14, 2026
+- Current Week 1 snapshot last updated Aug. 16, 2026
+- Current kicker-job competition flags and Week 1 market inputs
 
-The site is intentionally static between model refreshes. When the v4.2 model is refreshed with new market, injury, weather, depth-chart, or kicker-job information, the dashboard snapshot should be updated in this repository.
+The site stays fixed between model refreshes. A refresh updates the stored v4.2 forecast state with new market, injury, weather, depth-chart, and kicker-job information; changing scoring rules re-scores that saved forecast state rather than changing the underlying ranking inputs.
 
 ## GitHub Pages
-In repository Settings → Pages, choose **Deploy from a branch**, select **main** and **/(root)**, then save.
+This repository is published from **main / root** using GitHub Pages.
