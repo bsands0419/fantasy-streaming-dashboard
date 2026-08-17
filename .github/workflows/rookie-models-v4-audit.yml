@@ -3,8 +3,6 @@ on:
   push:
     paths:
       - 'rookie_models/results_v3/**'
-      - 'rookie_models/stage4_audit.py'
-      - '.github/workflows/rookie-models-v4-audit.yml'
   workflow_dispatch:
 permissions:
   contents: write
