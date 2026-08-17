@@ -1,9 +1,30 @@
 {
-  "status": "setup_required",
+  "current_stats": {
+    "kicker_games": 0,
+    "source": "nflverse",
+    "team_games": 0
+  },
+  "kickers": {
+    "players": 42,
+    "source": "sleeper",
+    "teams": 32
+  },
   "model_version": "4.2.0-ensemble-streaming",
+  "n_sims": 5000,
+  "odds": {
+    "games_updated": 0,
+    "source": "nflverse_schedule"
+  },
+  "season": 2026,
+  "seed": 4216,
+  "status": "success",
+  "updated_utc": "2026-08-17T02:29:58.294675+00:00",
   "warnings": [
-    "Upload backend/assets/v42_runtime_bundle.zip before the first automated refresh.",
-    "Add ODDS_API_KEY as a GitHub Actions secret for live FanDuel market inputs.",
-    "Deploy the Cloudflare Worker and set config.js to its URL to enable the website refresh button."
-  ]
+    "ODDS_API_KEY not configured; using the latest lines carried by nflverse schedule."
+  ],
+  "weather": {
+    "games_updated": 0,
+    "source": "open-meteo"
+  },
+  "week": 1
 }
