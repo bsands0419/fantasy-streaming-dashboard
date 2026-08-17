@@ -1,4 +1,4 @@
-name = "v42-fantasy-refresh"
+name = "fantasy-streaming-dashboard"
 main = "src/index.js"
 compatibility_date = "2026-08-16"
 
