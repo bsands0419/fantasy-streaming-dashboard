@@ -33,7 +33,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          cache: pip
       - name: Verify and extract frozen v4.2 runtime
         run: |
           test -f backend/assets/v42_runtime_bundle.zip || (echo 'Upload backend/assets/v42_runtime_bundle.zip first.' && exit 1)
