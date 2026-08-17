@@ -25,6 +25,16 @@ jobs:
           cache: 'pip'
           cache-dependency-path: rookie_models/requirements_v3.txt
       - run: pip install -r rookie_models/requirements_v3.txt
+      - name: Cache authenticated SportsDataverse release metadata
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p rookie_models/.cache
+          for tag in espn_cfb_passing espn_cfb_rushing espn_cfb_receiving espn_cfb_team_summaries; do
+            gh api "repos/sportsdataverse/sportsdataverse-data/releases/tags/${tag}" \
+              --jq '.assets | map({key: .name, value: .browser_download_url}) | from_entries' \
+              > "rookie_models/.cache/${tag}_assets.json"
+          done
       - name: Syntax check
         run: python -m py_compile rookie_models/modeling.py rookie_models/stage2.py rookie_models/stage3.py
       - name: Run frozen stage 3 model search
