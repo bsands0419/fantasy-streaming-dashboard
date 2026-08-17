@@ -1,0 +1,9 @@
+{
+  "status": "setup_required",
+  "model_version": "4.2.0-ensemble-streaming",
+  "warnings": [
+    "Upload backend/assets/v42_runtime_bundle.zip before the first automated refresh.",
+    "Add ODDS_API_KEY as a GitHub Actions secret for live FanDuel market inputs.",
+    "Deploy the Cloudflare Worker and set config.js to its URL to enable the website refresh button."
+  ]
+}
