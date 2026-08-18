@@ -7,6 +7,7 @@ from pathlib import Path
 import joblib
 import numpy as np
 import pandas as pd
+from sklearn.base import clone
 
 import modeling as b
 import stage2 as s2
@@ -27,8 +28,7 @@ def load_current_2026_draft() -> pd.DataFrame:
     lags the just-completed draft. This score-only path uses nflverse's current
     draft_picks release without changing any frozen training or model logic.
     """
-    d = b.read_csv_url(CURRENT_DRAFT_URL)
-    d = d.copy()
+    d = b.read_csv_url(CURRENT_DRAFT_URL).copy()
 
     if "season" not in d.columns:
         for c in ("draft_year", "year"):
@@ -68,12 +68,7 @@ def load_current_2026_draft() -> pd.DataFrame:
 
 
 def add_landing_features_by_pick(prof: pd.DataFrame, draft: pd.DataFrame, weekly: pd.DataFrame) -> pd.DataFrame:
-    """Attach draft team and prior-year landing context without relying on a PFR id.
-
-    Draft pick is unique within a draft year and is already present in the frozen
-    prospect feature set. This fallback matters for a just-completed draft class,
-    where PFR identifiers can lag the nflverse draft feed.
-    """
+    """Attach draft team and prior-year landing context without relying on a PFR id."""
     p = prof.copy()
     d = draft[["season", "pick", "team"]].copy()
     d["season"] = pd.to_numeric(d["season"], errors="coerce")
@@ -101,6 +96,83 @@ def add_landing_features_by_pick(prof: pd.DataFrame, draft: pd.DataFrame, weekly
     return p
 
 
+def historical_prospect_oof(prof: pd.DataFrame, jobs: dict) -> pd.DataFrame:
+    """Create out-of-time historical prospect scores under the frozen Stage 3 architecture.
+
+    For each historical draft year, fit the already-selected Stage 3 architecture only
+    on earlier draft classes, then score that year's prospects. No player's NFL target
+    is used to fit the model that generates that player's prospect score. The model
+    architecture/feature selection itself remains frozen and is not re-selected here.
+    """
+    rows = []
+    templates = s3.models_v3()
+    for pos, job in jobs.items():
+        d = prof[
+            prof.position.eq(pos)
+            & prof.season.le(s3.TRAIN_END)
+            & prof.target_valid.eq(1)
+            & prof.primary_ppg.notna()
+        ].copy()
+        years = sorted(int(y) for y in d.season.dropna().unique())
+        other = job.get("blend", {}).get("other")
+        bname = other[1] if other else None
+        weight = float(job.get("blend", {}).get("weight", 1.0))
+
+        for year in years:
+            tr = d[d.season.lt(year)]
+            te = d[d.season.eq(year)]
+            # Match the frozen walk-forward minimum-history guardrail.
+            if len(tr) < 35 or te.empty:
+                continue
+
+            ma = clone(templates[job["model_name"]])
+            ma.fit(tr[job["features"]], tr.primary_ppg)
+            pred = ma.predict(te[job["features"]])
+
+            if bname and job.get("features_b"):
+                mb = clone(templates[bname])
+                mb.fit(tr[job["features_b"]], tr.primary_ppg)
+                pred_b = mb.predict(te[job["features_b"]])
+                pred = weight * pred + (1.0 - weight) * pred_b
+
+            q = te[["season", "pfr_name", "draft_pick", "primary_ppg"]].copy()
+            q["position"] = pos
+            q["prospect_model_score"] = pred
+            q["training_rows_before_draft"] = int(len(tr))
+            rows.append(q)
+
+    if not rows:
+        return pd.DataFrame(columns=[
+            "season", "pfr_name", "draft_pick", "primary_ppg", "position",
+            "prospect_model_score", "training_rows_before_draft"
+        ])
+    return pd.concat(rows, ignore_index=True)
+
+
+def attach_percentiles(rankings: pd.DataFrame, oof: pd.DataFrame) -> pd.DataFrame:
+    """Expose prospect-score percentile prominently and relabel realized-outcome percentile."""
+    r = rankings.copy()
+    if "model_percentile" in r.columns:
+        r = r.rename(columns={"model_percentile": "outcome_percentile"})
+    r["prospect_model_percentile"] = np.nan
+    r["prospect_percentile_reference_n"] = 0
+
+    for pos in POSITIONS:
+        mask = r.position.eq(pos)
+        hist = pd.to_numeric(
+            oof.loc[oof.position.eq(pos), "prospect_model_score"], errors="coerce"
+        ).dropna()
+        vals = pd.to_numeric(r.loc[mask, "pred_best2of3_ppg"], errors="coerce")
+        r.loc[mask, "prospect_model_percentile"] = s3.pct(hist, vals)
+        r.loc[mask, "prospect_percentile_reference_n"] = int(len(hist))
+
+    # Put the intended prospect percentile next to the positional rank.
+    lead = ["position", "rank", "pfr_name", "prospect_model_percentile", "outcome_percentile",
+            "prospect_percentile_reference_n"]
+    rest = [c for c in r.columns if c not in lead]
+    return r[[c for c in lead if c in r.columns] + rest]
+
+
 def main() -> None:
     print("Loading live cfbfastR/SportsDataverse data...")
     pa = b.load_cfb_table("passing")
@@ -115,7 +187,6 @@ def main() -> None:
 
     print("Loading current nflverse draft_picks release for 2026...")
     current_2026 = load_current_2026_draft()
-    # Preserve the frozen historical draft input and replace/append only the scoring class.
     draft = draft[~draft["season"].eq(PREDICT_YEAR)].copy()
     draft = pd.concat([draft, current_2026], ignore_index=True, sort=False)
     draft["season"] = pd.to_numeric(draft["season"], errors="coerce")
@@ -151,13 +222,21 @@ def main() -> None:
     if rankings.empty:
         raise RuntimeError("Frozen Stage 3 models produced no 2026 rankings")
 
+    print("Building leakage-safe historical prospect-score reference distributions...")
+    oof = historical_prospect_oof(prof, jobs)
+    if oof.empty:
+        raise RuntimeError("Historical prospect OOF scoring produced no rows")
+    rankings = attach_percentiles(rankings, oof)
+
     rankings.to_csv(OUT / "rookie_rankings_2026.csv", index=False)
+    oof.to_csv(OUT / "historical_prospect_oof.csv", index=False)
     cur.to_csv(OUT / "prospect_pool_2026.csv", index=False)
 
     audit = []
     for pos in POSITIONS:
         z = cur[cur.position.eq(pos)]
         r = rankings[rankings.position.eq(pos)]
+        h = oof[oof.position.eq(pos)]
         audit.append({
             "position": pos,
             "drafted_2026": int(len(z)),
@@ -165,6 +244,9 @@ def main() -> None:
             "college_match_rate": float(pd.to_numeric(z.get("college_match"), errors="coerce").mean()) if len(z) else np.nan,
             "fuzzy_match_rate": float(pd.to_numeric(z.get("fuzzy_match"), errors="coerce").mean()) if len(z) else np.nan,
             "draft_team_match_rate": float(z.get("draft_team", pd.Series(index=z.index, dtype=object)).notna().mean()) if len(z) else np.nan,
+            "historical_prospect_oof_n": int(len(h)),
+            "historical_prospect_oof_first_year": int(h.season.min()) if len(h) else None,
+            "historical_prospect_oof_last_year": int(h.season.max()) if len(h) else None,
         })
     pd.DataFrame(audit).to_csv(OUT / "scoring_audit.csv", index=False)
 
@@ -177,10 +259,15 @@ def main() -> None:
         "current_draft_source": CURRENT_DRAFT_URL,
         "scoring_population_rows": int(len(cur)),
         "ranked_rows": int(len(rankings)),
-        "counts_by_position": {
-            pos: int((rankings.position == pos).sum()) for pos in POSITIONS
+        "counts_by_position": {pos: int((rankings.position == pos).sum()) for pos in POSITIONS},
+        "percentiles": {
+            "prospect_model_percentile": "2026 frozen Stage 3 pre-draft prediction versus same-position historical frozen-architecture walk-forward predictions; each historical score is fit using only earlier draft classes",
+            "outcome_percentile": "2026 projected best-two-of-three PPR PPG versus same-position realized historical best-two-of-three outcomes",
+            "historical_reference_rows_by_position": {
+                pos: int((oof.position == pos).sum()) for pos in POSITIONS
+            },
         },
-        "note": "Score-only refresh. No target, feature-selection, validation, model-selection, or frozen-2023 logic was changed.",
+        "note": "Score-only refresh plus percentile reporting. No target, feature-selection, validation, model-selection, or frozen-2023 logic was changed.",
     }
     (OUT / "manifest.json").write_text(json.dumps(manifest, indent=2))
     print(json.dumps(manifest, indent=2))
