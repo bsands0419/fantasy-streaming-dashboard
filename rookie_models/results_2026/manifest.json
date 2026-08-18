@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-08-18T15:18:35.842609+00:00",
+  "generated_utc": "2026-08-18T22:56:51.779582+00:00",
   "prediction_year": 2026,
   "model_source": "frozen Stage 3 trained_v3 models",
   "model_retrained": false,
@@ -13,5 +13,15 @@
     "WR": 36,
     "TE": 22
   },
-  "note": "Score-only refresh. No target, feature-selection, validation, model-selection, or frozen-2023 logic was changed."
+  "percentiles": {
+    "prospect_model_percentile": "2026 frozen Stage 3 pre-draft prediction versus same-position historical frozen-architecture walk-forward predictions; each historical score is fit using only earlier draft classes",
+    "outcome_percentile": "2026 projected best-two-of-three PPR PPG versus same-position realized historical best-two-of-three outcomes",
+    "historical_reference_rows_by_position": {
+      "QB": 176,
+      "RB": 373,
+      "WR": 525,
+      "TE": 232
+    }
+  },
+  "note": "Score-only refresh plus percentile reporting. No target, feature-selection, validation, model-selection, or frozen-2023 logic was changed."
 }

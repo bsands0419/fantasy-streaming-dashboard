@@ -1,5 +1,5 @@
-position,drafted_2026,ranked_2026,college_match_rate,fuzzy_match_rate,draft_team_match_rate
-QB,10,10,0.9,0.0,1.0
-RB,13,13,1.0,0.0,1.0
-WR,36,36,0.9722222222222222,0.0,1.0
-TE,22,22,1.0,0.0,1.0
+position,drafted_2026,ranked_2026,college_match_rate,fuzzy_match_rate,draft_team_match_rate,historical_prospect_oof_n,historical_prospect_oof_first_year,historical_prospect_oof_last_year
+QB,10,10,0.9,0.0,1.0,176,2008,2023
+RB,13,13,1.0,0.0,1.0,373,2007,2023
+WR,36,36,0.9722222222222222,0.0,1.0,525,2007,2023
+TE,22,22,1.0,0.0,1.0,232,2008,2023
