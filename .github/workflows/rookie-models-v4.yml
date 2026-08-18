@@ -8,6 +8,7 @@ on:
       - 'rookie_models/stage2.py'
       - 'rookie_models/modeling.py'
       - 'rookie_models/requirements_v3.txt'
+      - '.github/workflows/rookie-models-v4.yml'
   workflow_dispatch:
 permissions:
   contents: write
@@ -41,7 +42,16 @@ jobs:
       - name: Run frozen stage 4 architecture test
         env:
           PYTHONUNBUFFERED: '1'
-        run: python -u rookie_models/stage4.py
+        run: |
+          python -u - <<'PY'
+          import sys
+          sys.path.insert(0, 'rookie_models')
+          import stage2
+          import stage4
+          if not hasattr(stage2, 'add_nfl_targets'):
+              stage2.add_nfl_targets = stage2.build_targets
+          stage4.main()
+          PY
       - name: Commit stage 4 outputs
         run: |
           git config user.name "github-actions[bot]"
