@@ -1,0 +1,8 @@
+{
+  "stage": "4-audit",
+  "bootstrap_reps": 3000,
+  "seed": 20260817,
+  "purpose": "precommitted robustness and baseline-value audit only; no model tuning",
+  "promotion_principle": "complexity must beat draft capital and, when sufficiently observed, historical rookie ADP before promotion",
+  "frozen_final_test_year": 2023
+}

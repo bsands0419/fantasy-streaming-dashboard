@@ -1,0 +1,5 @@
+position,promotion_pass,reason
+QB,False,does not beat draft-capital baseline on both validation MAE and Spearman; frozen 2023 shows a severe baseline-relative reversal
+RB,True,pass
+WR,False,does not beat draft-capital baseline on both validation MAE and Spearman
+TE,True,pass
