@@ -1,0 +1,17 @@
+{
+  "generated_utc": "2026-08-18T15:18:35.842609+00:00",
+  "prediction_year": 2026,
+  "model_source": "frozen Stage 3 trained_v3 models",
+  "model_retrained": false,
+  "historical_draft_source": "nflverse/nfldata draft_picks loaded by modeling.load_nflverse",
+  "current_draft_source": "https://github.com/nflverse/nflverse-data/releases/download/draft_picks/draft_picks.csv",
+  "scoring_population_rows": 81,
+  "ranked_rows": 81,
+  "counts_by_position": {
+    "QB": 10,
+    "RB": 13,
+    "WR": 36,
+    "TE": 22
+  },
+  "note": "Score-only refresh. No target, feature-selection, validation, model-selection, or frozen-2023 logic was changed."
+}
