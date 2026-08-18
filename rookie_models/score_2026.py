@@ -41,7 +41,7 @@ def load_current_2026_draft() -> pd.DataFrame:
                 d["category"] = d[c]
                 break
     if "pfr_name" not in d.columns:
-        for c in ("player_name", "name"):
+        for c in ("pfr_player_name", "player_name", "name"):
             if c in d.columns:
                 d["pfr_name"] = d[c]
                 break
