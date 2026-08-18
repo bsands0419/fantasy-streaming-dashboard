@@ -4,6 +4,7 @@ on:
     paths:
       - 'rookie_models/score_2026.py'
       - 'rookie_models/stage4_audit.py'
+      - 'rookie_models/results_v3/market_benchmark.csv'
       - '.github/workflows/rookie-models-next.yml'
   workflow_dispatch:
 permissions:
