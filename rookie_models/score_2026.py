@@ -17,6 +17,54 @@ OUT = ROOT / "results_2026"
 OUT.mkdir(parents=True, exist_ok=True)
 POSITIONS = ["QB", "RB", "WR", "TE"]
 PREDICT_YEAR = 2026
+CURRENT_DRAFT_URL = "https://github.com/nflverse/nflverse-data/releases/download/draft_picks/draft_picks.csv"
+
+
+def load_current_2026_draft() -> pd.DataFrame:
+    """Load the current nflverse draft release and normalize the columns Stage 2 expects.
+
+    The historical modeling loader still points at nflverse/nfldata, which currently
+    lags the just-completed draft. This score-only path uses nflverse's current
+    draft_picks release without changing any frozen training or model logic.
+    """
+    d = b.read_csv_url(CURRENT_DRAFT_URL)
+    d = d.copy()
+
+    if "season" not in d.columns:
+        for c in ("draft_year", "year"):
+            if c in d.columns:
+                d["season"] = d[c]
+                break
+    if "category" not in d.columns:
+        for c in ("position", "pos"):
+            if c in d.columns:
+                d["category"] = d[c]
+                break
+    if "pfr_name" not in d.columns:
+        for c in ("player_name", "name"):
+            if c in d.columns:
+                d["pfr_name"] = d[c]
+                break
+    if "pfr_id" not in d.columns:
+        for c in ("pfr_player_id", "player_id"):
+            if c in d.columns:
+                d["pfr_id"] = d[c]
+                break
+
+    required = ["season", "category", "pfr_name", "round", "pick", "team"]
+    missing = [c for c in required if c not in d.columns]
+    if missing:
+        raise RuntimeError(f"Current nflverse draft release missing required columns: {missing}; columns={list(d.columns)}")
+
+    d["season"] = pd.to_numeric(d["season"], errors="coerce")
+    d["round"] = pd.to_numeric(d["round"], errors="coerce")
+    d["pick"] = pd.to_numeric(d["pick"], errors="coerce")
+    d["category"] = d["category"].astype(str).str.upper().str.strip()
+    d = d[d["season"].eq(PREDICT_YEAR) & d["category"].isin(POSITIONS)].copy()
+    if d.empty:
+        mx = pd.to_numeric(pd.Series(b.read_csv_url(CURRENT_DRAFT_URL).get("season")), errors="coerce").max()
+        raise RuntimeError(f"Current nflverse draft_picks release has no {PREDICT_YEAR} QB/RB/WR/TE rows; max season={mx}")
+    return d
 
 
 def add_landing_features_by_pick(prof: pd.DataFrame, draft: pd.DataFrame, weekly: pd.DataFrame) -> pd.DataFrame:
@@ -64,6 +112,13 @@ def main() -> None:
     print("Loading live nflverse data...")
     draft, players, combine, weekly = b.load_nflverse()
     draft["season"] = pd.to_numeric(draft["season"], errors="coerce")
+
+    print("Loading current nflverse draft_picks release for 2026...")
+    current_2026 = load_current_2026_draft()
+    # Preserve the frozen historical draft input and replace/append only the scoring class.
+    draft = draft[~draft["season"].eq(PREDICT_YEAR)].copy()
+    draft = pd.concat([draft, current_2026], ignore_index=True, sort=False)
+    draft["season"] = pd.to_numeric(draft["season"], errors="coerce")
     draft = draft[
         draft.category.isin(POSITIONS)
         & draft.season.between(b.TRAIN_DRAFT_START, PREDICT_YEAR)
@@ -72,7 +127,7 @@ def main() -> None:
     live_2026 = draft[draft.season.eq(PREDICT_YEAR)].copy()
     if live_2026.empty:
         mx = pd.to_numeric(draft.season, errors="coerce").max()
-        raise RuntimeError(f"Live nflverse draft feed has no {PREDICT_YEAR} rows; max season={mx}")
+        raise RuntimeError(f"Live nflverse draft feed has no {PREDICT_YEAR} rows after refresh; max season={mx}")
     print(f"Found {len(live_2026)} drafted 2026 QB/RB/WR/TE prospects")
 
     prof = s2.build_profiles(draft, pa, ru, re)
@@ -118,7 +173,8 @@ def main() -> None:
         "prediction_year": PREDICT_YEAR,
         "model_source": "frozen Stage 3 trained_v3 models",
         "model_retrained": False,
-        "draft_source": "live nflverse draft_picks feed loaded by modeling.load_nflverse",
+        "historical_draft_source": "nflverse/nfldata draft_picks loaded by modeling.load_nflverse",
+        "current_draft_source": CURRENT_DRAFT_URL,
         "scoring_population_rows": int(len(cur)),
         "ranked_rows": int(len(rankings)),
         "counts_by_position": {
