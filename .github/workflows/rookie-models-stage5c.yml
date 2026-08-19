@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - 'rookie_models/stage5c_uncertainty.py'
+      - 'rookie_models/stage5c_uncertainty_v2.py'
       - '.github/workflows/rookie-models-stage5c.yml'
 
 permissions:
@@ -30,7 +31,7 @@ jobs:
         run: pip install -r rookie_models/requirements_v3.txt
 
       - name: Run Stage 5C uncertainty and diagnosis
-        run: python rookie_models/stage5c_uncertainty.py
+        run: python rookie_models/stage5c_uncertainty_v2.py
 
       - name: Commit Stage 5C outputs
         run: |
@@ -40,8 +41,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No Stage 5C output changes"
           else
-            git commit -m "Publish Stage 5C uncertainty and diagnosis"
+            git commit -m "Publish guarded Stage 5C uncertainty and diagnosis"
             git push
           fi
-
-# Explicit post-registration trigger for Stage 5C.
