@@ -169,6 +169,7 @@ def family_string(d: pd.DataFrame, col: str, positive: bool, k: int = 3) -> str:
 
 def make_feature_batch(one: pd.DataFrame, valid_features: list[str], medians: dict[str, float]) -> pd.DataFrame:
     batch = pd.concat([one] * len(valid_features), ignore_index=True)
+    batch[valid_features] = batch[valid_features].apply(pd.to_numeric, errors="coerce").astype(float)
     for i, f in enumerate(valid_features):
         batch.at[i, f] = medians[f]
     return batch
@@ -176,6 +177,7 @@ def make_feature_batch(one: pd.DataFrame, valid_features: list[str], medians: di
 
 def make_family_batch(one: pd.DataFrame, fams: list[str], all_feats: list[str], medians: dict[str, float]) -> tuple[pd.DataFrame, list[list[str]]]:
     batch = pd.concat([one] * len(fams), ignore_index=True)
+    batch[all_feats] = batch[all_feats].apply(pd.to_numeric, errors="coerce").astype(float)
     fam_features = []
     for i, fam in enumerate(fams):
         fs = [f for f in all_feats if family(f) == fam and np.isfinite(medians[f])]
@@ -212,8 +214,7 @@ def main():
         for _, player in c.iterrows():
             name = player.pfr_name
             one = player.to_frame().T.copy()
-            for f in all_feats:
-                one[f] = pd.to_numeric(one[f], errors="coerce")
+            one[all_feats] = one[all_feats].apply(pd.to_numeric, errors="coerce").astype(float)
             base_score = float(score_batch(one, job)[0])
             base_hit = float(hit_batch(one, job)[0])
             rr = rank_pos[rank_pos.pfr_name.eq(name)]
