@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - 'rookie_models/stage5d_attribution.py'
+      - 'rookie_models/stage5d_finalize.py'
       - '.github/workflows/rookie-models-stage5d.yml'
 
 permissions:
@@ -29,12 +30,12 @@ jobs:
       - name: Install dependencies
         run: pip install -r rookie_models/requirements_v3.txt
 
-      - name: Run Stage 5D attribution and disagreement diagnosis
+      - name: Run finalized Stage 5D attribution and disagreement diagnosis
         id: stage5d
         continue-on-error: true
         run: |
           set +e
-          python rookie_models/stage5d_attribution.py > rookie_models/stage5d_run.log 2>&1
+          python rookie_models/stage5d_finalize.py > rookie_models/stage5d_run.log 2>&1
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit $code
@@ -48,7 +49,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No Stage 5D output changes"
           else
-            git commit -m "Publish Stage 5D run artifacts"
+            git commit -m "Publish finalized Stage 5D attribution"
             git push
           fi
 
