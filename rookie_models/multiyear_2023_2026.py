@@ -37,10 +37,42 @@ def predict_frozen(cur: pd.DataFrame, job: dict) -> pd.DataFrame:
     return q
 
 
+def current_recent_draft() -> pd.DataFrame:
+    d = b.read_csv_url(s26.CURRENT_DRAFT_URL).copy()
+    if "season" not in d.columns:
+        for c in ("draft_year", "year"):
+            if c in d.columns:
+                d["season"] = d[c]
+                break
+    if "category" not in d.columns:
+        for c in ("position", "pos"):
+            if c in d.columns:
+                d["category"] = d[c]
+                break
+    if "pfr_name" not in d.columns:
+        for c in ("pfr_player_name", "player_name", "name"):
+            if c in d.columns:
+                d["pfr_name"] = d[c]
+                break
+    if "pfr_id" not in d.columns:
+        for c in ("pfr_player_id", "player_id"):
+            if c in d.columns:
+                d["pfr_id"] = d[c]
+                break
+
+    required = ["season", "category", "pfr_name", "round", "pick", "team"]
+    missing = [c for c in required if c not in d.columns]
+    if missing:
+        raise RuntimeError(f"Current draft release missing required columns: {missing}")
+
+    d["season"] = pd.to_numeric(d["season"], errors="coerce")
+    d["round"] = pd.to_numeric(d["round"], errors="coerce")
+    d["pick"] = pd.to_numeric(d["pick"], errors="coerce")
+    d["category"] = d["category"].astype(str).str.upper().str.strip()
+    return d[d["season"].isin([2025, 2026]) & d["category"].isin(POSITIONS)].copy()
+
+
 def rebuild_recent_pool() -> pd.DataFrame:
-    # Reuse the already-published historical feature pool through 2023, then
-    # rebuild only the three recent classes. This preserves the same feature
-    # definitions while avoiding a full historical recomputation.
     hist_pool = pd.read_csv(ROOT / "results_v4" / "prospect_pool_v4.csv")
     hist_pool["season"] = pd.to_numeric(hist_pool["season"], errors="coerce")
     hist_pool = hist_pool[hist_pool.season.le(2023)].copy()
@@ -56,21 +88,27 @@ def rebuild_recent_pool() -> pd.DataFrame:
     print("Loading nflverse draft/meta/context data...")
     draft, players, combine, weekly = b.load_nflverse()
     draft["season"] = pd.to_numeric(draft["season"], errors="coerce")
-    current_2026 = s26.load_current_2026_draft()
-    draft = draft[~draft["season"].eq(2026)].copy()
-    draft = pd.concat([draft, current_2026], ignore_index=True, sort=False)
+
+    # Historical source contains 2024 but currently lags 2025 and 2026.
+    # Replace both recent years with the current nflverse draft release.
+    current = current_recent_draft()
+    draft = draft[~draft["season"].isin([2025, 2026])].copy()
+    draft = pd.concat([draft, current], ignore_index=True, sort=False)
     draft["season"] = pd.to_numeric(draft["season"], errors="coerce")
+
     recent_draft = draft[
         draft.category.isin(POSITIONS)
         & draft.season.isin([2024, 2025, 2026])
     ].copy()
 
+    for year in [2024, 2025, 2026]:
+        if recent_draft[recent_draft.season.eq(year)].empty:
+            raise RuntimeError(f"No {year} draft rows in combined current draft source")
+
     recent = s2.build_profiles(recent_draft, pa, ru, re)
     recent = s2.add_nfl_meta(recent, players, combine)
     recent = s26.add_landing_features_by_pick(recent, draft, weekly)
 
-    # Scouting surprise must be generated with only prior draft classes in its
-    # training set, so recompute it after concatenating the historical pool.
     combined = pd.concat([hist_pool, recent], ignore_index=True, sort=False)
     combined = s3.add_scouting_surprise(combined)
     return combined[combined.season.isin([2023, 2024, 2025, 2026])].copy()
@@ -85,7 +123,6 @@ def main() -> None:
 
     rows = []
     for pos in POSITIONS:
-        # 2023 remains the held-out pre-draft OOF score from the frozen architecture.
         h23 = hist[(hist.position.eq(pos)) & (hist.season.eq(2023))].copy()
         meta_cols = [c for c in ["season", "position", "pfr_name", "draft_team", "draft_round", "draft_pick", "college_match", "fuzzy_match", "scout_boost"] if c in pool.columns]
         meta = pool[pool.season.eq(2023) & pool.position.eq(pos)][meta_cols].copy()
@@ -95,7 +132,6 @@ def main() -> None:
             q23["primary_ppg_realized"] = q23.get("primary_ppg")
             rows.append(q23)
 
-        # 2024-26 use the exact frozen Stage 3 models fitted through 2023.
         job = joblib.load(ROOT / "trained_v3" / f"{pos}.joblib")
         missing = [c for c in job["features"] if c not in pool.columns]
         missing_b = [c for c in (job.get("features_b") or []) if c not in pool.columns]
