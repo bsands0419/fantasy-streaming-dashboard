@@ -1,0 +1,43 @@
+{
+  "generated_utc": "2026-08-19T18:13:08.010534+00:00",
+  "rows": 1550,
+  "first_draft_year": 2007,
+  "last_draft_year": 2026,
+  "positions": [
+    "QB",
+    "RB",
+    "WR",
+    "TE"
+  ],
+  "counts_by_year": {
+    "2007": 58,
+    "2008": 91,
+    "2009": 87,
+    "2010": 78,
+    "2011": 82,
+    "2012": 77,
+    "2013": 79,
+    "2014": 77,
+    "2015": 82,
+    "2016": 80,
+    "2017": 86,
+    "2018": 82,
+    "2019": 80,
+    "2020": 77,
+    "2021": 76,
+    "2022": 79,
+    "2023": 35,
+    "2024": 77,
+    "2025": 86,
+    "2026": 81
+  },
+  "historical_definition": "2007/2008-2023 uses leakage-safe walk-forward/OOF prospect model scores and complete first-three-season outcomes.",
+  "current_definition": "2024-2026 uses frozen prospect scores from the reconstructed class files; complete three-year outcomes are intentionally left blank.",
+  "rank_note": "Cross-position all-years rank uses same-position pooled prospect percentile. Ties receive the same statistical rank.",
+  "source_files": [
+    "results_stage5/historical_prospect_calibration_rows.csv",
+    "results_2023_2026_final/rookie_results_2024.csv",
+    "results_2023_2026_final/rookie_results_2025.csv",
+    "results_2023_2026_final/rookie_results_2026.csv"
+  ]
+}
