@@ -1,0 +1,5 @@
+position,current_rows,historical_rows,regression_primary_features,regression_secondary_features,union_features,hit_classifier_features,max_abs_regression_reproduction_error,max_abs_hit_probability_reproduction_error,regression_reproduced,hit_probability_reproduced
+QB,10,214,125,125,125,125,8.881784197001252e-16,4.251785257203267e-09,1,1
+RB,13,417,113,6,113,113,3.552713678800501e-15,1.1943817157522574e-08,1,1
+WR,36,586,371,0,371,371,1.7763568394002505e-15,1.048278808202241e-08,1,1
+TE,22,270,137,833,833,137,8.881784197001252e-16,1.2859344478144408e-08,1,1

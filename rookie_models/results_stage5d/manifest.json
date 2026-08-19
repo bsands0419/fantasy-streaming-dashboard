@@ -1,0 +1,21 @@
+{
+  "generated_utc": "2026-08-19T14:01:33.638469+00:00",
+  "stage": "5D",
+  "model_changed": false,
+  "model_selection_changed": false,
+  "method": "Batched local historical-median neutralization sensitivity on exact frozen Stage 3 regression and hit classifier, per feature and football feature family.",
+  "interpretation": "Positive delta means the observed input raises the frozen output versus replacing that input with the historical same-position median. Effects are local, non-causal, and non-additive.",
+  "outputs": [
+    "feature_attribution_2026.csv",
+    "family_attribution_2026.csv",
+    "prospect_explanations_2026.csv",
+    "model_reproduction_audit.csv",
+    "REPORT.md"
+  ],
+  "inputs": [
+    "results_v3/prospect_pool_v3.csv",
+    "results_2026/prospect_pool_2026.csv",
+    "results_stage5c/rookie_rankings_2026_stage5c.csv",
+    "trained_v3/{position}.joblib"
+  ]
+}
