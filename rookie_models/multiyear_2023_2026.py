@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+# Trigger comparison workflow after workflow registration on main.
 from pathlib import Path
 import joblib
 import numpy as np
