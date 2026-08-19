@@ -1,5 +1,6 @@
 name: Rookie Models Final 2023-2026 Comparison
 
+# Trigger after workflow registration on main.
 on:
   workflow_dispatch:
   push:
