@@ -336,3 +336,46 @@ The rows below are exact membership in the frozen jobs. Their presence is diagno
 |WR|scout_boost|1|0|1|1.00|
 |TE|scout_expected_log_pick|0|1|0|0.20|
 |TE|scout_boost|0|1|0|0.20|
+
+## Effective frozen-feature audit
+
+Frozen job feature lists contain some position-irrelevant columns that were entirely missing for that position and were skipped by scikit-learn's median imputer. The table below separates stored names from historically observed inputs. `Stage5B usable` additionally requires at least 20 historical observations and non-zero variance, matching the similarity-space rule.
+
+|Pos|Family|Stored|Observed|Stage5B usable|Primary observed|Secondary observed|Hit-clf observed|
+|---|---|---:|---:|---:|---:|---:|---:|
+|QB|Age / experience|17|11|11|11|11|11|
+|QB|Draft capital|6|6|6|6|6|6|
+|QB|Passing production|42|42|42|42|42|42|
+|QB|Receiving production|12|0|0|0|0|0|
+|QB|Rushing production|48|48|48|48|48|48|
+|RB|Age / experience|17|11|11|11|0|11|
+|RB|Athletic profile|12|12|12|12|0|12|
+|RB|Draft capital|6|6|6|6|6|6|
+|RB|Passing production|12|0|0|0|0|0|
+|RB|Receiving production|18|18|18|18|0|18|
+|RB|Rushing production|48|30|30|30|0|30|
+|WR|Age / experience|17|5|5|5|0|5|
+|WR|Draft capital|6|6|6|6|0|6|
+|WR|Other production|4|4|4|4|0|4|
+|WR|Passing production|102|0|0|0|0|0|
+|WR|Receiving production|114|114|114|114|0|114|
+|WR|Rushing production|126|0|0|0|0|0|
+|WR|Scouting surprise|2|2|2|2|0|2|
+|TE|Age / experience|17|5|5|5|5|5|
+|TE|Athletic profile|12|12|12|12|12|12|
+|TE|College team context|426|156|156|0|156|0|
+|TE|Draft capital|6|6|6|6|6|6|
+|TE|Other production|4|4|4|0|4|0|
+|TE|Passing production|102|0|0|0|0|0|
+|TE|Receiving production|126|126|126|48|126|48|
+|TE|Rushing production|138|0|0|0|0|0|
+|TE|Scouting surprise|2|2|2|0|2|0|
+
+### Effective scouting-surprise coverage
+
+|Pos|Feature|Primary?|Secondary?|Hit clf?|Historical N|2026 N|Primary blend wt|
+|---|---|---:|---:|---:|---:|---:|---:|
+|WR|scout_expected_log_pick|1|0|1|525|36|1.00|
+|WR|scout_boost|1|0|1|525|36|1.00|
+|TE|scout_expected_log_pick|0|1|0|216|22|0.20|
+|TE|scout_boost|0|1|0|216|22|0.20|

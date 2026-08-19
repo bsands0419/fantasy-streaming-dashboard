@@ -1,0 +1,28 @@
+position,feature_family,stored_union_feature_count,historically_observed_feature_count,stage5b_similarity_usable_feature_count,stored_primary_regression_count,observed_primary_regression_count,stored_secondary_regression_count,observed_secondary_regression_count,stored_hit_classifier_count,observed_hit_classifier_count
+QB,Age / experience,17,11,11,17,11,17,11,17,11
+QB,Draft capital,6,6,6,6,6,6,6,6,6
+QB,Passing production,42,42,42,42,42,42,42,42,42
+QB,Receiving production,12,0,0,12,0,12,0,12,0
+QB,Rushing production,48,48,48,48,48,48,48,48,48
+RB,Age / experience,17,11,11,17,11,0,0,17,11
+RB,Athletic profile,12,12,12,12,12,0,0,12,12
+RB,Draft capital,6,6,6,6,6,6,6,6,6
+RB,Passing production,12,0,0,12,0,0,0,12,0
+RB,Receiving production,18,18,18,18,18,0,0,18,18
+RB,Rushing production,48,30,30,48,30,0,0,48,30
+WR,Age / experience,17,5,5,17,5,0,0,17,5
+WR,Draft capital,6,6,6,6,6,0,0,6,6
+WR,Other production,4,4,4,4,4,0,0,4,4
+WR,Passing production,102,0,0,102,0,0,0,102,0
+WR,Receiving production,114,114,114,114,114,0,0,114,114
+WR,Rushing production,126,0,0,126,0,0,0,126,0
+WR,Scouting surprise,2,2,2,2,2,0,0,2,2
+TE,Age / experience,17,5,5,17,5,17,5,17,5
+TE,Athletic profile,12,12,12,12,12,12,12,12,12
+TE,College team context,426,156,156,0,0,426,156,0,0
+TE,Draft capital,6,6,6,6,6,6,6,6,6
+TE,Other production,4,4,4,0,0,4,4,0,0
+TE,Passing production,102,0,0,18,0,102,0,18,0
+TE,Receiving production,126,126,126,48,48,126,126,48,48
+TE,Rushing production,138,0,0,36,0,138,0,36,0
+TE,Scouting surprise,2,2,2,0,0,2,2,0,0

@@ -1,0 +1,5 @@
+position,feature,feature_family,in_primary_regression,in_secondary_regression,in_hit_classifier,historical_nonmissing_n,current_2026_nonmissing_n,historically_observed,similarity_usable_stage5b_rule,blend_weight_primary
+WR,scout_expected_log_pick,Scouting surprise,1,0,1,525,36,1,1,1.0
+WR,scout_boost,Scouting surprise,1,0,1,525,36,1,1,1.0
+TE,scout_expected_log_pick,Scouting surprise,0,1,0,216,22,1,1,0.2
+TE,scout_boost,Scouting surprise,0,1,0,216,22,1,1,0.2

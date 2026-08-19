@@ -12,7 +12,9 @@
     "model_reproduction_audit.csv",
     "REPORT.md",
     "selected_feature_family_audit.csv",
-    "selected_scout_feature_audit.csv"
+    "selected_scout_feature_audit.csv",
+    "selected_feature_family_effective_audit.csv",
+    "selected_scout_feature_effective_audit.csv"
   ],
   "inputs": [
     "results_v3/prospect_pool_v3.csv",
@@ -21,5 +23,7 @@
     "trained_v3/{position}.joblib"
   ],
   "taxonomy_corrected": true,
-  "taxonomy_note": "Family labels corrected without changing feature values, frozen models, predictions, probabilities, or per-feature perturbation deltas. Family-neutralization outputs were regenerated under the corrected taxonomy."
+  "taxonomy_note": "Family labels corrected without changing feature values, frozen models, predictions, probabilities, or per-feature perturbation deltas. Family-neutralization outputs were regenerated under the corrected taxonomy.",
+  "effective_feature_audit_generated_utc": "2026-08-19T14:09:55.305019+00:00",
+  "effective_feature_note": "Stored frozen feature names are distinguished from historically observed/effective inputs because SimpleImputer skips all-missing columns."
 }
