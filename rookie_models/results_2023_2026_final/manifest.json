@@ -1,0 +1,57 @@
+{
+  "generated_utc": "2026-08-19T01:54:33.342952+00:00",
+  "years": [
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "positions": [
+    "QB",
+    "RB",
+    "WR",
+    "TE"
+  ],
+  "total_ranked_rows": 279,
+  "counts_by_year": {
+    "2023": 35,
+    "2024": 77,
+    "2025": 86,
+    "2026": 81
+  },
+  "counts_by_year_position": {
+    "2023": {
+      "QB": 5,
+      "RB": 7,
+      "WR": 14,
+      "TE": 9
+    },
+    "2024": {
+      "QB": 11,
+      "RB": 19,
+      "WR": 35,
+      "TE": 12
+    },
+    "2025": {
+      "QB": 14,
+      "RB": 25,
+      "WR": 31,
+      "TE": 16
+    },
+    "2026": {
+      "QB": 10,
+      "RB": 13,
+      "WR": 36,
+      "TE": 22
+    }
+  },
+  "position_rank_definition": "Raw frozen prospect_model_score, compared only within the same position across the 2023-2026 draft classes.",
+  "overall_rank_definition": "Leakage-safe same-position historical prospect_model_percentile. Cross-position ties retain the same statistical rank; file order within a tie is deterministic but not intended as extra model precision.",
+  "model_changes": "None. This script only combines and reranks already generated frozen-model scores.",
+  "source_files": {
+    "2023": "results_2023_2026/rookie_results_2023.csv",
+    "2024": "results_2023_2026/rookie_results_2024.csv",
+    "2025": "results_2025/rookie_rankings_2025.csv",
+    "2026": "results_2023_2026/rookie_results_2026.csv"
+  }
+}
