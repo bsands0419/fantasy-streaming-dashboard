@@ -43,3 +43,5 @@ jobs:
             git commit -m "Publish Stage 5C uncertainty and diagnosis"
             git push
           fi
+
+# Explicit post-registration trigger for Stage 5C.
