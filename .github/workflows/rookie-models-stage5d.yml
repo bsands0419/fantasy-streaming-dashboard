@@ -1,6 +1,5 @@
 name: Rookie Models Stage 5D Attribution
 
-# Trigger after workflow registration on main.
 on:
   workflow_dispatch:
   push:
@@ -31,16 +30,30 @@ jobs:
         run: pip install -r rookie_models/requirements_v3.txt
 
       - name: Run Stage 5D attribution and disagreement diagnosis
-        run: python rookie_models/stage5d_attribution.py
+        id: stage5d
+        continue-on-error: true
+        run: |
+          set +e
+          python rookie_models/stage5d_attribution.py > rookie_models/stage5d_run.log 2>&1
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit $code
 
-      - name: Commit Stage 5D outputs
+      - name: Commit Stage 5D outputs and run log
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add rookie_models/results_stage5d
+          git add rookie_models/results_stage5d rookie_models/stage5d_run.log || true
           if git diff --cached --quiet; then
             echo "No Stage 5D output changes"
           else
-            git commit -m "Publish Stage 5D feature attribution and diagnosis"
+            git commit -m "Publish Stage 5D run artifacts"
             git push
           fi
+
+      - name: Fail workflow if Stage 5D failed
+        if: steps.stage5d.outcome == 'failure'
+        run: |
+          cat rookie_models/stage5d_run.log
+          exit 1
