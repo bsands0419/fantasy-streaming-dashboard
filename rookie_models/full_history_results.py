@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+# Post-registration trigger for full-history export.
 import json
 from datetime import datetime, timezone
 from pathlib import Path
