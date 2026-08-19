@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-# Trigger comparison workflow after workflow registration on main.
 from pathlib import Path
 import joblib
 import numpy as np
@@ -36,14 +35,26 @@ def predict_frozen(cur: pd.DataFrame, job: dict) -> pd.DataFrame:
 
 
 def main() -> None:
-    pool = pd.read_csv(ROOT / "results_2026" / "prospect_pool_2026.csv")
+    full_pool = pd.read_csv(ROOT / "results_v4" / "prospect_pool_v4.csv")
+    pool_2026 = pd.read_csv(ROOT / "results_2026" / "prospect_pool_2026.csv")
     hist = pd.read_csv(ROOT / "results_2026" / "historical_prospect_oof.csv")
-    pool["season"] = pd.to_numeric(pool["season"], errors="coerce")
-    pool["draft_pick"] = pd.to_numeric(pool["draft_pick"], errors="coerce")
-    hist["season"] = pd.to_numeric(hist["season"], errors="coerce")
+
+    for frame in [full_pool, pool_2026, hist]:
+        frame["season"] = pd.to_numeric(frame["season"], errors="coerce")
+    for frame in [full_pool, pool_2026]:
+        frame["draft_pick"] = pd.to_numeric(frame["draft_pick"], errors="coerce")
+
+    # 2023-25 come from the full Stage 4 prospect pool. 2026 comes from the
+    # current score-only pool that patches in the latest nflverse draft release.
+    pool = pd.concat([
+        full_pool[full_pool.season.isin([2023, 2024, 2025])],
+        pool_2026[pool_2026.season.eq(2026)],
+    ], ignore_index=True, sort=False)
 
     rows = []
     for pos in POSITIONS:
+        # 2023 remains the held-out, pre-draft OOF score. Do not rescore it with
+        # a model that was later fit through 2023.
         h23 = hist[(hist.position.eq(pos)) & (hist.season.eq(2023))].copy()
         meta_cols = [c for c in ["season", "position", "pfr_name", "draft_team", "draft_round", "draft_pick", "college_match", "fuzzy_match", "scout_boost"] if c in pool.columns]
         meta = pool[pool.season.eq(2023) & pool.position.eq(pos)][meta_cols].copy()
@@ -53,13 +64,15 @@ def main() -> None:
             q23["primary_ppg_realized"] = q23.get("primary_ppg")
             rows.append(q23)
 
+        # 2024-26 are all scored with the frozen Stage 3 models trained through
+        # 2023, so no 2024/25 NFL outcomes enter those prospect grades.
         job = joblib.load(ROOT / "trained_v3" / f"{pos}.joblib")
         for year in [2024, 2025, 2026]:
             cur = pool[(pool.position.eq(pos)) & (pool.season.eq(year))].copy()
             if cur.empty:
                 continue
             cur = predict_frozen(cur, job)
-            cur["primary_ppg_realized"] = pd.to_numeric(cur.get("primary_ppg"), errors="coerce")
+            cur["primary_ppg_realized"] = np.nan
             rows.append(cur)
 
     z = pd.concat(rows, ignore_index=True, sort=False)
