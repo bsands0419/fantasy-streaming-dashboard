@@ -30,9 +30,13 @@ jobs:
         run: pip install -r rookie_models/requirements_v3.txt
 
       - name: Build 2023-2026 comparison
-        run: python rookie_models/multiyear_2023_2026.py
+        id: build
+        continue-on-error: true
+        run: |
+          mkdir -p rookie_models/results_2023_2026
+          python rookie_models/multiyear_2023_2026.py > rookie_models/results_2023_2026/run.log 2>&1
 
-      - name: Commit comparison outputs
+      - name: Commit comparison outputs and log
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -43,3 +47,9 @@ jobs:
             git commit -m "Publish 2023-2026 rookie comparison"
             git push
           fi
+
+      - name: Fail if build failed
+        if: steps.build.outcome == 'failure'
+        run: |
+          cat rookie_models/results_2023_2026/run.log
+          exit 1
