@@ -1,5 +1,6 @@
 name: Rookie Models Stage 6A Scout Ablation
 
+# Trigger after workflow registration on main.
 on:
   workflow_dispatch:
   push:
