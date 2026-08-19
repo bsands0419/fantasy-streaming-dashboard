@@ -37,39 +37,49 @@ def predict_frozen(cur: pd.DataFrame, job: dict) -> pd.DataFrame:
     return q
 
 
-def rebuild_full_pool() -> pd.DataFrame:
-    print("Loading college data for 2023-2026 comparison...")
+def rebuild_recent_pool() -> pd.DataFrame:
+    # Reuse the already-published historical feature pool through 2023, then
+    # rebuild only the three recent classes. This preserves the same feature
+    # definitions while avoiding a full historical recomputation.
+    hist_pool = pd.read_csv(ROOT / "results_v4" / "prospect_pool_v4.csv")
+    hist_pool["season"] = pd.to_numeric(hist_pool["season"], errors="coerce")
+    hist_pool = hist_pool[hist_pool.season.le(2023)].copy()
+    hist_pool = hist_pool.drop(columns=["scout_expected_log_pick", "scout_boost"], errors="ignore")
+
+    print("Loading college data for 2024-2026 classes...")
     pa = b.load_cfb_table("passing")
     ru = b.load_cfb_table("rushing")
     re = b.load_cfb_table("receiving")
     team = b.load_cfb_table("team_summaries")
     pa, ru, re = s2.prep_college(pa, ru, re, team)
 
-    print("Loading nflverse data...")
+    print("Loading nflverse draft/meta/context data...")
     draft, players, combine, weekly = b.load_nflverse()
     draft["season"] = pd.to_numeric(draft["season"], errors="coerce")
-
     current_2026 = s26.load_current_2026_draft()
     draft = draft[~draft["season"].eq(2026)].copy()
     draft = pd.concat([draft, current_2026], ignore_index=True, sort=False)
     draft["season"] = pd.to_numeric(draft["season"], errors="coerce")
-    draft = draft[
+    recent_draft = draft[
         draft.category.isin(POSITIONS)
-        & draft.season.between(b.TRAIN_DRAFT_START, 2026)
+        & draft.season.isin([2024, 2025, 2026])
     ].copy()
 
-    prof = s2.build_profiles(draft, pa, ru, re)
-    prof = s2.add_nfl_meta(prof, players, combine)
-    prof = s2.build_targets(prof, weekly)
-    prof = s26.add_landing_features_by_pick(prof, draft, weekly)
-    prof = s3.add_scouting_surprise(prof)
-    return prof
+    recent = s2.build_profiles(recent_draft, pa, ru, re)
+    recent = s2.add_nfl_meta(recent, players, combine)
+    recent = s26.add_landing_features_by_pick(recent, draft, weekly)
+
+    # Scouting surprise must be generated with only prior draft classes in its
+    # training set, so recompute it after concatenating the historical pool.
+    combined = pd.concat([hist_pool, recent], ignore_index=True, sort=False)
+    combined = s3.add_scouting_surprise(combined)
+    return combined[combined.season.isin([2023, 2024, 2025, 2026])].copy()
 
 
 def main() -> None:
     hist = pd.read_csv(ROOT / "results_2026" / "historical_prospect_oof.csv")
     hist["season"] = pd.to_numeric(hist["season"], errors="coerce")
-    pool = rebuild_full_pool()
+    pool = rebuild_recent_pool()
     pool["season"] = pd.to_numeric(pool["season"], errors="coerce")
     pool["draft_pick"] = pd.to_numeric(pool["draft_pick"], errors="coerce")
 
@@ -87,13 +97,16 @@ def main() -> None:
 
         # 2024-26 use the exact frozen Stage 3 models fitted through 2023.
         job = joblib.load(ROOT / "trained_v3" / f"{pos}.joblib")
+        missing = [c for c in job["features"] if c not in pool.columns]
+        missing_b = [c for c in (job.get("features_b") or []) if c not in pool.columns]
+        if missing or missing_b:
+            raise RuntimeError(f"{pos} missing frozen features: primary={missing}, blend={missing_b}")
+
         for year in [2024, 2025, 2026]:
             cur = pool[(pool.position.eq(pos)) & (pool.season.eq(year))].copy()
             if cur.empty:
-                print(f"WARNING: no {year} {pos} rows")
-                continue
+                raise RuntimeError(f"No {year} {pos} rows after recent-class rebuild")
             cur = predict_frozen(cur, job)
-            # Outcome window is not complete for these classes, so do not expose a partial realized label.
             cur["primary_ppg_realized"] = np.nan
             rows.append(cur)
 
