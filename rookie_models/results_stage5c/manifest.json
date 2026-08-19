@@ -1,0 +1,19 @@
+{
+  "generated_utc": "2026-08-19T02:45:59.283691+00:00",
+  "stage": "5C",
+  "model_changed": false,
+  "model_selection_changed": false,
+  "purpose": "Test whether Stage 5B model familiarity predicts historical OOF error, conditionally calibrate displayed uncertainty widths, and surface disagreements among grade, calibrated hit rate, classifier probability, and nearest-neighbor outcomes.",
+  "confidence_error_test": {
+    "definition": "Pooled historical leave-one-out Stage 5B confidence versus absolute leakage-safe historical prospect-model OOF error.",
+    "adaptive_rule": "Use confidence-specific scaling only when Spearman rho <= -0.1, p <= 0.1, at least two confidence groups have n >= 15, and q80 spread is at least 10% of overall q80.",
+    "scaling": "Scale original Stage 3 position-level 80/90 bands by confidence-group historical q80/q90 divided by overall historical q80/q90, clipped to 0.75-1.35."
+  },
+  "important_note": "No probability signals are averaged. Prospect percentile remains a grade; bucket hit rate is empirical calibration; classifier hit probability is a separate supervised model; five-comp hit rate is descriptive; confidence is feature-space familiarity.",
+  "inputs": [
+    "results_v3/prospect_pool_v3.csv",
+    "results_stage5/historical_prospect_calibration_rows.csv",
+    "results_stage5b/rookie_rankings_2026_stage5b.csv",
+    "trained_v3/{position}.joblib"
+  ]
+}
