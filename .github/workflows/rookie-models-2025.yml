@@ -8,6 +8,12 @@ on:
     paths:
       - 'rookie_models/score_2025.py'
       - '.github/workflows/rookie-models-2025.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'rookie_models/score_2025.py'
+      - '.github/workflows/rookie-models-2025.yml'
 
 permissions:
   contents: write
@@ -18,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - uses: actions/setup-python@v5
         with:
@@ -45,7 +51,7 @@ jobs:
             echo "No 2025 output changes"
           else
             git commit -m "Publish 2025 rookie model reconstruction"
-            git push
+            git push origin HEAD:${{ github.head_ref || github.ref_name }}
           fi
 
       - name: Fail if scoring failed
