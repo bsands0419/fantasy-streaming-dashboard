@@ -1,5 +1,6 @@
 name: Rookie Models Full History Export
 
+# Registered on main; this edit triggers the export.
 on:
   workflow_dispatch:
   push:
