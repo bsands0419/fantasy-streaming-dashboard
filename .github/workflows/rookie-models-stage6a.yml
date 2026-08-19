@@ -1,6 +1,5 @@
 name: Rookie Models Stage 6A Scout Ablation
 
-# Trigger after workflow registration on main.
 on:
   workflow_dispatch:
   push:
@@ -8,6 +7,7 @@ on:
       - main
     paths:
       - 'rookie_models/stage6a_scout_ablation.py'
+      - 'rookie_models/stage6a_wrte.py'
       - '.github/workflows/rookie-models-stage6a.yml'
 
 permissions:
@@ -30,12 +30,12 @@ jobs:
       - name: Install dependencies
         run: pip install -r rookie_models/requirements_v3.txt
 
-      - name: Run Stage 6A scout ablation
+      - name: Run Stage 6A scout ablation for WR and TE
         id: stage6a
         continue-on-error: true
         run: |
           set +e
-          python rookie_models/stage6a_scout_ablation.py > rookie_models/stage6a_run.log 2>&1
+          python rookie_models/stage6a_wrte.py > rookie_models/stage6a_run.log 2>&1
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit $code
