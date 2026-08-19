@@ -1,0 +1,26 @@
+{
+  "generated_utc": "2026-08-19T02:19:36.105369+00:00",
+  "stage": "5B",
+  "model_changed": false,
+  "model_selection_changed": false,
+  "comparison_population": "Historical valid same-position drafted prospects through 2023 versus the 2026 class.",
+  "similarity_space": "Frozen Stage 3 model input features (primary plus blend feature set), numeric, historical-mean standardized after historical-median imputation.",
+  "nearest_neighbors": 5,
+  "confidence_definition": {
+    "neighbor_density_percentile": "Percentile of the current player's mean 5-neighbor distance relative to historical leave-one-out mean 5-neighbor distances; higher means denser/more familiar feature space.",
+    "feature_coverage": "Share of usable frozen-model similarity features observed before imputation for the current player.",
+    "score": "70% neighbor-density percentile + 30% feature coverage percentage.",
+    "high": "Score >=70 and not OOD.",
+    "medium": "Score >=35 and not OOD.",
+    "low": "All other cases.",
+    "ood": "Mean 5-neighbor distance above the historical 90th percentile or feature coverage below 75%."
+  },
+  "important_note": "Confidence is familiarity with the historical model-input space, not probability of NFL success. Nearest-neighbor hit/star rates are descriptive five-player comp summaries, not calibrated probabilities.",
+  "inputs": [
+    "results_v3/prospect_pool_v3.csv",
+    "results_2026/prospect_pool_2026.csv",
+    "trained_v3/{position}.joblib",
+    "results_stage5/historical_prospect_calibration_rows.csv",
+    "results_stage5/rookie_rankings_2026_calibrated.csv"
+  ]
+}
