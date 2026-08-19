@@ -1,0 +1,31 @@
+Loading current 2025 nflverse draft class...
+Found 86 drafted 2025 QB/RB/WR/TE prospects
+Loading only the six pre-draft CFB seasons used by the frozen feature builder...
+Loading 2025 nflverse player/combine data and 2024 landing context...
+Loading validated historical pool for leakage-safe scouting surprise feature...
+{
+  "generated_utc": "2026-08-19T01:52:13.685405+00:00",
+  "prediction_year": 2025,
+  "model_source": "frozen Stage 3 trained_v3 models",
+  "model_retrained": false,
+  "current_draft_source": "https://github.com/nflverse/nflverse-data/releases/download/draft_picks/draft_picks.csv",
+  "cfb_seasons_loaded": [
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "nfl_weekly_context_season": 2024,
+  "historical_scout_reference_last_year": 2024,
+  "ranked_rows": 86,
+  "counts_by_position": {
+    "QB": 14,
+    "RB": 25,
+    "WR": 31,
+    "TE": 16
+  },
+  "percentile_reference": "same-position leakage-safe historical frozen-architecture OOF prospect scores from results_2026/historical_prospect_oof.csv",
+  "note": "Score-only historical class reconstruction. No model selection, target, feature-selection, or audit logic changed."
+}
