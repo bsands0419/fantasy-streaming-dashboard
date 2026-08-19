@@ -1,17 +1,19 @@
 # Rookie Models Stage 5C: Uncertainty and Diagnosis
 
-Generated 2026-08-19T02:45:59.279485+00:00
+Generated 2026-08-19T02:48:20.088227+00:00
 
-Stage 5C tests whether Stage 5B model-familiarity confidence historically relates to smaller frozen-model OOF errors. Confidence changes displayed prediction bands only when a pre-specified diagnostic rule is satisfied; otherwise the original Stage 3 position-level bands are retained.
+Stage 5C tests whether Stage 5B model-familiarity confidence historically relates to smaller frozen-model OOF errors. Confidence may change displayed prediction bands only if both average-error and tail-error diagnostics support it.
 
 ## Confidence/error test
 
-|Pos|N|Spearman(confidence, abs error)|p|Adaptive bands?|
-|---|---:|---:|---:|---|
-|QB|176|-0.189|0.012|Yes|
-|RB|373|0.089|0.088|No|
-|WR|525|-0.028|0.525|No|
-|TE|232|-0.060|0.363|No|
+|Pos|N|Spearman(confidence, abs error)|p|Tail errors monotonic?|Adaptive bands?|
+|---|---:|---:|---:|---|---|
+|QB|176|-0.189|0.012|No|No|
+|RB|373|0.089|0.088|No|No|
+|WR|525|-0.028|0.525|No|No|
+|TE|232|-0.060|0.363|Yes|No|
+
+The tail guard requires the historical 80th- and 90th-percentile absolute errors to satisfy High <= Medium <= Low with at least 15 observations in each group. This prevents a significant average-error correlation from being used to narrow/widen intervals when the actual prediction tails do not behave monotonically.
 
 ## Highest diagnostic disagreement in 2026
 
@@ -40,4 +42,4 @@ Stage 5C tests whether Stage 5B model-familiarity confidence historically relate
 
 ## Interpretation
 
-Prospect percentile is a grade, not a success probability. Historical bucket hit rate is empirical calibration. The classifier is a separate supervised probability model. Five-neighbor hit rate is a descriptive comp summary. Model confidence measures familiarity with the frozen feature space. Stage 5C deliberately keeps these signals separate and surfaces disagreement rather than averaging them into a false single probability.
+Prospect percentile is a grade, not a success probability. Historical bucket hit rate is empirical calibration. The classifier is a separate supervised probability model. Five-neighbor hit rate is a descriptive comp summary. Model confidence measures familiarity with the frozen feature space. Stage 5C keeps these signals separate and surfaces disagreement rather than averaging them into a false single probability.
