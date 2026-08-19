@@ -1,6 +1,6 @@
 # Full Rookie Model Results, 2007-2026
 
-Generated 2026-08-19T18:13:08.010534+00:00
+Generated 2026-08-19T18:14:44.665745+00:00
 
 The master CSV contains 1,550 QB/RB/WR/TE prospect rows.
 
