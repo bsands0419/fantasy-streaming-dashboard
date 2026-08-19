@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+# Trigger isolated 2025 scoring after workflow registration on main.
 from pathlib import Path
 import json
 from datetime import datetime, timezone
