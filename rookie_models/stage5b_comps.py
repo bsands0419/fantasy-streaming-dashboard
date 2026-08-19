@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+# Trigger Stage 5B workflow after registration on main.
 import json
 from datetime import datetime, timezone
 from pathlib import Path
