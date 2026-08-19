@@ -1,0 +1,59 @@
+name: Rookie Models Stage 6A Scout Ablation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'rookie_models/stage6a_scout_ablation.py'
+      - '.github/workflows/rookie-models-stage6a.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  ablation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: rookie_models/requirements_v3.txt
+
+      - name: Install dependencies
+        run: pip install -r rookie_models/requirements_v3.txt
+
+      - name: Run Stage 6A scout ablation
+        id: stage6a
+        continue-on-error: true
+        run: |
+          set +e
+          python rookie_models/stage6a_scout_ablation.py > rookie_models/stage6a_run.log 2>&1
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit $code
+
+      - name: Commit Stage 6A outputs and run log
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rookie_models/results_stage6a rookie_models/stage6a_run.log || true
+          if git diff --cached --quiet; then
+            echo "No Stage 6A output changes"
+          else
+            git commit -m "Publish Stage 6A scout ablation"
+            git push
+          fi
+
+      - name: Fail workflow if Stage 6A failed
+        if: steps.stage6a.outcome == 'failure'
+        run: |
+          cat rookie_models/stage6a_run.log
+          exit 1
