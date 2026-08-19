@@ -1,0 +1,5 @@
+position,variant,primary_feature_count,secondary_feature_count,removed_primary_scout_features,removed_secondary_scout_features,scout_features_in_frozen_primary,scout_features_in_frozen_secondary
+WR,snapshot_refit_with_scout,371,0,0,0,scout_expected_log_pick; scout_boost,
+WR,snapshot_refit_no_scout,369,0,2,0,scout_expected_log_pick; scout_boost,
+TE,snapshot_refit_with_scout,137,833,0,0,,scout_expected_log_pick; scout_boost
+TE,snapshot_refit_no_scout,137,831,0,2,,scout_expected_log_pick; scout_boost

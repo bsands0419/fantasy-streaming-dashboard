@@ -1,0 +1,3 @@
+position,n,max_abs_score_refit_vs_serialized,mean_abs_score_refit_vs_serialized,max_abs_hit_prob_refit_vs_serialized,mean_abs_hit_prob_refit_vs_serialized
+WR,36,0.04613067101840862,0.016465788353535737,1.048278808202241e-08,1.3787565224359273e-09
+TE,22,0.02828608410030764,0.007253079315298099,1.2859344478144408e-08,1.9644313729356103e-09

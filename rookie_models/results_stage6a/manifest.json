@@ -1,0 +1,34 @@
+{
+  "generated_utc": "2026-08-19T14:20:59.903572+00:00",
+  "stage": "6A",
+  "experiment": "scouting-surprise ablation",
+  "affected_positions": [
+    "WR",
+    "TE"
+  ],
+  "published_frozen_model_changed": false,
+  "comparison": "snapshot_refit_with_scout versus snapshot_refit_no_scout",
+  "held_fixed": [
+    "model classes",
+    "hyperparameters",
+    "blend weights",
+    "target",
+    "validation years",
+    "final-test year",
+    "historical snapshot"
+  ],
+  "removed_only": [
+    "scout_expected_log_pick",
+    "scout_boost"
+  ],
+  "important_note": "Serialized frozen model is a reference, not one side of the ablation, because fresh tree-model refits from CSV can drift slightly. Scout fields are pre-NFL and outcome-leakage-safe.",
+  "outputs": [
+    "scout_ablation_metrics.csv",
+    "scout_ablation_deltas.csv",
+    "scout_ablation_2026_predictions.csv",
+    "scout_ablation_2026_impact.csv",
+    "serialized_refit_drift_audit.csv",
+    "scout_ablation_feature_audit.csv",
+    "REPORT.md"
+  ]
+}

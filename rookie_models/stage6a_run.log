@@ -12046,9 +12046,37 @@
  'qb_years_before_last' 'rb_seasons' 'rb_years_before_first'
  'rb_years_before_last']. At least one non-missing value is needed for imputation with strategy='median'.
   warnings.warn(
-Traceback (most recent call last):
-  File "/home/runner/work/fantasy-streaming-dashboard/fantasy-streaming-dashboard/rookie_models/stage6a_wrte.py", line 6, in <module>
-    s.main()
-  File "/home/runner/work/fantasy-streaming-dashboard/fantasy-streaming-dashboard/rookie_models/stage6a_scout_ablation.py", line 234, in main
-    raise RuntimeError("Stage 6A baseline refit does not reproduce frozen published 2026 scores")
-RuntimeError: Stage 6A baseline refit does not reproduce frozen published 2026 scores
+{
+  "generated_utc": "2026-08-19T14:20:59.903572+00:00",
+  "stage": "6A",
+  "experiment": "scouting-surprise ablation",
+  "affected_positions": [
+    "WR",
+    "TE"
+  ],
+  "published_frozen_model_changed": false,
+  "comparison": "snapshot_refit_with_scout versus snapshot_refit_no_scout",
+  "held_fixed": [
+    "model classes",
+    "hyperparameters",
+    "blend weights",
+    "target",
+    "validation years",
+    "final-test year",
+    "historical snapshot"
+  ],
+  "removed_only": [
+    "scout_expected_log_pick",
+    "scout_boost"
+  ],
+  "important_note": "Serialized frozen model is a reference, not one side of the ablation, because fresh tree-model refits from CSV can drift slightly. Scout fields are pre-NFL and outcome-leakage-safe.",
+  "outputs": [
+    "scout_ablation_metrics.csv",
+    "scout_ablation_deltas.csv",
+    "scout_ablation_2026_predictions.csv",
+    "scout_ablation_2026_impact.csv",
+    "serialized_refit_drift_audit.csv",
+    "scout_ablation_feature_audit.csv",
+    "REPORT.md"
+  ]
+}
