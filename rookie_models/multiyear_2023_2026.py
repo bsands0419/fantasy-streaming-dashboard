@@ -5,7 +5,10 @@ import joblib
 import numpy as np
 import pandas as pd
 
+import modeling as b
+import stage2 as s2
 import stage3 as s3
+import score_2026 as s26
 
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "results_2023_2026"
@@ -34,27 +37,45 @@ def predict_frozen(cur: pd.DataFrame, job: dict) -> pd.DataFrame:
     return q
 
 
+def rebuild_full_pool() -> pd.DataFrame:
+    print("Loading college data for 2023-2026 comparison...")
+    pa = b.load_cfb_table("passing")
+    ru = b.load_cfb_table("rushing")
+    re = b.load_cfb_table("receiving")
+    team = b.load_cfb_table("team_summaries")
+    pa, ru, re = s2.prep_college(pa, ru, re, team)
+
+    print("Loading nflverse data...")
+    draft, players, combine, weekly = b.load_nflverse()
+    draft["season"] = pd.to_numeric(draft["season"], errors="coerce")
+
+    current_2026 = s26.load_current_2026_draft()
+    draft = draft[~draft["season"].eq(2026)].copy()
+    draft = pd.concat([draft, current_2026], ignore_index=True, sort=False)
+    draft["season"] = pd.to_numeric(draft["season"], errors="coerce")
+    draft = draft[
+        draft.category.isin(POSITIONS)
+        & draft.season.between(b.TRAIN_DRAFT_START, 2026)
+    ].copy()
+
+    prof = s2.build_profiles(draft, pa, ru, re)
+    prof = s2.add_nfl_meta(prof, players, combine)
+    prof = s2.build_targets(prof, weekly)
+    prof = s26.add_landing_features_by_pick(prof, draft, weekly)
+    prof = s3.add_scouting_surprise(prof)
+    return prof
+
+
 def main() -> None:
-    full_pool = pd.read_csv(ROOT / "results_v4" / "prospect_pool_v4.csv")
-    pool_2026 = pd.read_csv(ROOT / "results_2026" / "prospect_pool_2026.csv")
     hist = pd.read_csv(ROOT / "results_2026" / "historical_prospect_oof.csv")
-
-    for frame in [full_pool, pool_2026, hist]:
-        frame["season"] = pd.to_numeric(frame["season"], errors="coerce")
-    for frame in [full_pool, pool_2026]:
-        frame["draft_pick"] = pd.to_numeric(frame["draft_pick"], errors="coerce")
-
-    # 2023-25 come from the full Stage 4 prospect pool. 2026 comes from the
-    # current score-only pool that patches in the latest nflverse draft release.
-    pool = pd.concat([
-        full_pool[full_pool.season.isin([2023, 2024, 2025])],
-        pool_2026[pool_2026.season.eq(2026)],
-    ], ignore_index=True, sort=False)
+    hist["season"] = pd.to_numeric(hist["season"], errors="coerce")
+    pool = rebuild_full_pool()
+    pool["season"] = pd.to_numeric(pool["season"], errors="coerce")
+    pool["draft_pick"] = pd.to_numeric(pool["draft_pick"], errors="coerce")
 
     rows = []
     for pos in POSITIONS:
-        # 2023 remains the held-out, pre-draft OOF score. Do not rescore it with
-        # a model that was later fit through 2023.
+        # 2023 remains the held-out pre-draft OOF score from the frozen architecture.
         h23 = hist[(hist.position.eq(pos)) & (hist.season.eq(2023))].copy()
         meta_cols = [c for c in ["season", "position", "pfr_name", "draft_team", "draft_round", "draft_pick", "college_match", "fuzzy_match", "scout_boost"] if c in pool.columns]
         meta = pool[pool.season.eq(2023) & pool.position.eq(pos)][meta_cols].copy()
@@ -64,14 +85,15 @@ def main() -> None:
             q23["primary_ppg_realized"] = q23.get("primary_ppg")
             rows.append(q23)
 
-        # 2024-26 are all scored with the frozen Stage 3 models trained through
-        # 2023, so no 2024/25 NFL outcomes enter those prospect grades.
+        # 2024-26 use the exact frozen Stage 3 models fitted through 2023.
         job = joblib.load(ROOT / "trained_v3" / f"{pos}.joblib")
         for year in [2024, 2025, 2026]:
             cur = pool[(pool.position.eq(pos)) & (pool.season.eq(year))].copy()
             if cur.empty:
+                print(f"WARNING: no {year} {pos} rows")
                 continue
             cur = predict_frozen(cur, job)
+            # Outcome window is not complete for these classes, so do not expose a partial realized label.
             cur["primary_ppg_realized"] = np.nan
             rows.append(cur)
 
@@ -105,7 +127,9 @@ def main() -> None:
     for pos in POSITIONS:
         z[z.position.eq(pos)].sort_values("position_2023_2026_rank").to_csv(OUT / f"{pos}_2023_2026_ranked.csv", index=False)
 
-    print(z.groupby(["season", "position"]).size().unstack(fill_value=0))
+    counts = z.groupby(["season", "position"]).size().unstack(fill_value=0)
+    counts.to_csv(OUT / "class_counts.csv")
+    print(counts)
 
 
 if __name__ == "__main__":
