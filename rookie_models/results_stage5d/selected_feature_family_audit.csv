@@ -1,0 +1,28 @@
+position,feature_family,union_feature_count,primary_regression_count,secondary_regression_count,hit_classifier_count
+QB,Age / experience,17,17,17,17
+QB,Draft capital,6,6,6,6
+QB,Passing production,42,42,42,42
+QB,Receiving production,12,12,12,12
+QB,Rushing production,48,48,48,48
+RB,Age / experience,17,17,0,17
+RB,Athletic profile,12,12,0,12
+RB,Draft capital,6,6,6,6
+RB,Passing production,12,12,0,12
+RB,Receiving production,18,18,0,18
+RB,Rushing production,48,48,0,48
+WR,Age / experience,17,17,0,17
+WR,Draft capital,6,6,0,6
+WR,Other production,4,4,0,4
+WR,Passing production,102,102,0,102
+WR,Receiving production,114,114,0,114
+WR,Rushing production,126,126,0,126
+WR,Scouting surprise,2,2,0,2
+TE,Age / experience,17,17,17,17
+TE,Athletic profile,12,12,12,12
+TE,College team context,426,0,426,0
+TE,Draft capital,6,6,6,6
+TE,Other production,4,0,4,0
+TE,Passing production,102,18,102,18
+TE,Receiving production,126,48,126,48
+TE,Rushing production,138,36,138,36
+TE,Scouting surprise,2,0,2,0

@@ -1,0 +1,5 @@
+position,feature,in_primary_regression,in_secondary_regression,in_hit_classifier,blend_weight_primary
+WR,scout_expected_log_pick,1,0,1,1.0
+WR,scout_boost,1,0,1,1.0
+TE,scout_expected_log_pick,0,1,0,0.2
+TE,scout_boost,0,1,0,0.2
