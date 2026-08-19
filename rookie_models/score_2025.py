@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-# Trigger isolated 2025 scoring after workflow registration on main.
 from pathlib import Path
 import json
 from datetime import datetime, timezone
@@ -20,6 +19,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 POSITIONS = ["QB", "RB", "WR", "TE"]
 PREDICT_YEAR = 2025
 CURRENT_DRAFT_URL = s26.CURRENT_DRAFT_URL
+CFB_YEARS = range(2019, 2025)
 
 
 def load_current_draft_year(year: int) -> pd.DataFrame:
@@ -58,6 +58,41 @@ def load_current_draft_year(year: int) -> pd.DataFrame:
     if out.empty:
         raise RuntimeError(f"Current nflverse draft release has no {year} QB/RB/WR/TE rows")
     return out
+
+
+def load_cfb_table_limited(kind: str) -> pd.DataFrame:
+    tag = f"espn_cfb_{kind}"
+    assets = b.release_assets(tag)
+    frames = []
+    for year in CFB_YEARS:
+        names = [f"cfb_{kind}_{year}.csv", f"{kind}_{year}.csv"]
+        name = next((n for n in names if n in assets), None)
+        if not name:
+            continue
+        fp = b.CACHE / name
+        if not fp.exists():
+            fp.write_bytes(b.get(assets[name], timeout=180).content)
+        d = pd.read_csv(fp, low_memory=False)
+        d["season"] = pd.to_numeric(d.get("season", year), errors="coerce").fillna(year).astype(int)
+        frames.append(d)
+    if not frames:
+        raise RuntimeError(f"No CFB {kind} data for 2019-2024")
+    return pd.concat(frames, ignore_index=True, sort=False)
+
+
+def load_nfl_context_2025(current: pd.DataFrame):
+    players = b.read_csv_url("https://github.com/nflverse/nflverse-data/releases/download/players/players.csv")
+    combine = b.read_csv_url("https://github.com/nflverse/nflverse-data/releases/download/combine/combine.csv")
+    weekly = b.read_csv_url("https://github.com/nflverse/nflverse-data/releases/download/stats_player/stats_player_week_2024.csv")
+    weekly["season"] = 2024
+    draft = b.read_csv_url(CURRENT_DRAFT_URL)
+    if "season" not in draft.columns:
+        for c in ("draft_year", "year"):
+            if c in draft.columns:
+                draft["season"] = draft[c]
+                break
+    draft["season"] = pd.to_numeric(draft["season"], errors="coerce")
+    return draft, players, combine, weekly
 
 
 def percentile(hist: pd.Series, vals: pd.Series) -> np.ndarray:
@@ -106,20 +141,15 @@ def main() -> None:
     current = load_current_draft_year(PREDICT_YEAR)
     print(f"Found {len(current)} drafted 2025 QB/RB/WR/TE prospects")
 
-    print("Loading college data...")
-    pa = b.load_cfb_table("passing")
-    ru = b.load_cfb_table("rushing")
-    re = b.load_cfb_table("receiving")
-    team = b.load_cfb_table("team_summaries")
+    print("Loading only the six pre-draft CFB seasons used by the frozen feature builder...")
+    pa = load_cfb_table_limited("passing")
+    ru = load_cfb_table_limited("rushing")
+    re = load_cfb_table_limited("receiving")
+    team = load_cfb_table_limited("team_summaries")
     pa, ru, re = s2.prep_college(pa, ru, re, team)
 
-    print("Loading nflverse meta and landing-context data...")
-    draft, players, combine, weekly = b.load_nflverse()
-    draft["season"] = pd.to_numeric(draft["season"], errors="coerce")
-    draft = draft[~draft["season"].eq(PREDICT_YEAR)].copy()
-    draft = pd.concat([draft, current], ignore_index=True, sort=False)
-    draft["season"] = pd.to_numeric(draft["season"], errors="coerce")
-
+    print("Loading 2025 nflverse player/combine data and 2024 landing context...")
+    draft, players, combine, weekly = load_nfl_context_2025(current)
     recent = s2.build_profiles(current, pa, ru, re)
     recent = s2.add_nfl_meta(recent, players, combine)
     recent = s26.add_landing_features_by_pick(recent, draft, weekly)
@@ -146,12 +176,16 @@ def main() -> None:
     pool[pool["season"].eq(PREDICT_YEAR)].to_csv(OUT / "prospect_pool_2025.csv", index=False)
 
     counts = rankings.groupby("position").size().to_dict()
+    hist_max_year = int(pd.to_numeric(hist_pool["season"], errors="coerce").max()) if len(hist_pool) else None
     manifest = {
         "generated_utc": datetime.now(timezone.utc).isoformat(),
         "prediction_year": PREDICT_YEAR,
         "model_source": "frozen Stage 3 trained_v3 models",
         "model_retrained": False,
         "current_draft_source": CURRENT_DRAFT_URL,
+        "cfb_seasons_loaded": list(CFB_YEARS),
+        "nfl_weekly_context_season": 2024,
+        "historical_scout_reference_last_year": hist_max_year,
         "ranked_rows": int(len(rankings)),
         "counts_by_position": {p: int(counts.get(p, 0)) for p in POSITIONS},
         "percentile_reference": "same-position leakage-safe historical frozen-architecture OOF prospect scores from results_2026/historical_prospect_oof.csv",
