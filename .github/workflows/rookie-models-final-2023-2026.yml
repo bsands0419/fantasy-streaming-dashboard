@@ -1,0 +1,41 @@
+name: Rookie Models Final 2023-2026 Comparison
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'rookie_models/finalize_2023_2026_comparison.py'
+      - '.github/workflows/rookie-models-final-2023-2026.yml'
+      - 'rookie_models/results_2025/rookie_rankings_2025.csv'
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build final four-year comparison
+        run: python rookie_models/finalize_2023_2026_comparison.py
+
+      - name: Commit final comparison outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rookie_models/results_2023_2026_final
+          if git diff --cached --quiet; then
+            echo "No final comparison changes"
+          else
+            git commit -m "Publish final 2023-2026 rookie comparison"
+            git push
+          fi
