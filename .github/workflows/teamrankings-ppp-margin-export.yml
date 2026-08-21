@@ -27,6 +27,14 @@ jobs:
           python-version: '3.12'
       - run: pip install pandas requests beautifulsoup4
       - run: python rookie_models/teamrankings_ppp_margin_export.py
+      - name: Upload outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: teamrankings-ppp-margin
+          path: |
+            rookie_models/results_pahowdy_context/teamrankings_points_per_play_margin_2004_2025.csv
+            rookie_models/results_pahowdy_context/teamrankings_points_per_play_margin_audit.csv
+          retention-days: 7
       - name: Publish outputs
         run: |
           git pull --rebase
