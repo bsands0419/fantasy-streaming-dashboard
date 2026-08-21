@@ -20,7 +20,7 @@ jobs:
           cache: 'pip'
           cache-dependency-path: rookie_models/requirements_v3.txt
       - run: pip install -r rookie_models/requirements_v3.txt
-      - run: pip install catboost
+      - run: pip install catboost==1.2.8
       - name: Run original-data search with captured log
         run: |
           mkdir -p rookie_models/results_stage6_newmodels/original_branch
@@ -37,4 +37,4 @@ jobs:
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Publish Stage 6 original-data model search"
           git push
-# trigger 2026-08-21T08:28Z
+# final recovery trigger 2026-08-21T17:10Z
