@@ -14,6 +14,14 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+      - name: Publish run id
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          echo "${GITHUB_RUN_ID}" > rookie_models/teamrankings_ppp_margin_run_id.txt
+          git add rookie_models/teamrankings_ppp_margin_run_id.txt
+          git commit -m "Publish TeamRankings PPP margin run id" || true
+          git push || true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -21,6 +29,7 @@ jobs:
       - run: python rookie_models/teamrankings_ppp_margin_export.py
       - name: Publish outputs
         run: |
+          git pull --rebase
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add rookie_models/results_pahowdy_context/teamrankings_points_per_play_margin_2004_2025.csv rookie_models/results_pahowdy_context/teamrankings_points_per_play_margin_audit.csv
