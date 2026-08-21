@@ -1,0 +1,75 @@
+{
+  "selection_data": "canonical frozen 2019-2022 OOF predictions only",
+  "uses_2023_for_search": false,
+  "uses_2024_2026_outcomes": false,
+  "strict_pass_threshold_max_abs": 1e-06,
+  "all_locked_stage6_classifier_baselines_reproduced": false,
+  "components": [
+    {
+      "position": "RB",
+      "target": "hit3",
+      "feature_set": "stage3__features",
+      "model_spec": "cat4_unweighted",
+      "reference_n": 86,
+      "matched_n": 86,
+      "rmse": 0.1655083081083877,
+      "max_abs": 0.6351886390676693,
+      "pass_1e6": false
+    },
+    {
+      "position": "RB",
+      "target": "star3",
+      "feature_set": "group__capital",
+      "model_spec": "hist_exact",
+      "reference_n": 86,
+      "matched_n": 86,
+      "rmse": 0.07258556725724229,
+      "max_abs": 0.28878279664092504,
+      "pass_1e6": false
+    },
+    {
+      "position": "TE",
+      "target": "hit3",
+      "feature_set": "group__capital_core",
+      "model_spec": "cat4_unweighted",
+      "reference_n": 58,
+      "matched_n": 58,
+      "rmse": 0.14953407010906158,
+      "max_abs": 0.4683836646429127,
+      "pass_1e6": false
+    },
+    {
+      "position": "TE",
+      "target": "star3",
+      "feature_set": "draftcap_plus_top64",
+      "model_spec": "logit_exact",
+      "reference_n": 58,
+      "matched_n": 58,
+      "rmse": 0.1729515091809477,
+      "max_abs": 0.917222892870254,
+      "pass_1e6": false
+    },
+    {
+      "position": "WR",
+      "target": "hit3",
+      "feature_set": "group__capital",
+      "model_spec": "logit_exact",
+      "reference_n": 126,
+      "matched_n": 126,
+      "rmse": 0.2168278748763631,
+      "max_abs": 0.5003440064359281,
+      "pass_1e6": false
+    },
+    {
+      "position": "WR",
+      "target": "star3",
+      "feature_set": "group__capital_production",
+      "model_spec": "logit_exact",
+      "reference_n": 126,
+      "matched_n": 126,
+      "rmse": 0.2437954700513445,
+      "max_abs": 0.9163215972205578,
+      "pass_1e6": false
+    }
+  ]
+}
