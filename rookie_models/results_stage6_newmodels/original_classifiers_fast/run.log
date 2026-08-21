@@ -1,0 +1,18 @@
+position label kind   feature_set      auc    brier  mean_year_auc  min_year_auc
+      QB  hit3  xgb       capital 0.959184 0.061759       1.000000      1.000000
+      QB star3 hist capital_top16 0.981481 0.047854       0.975000      0.900000
+      RB  hit3 hist       capital 0.960000 0.066714       0.958735      0.937500
+      RB star3  xgb       capital 0.964583 0.042687       0.933386      0.875000
+      WR  hit3  xgb capital_top16 0.952206 0.073609       0.955248      0.895833
+      WR star3  xgb capital_top16 0.924745 0.073071       0.957190      0.939394
+      TE  hit3  xgb       capital 0.990000 0.039168       0.985294      0.941176
+      TE star3 hist       capital 0.896970 0.050477       0.885185      0.866667
+ n  positives      auc    brier  mean_year_auc  min_year_auc position label   feature_set kind  n_features
+ 5          1 1.000000 0.102115       1.000000      1.000000       QB  hit3       capital  xgb        1006
+ 5          0      NaN 0.007227            NaN           NaN       QB star3 capital_top16 hist        1017
+ 7          3 0.916667 0.111550       0.916667      0.916667       RB  hit3       capital hist        1126
+ 7          3 0.833333 0.188621       0.833333      0.833333       RB star3       capital  xgb        1126
+14          4 0.925000 0.114572       0.925000      0.925000       WR  hit3 capital_top16  xgb         598
+14          3 0.818182 0.148159       0.818182      0.818182       WR star3 capital_top16  xgb         598
+ 9          3 0.944444 0.117163       0.944444      0.944444       TE  hit3       capital  xgb         598
+ 9          1 0.750000 0.107930       0.750000      0.750000       TE star3       capital hist         598
