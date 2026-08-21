@@ -16,6 +16,7 @@ jobs:
         run: |
           mkdir -p master_data_export
           cp rookie_models/results_v4/prospect_pool_v4.csv master_data_export/
+          cp rookie_models/results_2025/prospect_pool_2025.csv master_data_export/
           cp rookie_models/results_2026/prospect_pool_2026.csv master_data_export/
           cp rookie_models/results_2026/historical_prospect_oof.csv master_data_export/
           cp rookie_models/results_2026/manifest.json master_data_export/results_2026_manifest.json
