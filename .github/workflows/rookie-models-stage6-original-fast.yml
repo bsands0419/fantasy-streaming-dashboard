@@ -2,7 +2,7 @@ name: Rookie Models Stage 6 Original Fast
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [stage6-final-refit]
     paths:
       - 'rookie_models/stage6_original_models_fast.py'
       - '.github/workflows/rookie-models-stage6-original-fast.yml'
@@ -36,4 +36,3 @@ jobs:
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Publish Stage 6 fast original-data search"
           git push
-# diagnostics trigger 2026-08-21T09:20Z
