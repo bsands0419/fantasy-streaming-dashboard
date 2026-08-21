@@ -58,3 +58,5 @@ jobs:
         run: |
           cat rookie_models/stage6_sos_run.log
           exit 1
+
+# post-registration trigger
