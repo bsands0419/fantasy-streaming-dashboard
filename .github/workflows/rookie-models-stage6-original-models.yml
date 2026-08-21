@@ -20,6 +20,7 @@ jobs:
           cache: 'pip'
           cache-dependency-path: rookie_models/requirements_v3.txt
       - run: pip install -r rookie_models/requirements_v3.txt
+      - run: pip install catboost
       - name: Run original-data search with captured log
         run: |
           mkdir -p rookie_models/results_stage6_newmodels/original_branch
