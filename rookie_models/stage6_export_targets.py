@@ -8,9 +8,8 @@ OUT = ROOT / 'results_stage6b'
 OUT.mkdir(parents=True, exist_ok=True)
 
 
-def write_transfer_chunks(text: str, stem: str, chunk_size: int = 12000):
+def write_transfer_chunks(text: str, stem: str, chunk_size: int = 3500):
     enc = base64.b64encode(text.encode('utf-8')).decode('ascii')
-    # Remove stale chunks for deterministic transfer.
     for p in OUT.glob(f'{stem}_chunk_*.txt'):
         p.unlink()
     for i in range(0, len(enc), chunk_size):
