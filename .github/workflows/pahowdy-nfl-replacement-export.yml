@@ -1,0 +1,39 @@
+name: Pahowdy NFL Replacement Export
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pahowdy-nfl-replacement-export.yml'
+permissions:
+  contents: write
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download NFLverse replacement sources
+        run: |
+          set -e
+          mkdir -p nfl_replacement_export
+          for y in 2021 2022 2023 2024 2025; do
+            curl -L --fail --retry 3 "https://github.com/nflverse/nflverse-data/releases/download/stats_player/stats_player_reg_${y}.csv" -o "nfl_replacement_export/stats_player_reg_${y}.csv"
+          done
+          curl -L --fail --retry 3 "https://github.com/nflverse/nflverse-data/releases/download/pfr_advstats/advstats_season_rec.csv" -o nfl_replacement_export/advstats_season_rec.csv
+          curl -L --fail --retry 3 "https://github.com/nflverse/nflverse-data/releases/download/pfr_advstats/advstats_season_rush.csv" -o nfl_replacement_export/advstats_season_rush.csv
+          curl -L --fail --retry 3 "https://github.com/nflverse/nflverse-data/releases/download/nextgen_stats/ngs_receiving.csv" -o nfl_replacement_export/ngs_receiving.csv
+          curl -L --fail --retry 3 "https://github.com/nflverse/nflverse-data/releases/download/nextgen_stats/ngs_rushing.csv" -o nfl_replacement_export/ngs_rushing.csv
+          curl -L --fail --retry 3 "https://github.com/nflverse/nflverse-data/releases/download/players/players.csv" -o nfl_replacement_export/players.csv
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pahowdy-nfl-replacement-sources
+          path: nfl_replacement_export/
+          retention-days: 7
+      - name: Publish run id
+        run: |
+          echo "$GITHUB_RUN_ID" > rookie_models/pahowdy_nfl_replacement_run_id.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rookie_models/pahowdy_nfl_replacement_run_id.txt
+          git commit -m "Publish Pahowdy NFL replacement export run id" || true
+          git push
