@@ -1,0 +1,27 @@
+name: Rookie Models Stage 6 Fast Final School SOS
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'rookie_models/stage6_sos_fast_final_school.py'
+      - '.github/workflows/rookie-models-stage6-sos-fast-final-school.yml'
+permissions:
+  contents: write
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pandas rapidfuzz
+      - run: python rookie_models/stage6_sos_fast_final_school.py
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rookie_models/results_stage6_sos/prospect_final_school_sos_*.csv rookie_models/results_stage6_sos/final_school_sos_match_audit_*.csv
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Publish final-school TeamRankings SOS prospect features"
+          git push
