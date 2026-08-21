@@ -30,7 +30,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add rookie_models/results_stage6b/completed_outcome_targets_2014_2023.csv rookie_models/stage6_export_targets.log
+          git add rookie_models/results_stage6b/completed_outcome_targets_*.csv rookie_models/stage6_export_targets.log
           if git diff --cached --quiet; then
             echo "No target export changes"
           else
@@ -38,4 +38,4 @@ jobs:
             git push
           fi
 
-# trigger
+# position-split trigger
