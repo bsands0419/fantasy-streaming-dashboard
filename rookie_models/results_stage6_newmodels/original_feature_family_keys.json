@@ -1,0 +1,34 @@
+{
+  "QB": [
+    "capital",
+    "college_only",
+    "capital_core",
+    "capital_production",
+    "capital_prod_context",
+    "full"
+  ],
+  "RB": [
+    "capital",
+    "college_only",
+    "capital_core",
+    "capital_production",
+    "capital_prod_context",
+    "full"
+  ],
+  "WR": [
+    "capital",
+    "college_only",
+    "capital_core",
+    "capital_production",
+    "capital_prod_context",
+    "full"
+  ],
+  "TE": [
+    "capital",
+    "college_only",
+    "capital_core",
+    "capital_production",
+    "capital_prod_context",
+    "full"
+  ]
+}
