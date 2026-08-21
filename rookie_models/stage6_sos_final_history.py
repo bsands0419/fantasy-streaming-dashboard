@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 import time
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 import pandas as pd
@@ -15,9 +15,33 @@ CACHE = ROOT / ".cache"
 OUT.mkdir(parents=True, exist_ok=True)
 CACHE.mkdir(parents=True, exist_ok=True)
 
-START_SEASON = 2007
-END_SEASON = 2025
 URL = "https://www.teamrankings.com/college-football/ranking/schedule-strength-by-other?date={date}"
+
+# Expected final-update anchors are tied to each season's title-game calendar.
+# We probe a small window around each anchor and keep the latest valid TeamRankings
+# table. This avoids the false monotonicity assumption that broke the earlier
+# January-wide binary search while still verifying the actual final valid date.
+EXPECTED_FINAL = {
+    2007: "2008-01-08",
+    2008: "2009-01-09",
+    2009: "2010-01-08",
+    2010: "2011-01-11",
+    2011: "2012-01-10",
+    2012: "2013-01-08",
+    2013: "2014-01-07",
+    2014: "2015-01-13",
+    2015: "2016-01-12",
+    2016: "2017-01-10",
+    2017: "2018-01-09",
+    2018: "2019-01-08",
+    2019: "2020-01-14",
+    2020: "2021-01-12",
+    2021: "2022-01-11",
+    2022: "2023-01-10",
+    2023: "2024-01-09",
+    2024: "2025-01-21",
+    2025: "2026-01-20",
+}
 
 S = requests.Session()
 S.headers.update({
@@ -83,54 +107,39 @@ def parse_date_snapshot(snapshot_date: str, college_season: int) -> pd.DataFrame
     return d
 
 
-def valid_day(season: int, day: int) -> tuple[bool, pd.DataFrame]:
-    ds = f"{season + 1}-01-{day:02d}"
-    try:
-        d = parse_date_snapshot(ds, season)
-        return (not d.empty), d
-    except Exception:
-        return False, pd.DataFrame()
-
-
-def discover_final_snapshot(season: int) -> tuple[str, pd.DataFrame]:
-    # TeamRankings final snapshots are in January after the college season.
-    # Validity is monotone over this period: pages exist through the final update,
-    # then cease to return the season table. Binary search finds the last valid day.
-    lo, hi = 1, 31
-    best_day = None
-    best_df = pd.DataFrame()
-    cache = {}
-    while lo <= hi:
-        mid = (lo + hi) // 2
-        if mid not in cache:
-            cache[mid] = valid_day(season, mid)
-            time.sleep(0.15)
-        ok, d = cache[mid]
+def discover_final_snapshot(season: int) -> tuple[str, pd.DataFrame, list[dict]]:
+    anchor = date.fromisoformat(EXPECTED_FINAL[season])
+    probes = []
+    # Probe latest to earliest. +/- 3 days is deliberately wider than observed
+    # historical differences between the title game and TeamRankings' final table.
+    for offset in range(3, -4, -1):
+        ds = (anchor + timedelta(days=offset)).isoformat()
+        try:
+            d = parse_date_snapshot(ds, season)
+            ok = not d.empty
+        except Exception as exc:
+            d = pd.DataFrame()
+            ok = False
+            probes.append({"college_season": season, "probe_date": ds, "valid": 0, "error": repr(exc)})
+            continue
+        probes.append({"college_season": season, "probe_date": ds, "valid": int(ok), "error": ""})
         if ok:
-            best_day, best_df = mid, d
-            lo = mid + 1
-        else:
-            hi = mid - 1
-    if best_day is None:
-        # Fallback linear scan in case an older season violates monotonicity.
-        for day in range(31, 0, -1):
-            ok, d = cache.get(day, valid_day(season, day))
-            if ok:
-                best_day, best_df = day, d
-                break
-    if best_day is None:
-        raise RuntimeError(f"No valid TeamRankings January SOS snapshot found for college season {season}")
-    return f"{season + 1}-01-{best_day:02d}", best_df
+            return ds, d, probes
+        time.sleep(0.10)
+    raise RuntimeError(f"No valid TeamRankings SOS table within +/-3 days of {anchor} for season {season}")
 
 
 def main():
     frames = []
     dates = []
-    for season in range(START_SEASON, END_SEASON + 1):
-        final_date, d = discover_final_snapshot(season)
+    probe_rows = []
+    for season in sorted(EXPECTED_FINAL):
+        final_date, d, probes = discover_final_snapshot(season)
         frames.append(d)
+        probe_rows.extend(probes)
         dates.append({
             "college_season": season,
+            "expected_anchor": EXPECTED_FINAL[season],
             "final_teamrankings_snapshot": final_date,
             "draft_year_if_final_college_season": season + 1,
             "teams": len(d),
@@ -139,20 +148,27 @@ def main():
 
     history = pd.concat(frames, ignore_index=True)
     date_map = pd.DataFrame(dates)
+    probe_audit = pd.DataFrame(probe_rows)
 
-    # Explicit regression tests for the dates already independently verified.
-    got_2024 = date_map.loc[date_map.college_season.eq(2024), "final_teamrankings_snapshot"].iloc[0]
-    got_2023 = date_map.loc[date_map.college_season.eq(2023), "final_teamrankings_snapshot"].iloc[0]
-    got_2025 = date_map.loc[date_map.college_season.eq(2025), "final_teamrankings_snapshot"].iloc[0]
-    if got_2024 != "2025-01-21":
-        raise RuntimeError(f"2024 final snapshot should be 2025-01-21, got {got_2024}")
-    if got_2023 != "2024-01-09":
-        raise RuntimeError(f"2023 final snapshot should be 2024-01-09, got {got_2023}")
-    if got_2025 != "2026-01-20":
-        raise RuntimeError(f"2025 final snapshot should be 2026-01-20, got {got_2025}")
+    # Hard regression tests for dates independently verified during Stage 6.
+    expected_checks = {
+        2016: "2017-01-10",
+        2018: "2019-01-08",
+        2019: "2020-01-14",
+        2021: "2022-01-11",
+        2022: "2023-01-10",
+        2023: "2024-01-09",
+        2024: "2025-01-21",
+        2025: "2026-01-20",
+    }
+    for season, expected in expected_checks.items():
+        got = date_map.loc[date_map.college_season.eq(season), "final_teamrankings_snapshot"].iloc[0]
+        if got != expected:
+            raise RuntimeError(f"Season {season} final snapshot should be {expected}, got {got}")
 
     history.to_csv(OUT / "teamrankings_sos_final_history.csv", index=False)
     date_map.to_csv(OUT / "teamrankings_sos_final_dates.csv", index=False)
+    probe_audit.to_csv(OUT / "teamrankings_sos_probe_audit.csv", index=False)
     print(date_map.to_string(index=False))
 
 
