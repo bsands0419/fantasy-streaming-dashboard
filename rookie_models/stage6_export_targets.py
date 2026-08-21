@@ -11,7 +11,7 @@ def main():
     d = pd.read_csv(SRC, low_memory=False)
     d['season'] = pd.to_numeric(d['season'], errors='coerce')
     d = d[d['season'].between(2014, 2023)].copy()
-    cols = ['season','pfr_name','draft_pick','primary_ppg','position','hit3','star3','best_rank3','target_valid']
+    cols = ['season','pfr_name','draft_pick','primary_ppg','position','prospect_model_score','hit3','star3','best_rank3','target_valid']
     d = d[cols].copy()
     d.to_csv(OUT / 'completed_outcome_targets_2014_2023.csv', index=False)
     print(d.groupby(['position','season']).size().to_string())
