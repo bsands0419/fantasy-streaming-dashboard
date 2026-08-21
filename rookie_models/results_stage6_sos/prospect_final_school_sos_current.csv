@@ -1,0 +1,82 @@
+season,pfr_id,pfr_name,position,college_name,final_school,college_season,tr_sos_rating,tr_sos_z,tr_sos_rank_pct,match_method,match_score
+2026,MendFe00,Fernando Mendoza,QB,Indiana; California,Indiana,2025,20.6,2.16056182204803,1.0,exact,100.0
+2026,LoveJe00,Jeremiyah Love,RB,Notre Dame,Notre Dame,2025,12.9,1.3519341093787316,0.9037037037037036,exact,100.0
+2026,TateCa00,Carnell Tate,WR,Ohio State,Ohio State,2025,17.3,1.814007088046902,0.9851851851851852,exact,100.0
+2026,TysoJo00,Jordyn Tyson,WR,Arizona State; Colorado,Arizona State,2025,7.0,0.7323362516191393,0.7333333333333334,exact,100.0
+2026,SimpTy00,Ty Simpson,QB,Alabama,Alabama,2025,16.7,1.7509971364103334,0.9777777777777776,exact,100.0
+2026,SadiKe00,Kenyon Sadiq,TE,Oregon,Oregon,2025,18.3,1.91902367410785,0.9925925925925926,exact,100.0
+2026,LemoMa00,Makai Lemon,WR,USC,USC,2025,12.3,1.2889241577421628,0.8962962962962963,exact,100.0
+2026,ConcKC00,KC Concepcion,WR,Texas A&M; N.C. State,Texas A&M,2025,13.6,1.425445719621395,0.9407407407407408,exact,100.0
+2026,CoopOm00,Omar Cooper Jr.,WR,Indiana,Indiana,2025,20.6,2.16056182204803,1.0,exact,100.0
+2026,PricJa02,Jadarian Price,RB,Notre Dame,Notre Dame,2025,12.9,1.3519341093787316,0.9037037037037036,exact,100.0
+2026,StriDe01,De'Zhaun Stribling,WR,,,2025,,,,unmatched,
+2026,BostDe00,Denzel Boston,WR,Washington,Washington,2025,9.5,0.9948777167715088,0.7851851851851852,exact,100.0
+2026,BernGe00,Germie Bernard,WR,Alabama; Washington; Michigan State,Alabama,2025,16.7,1.7509971364103334,0.9777777777777776,exact,100.0
+2026,StowEl00,Eli Stowers,TE,Vanderbilt; New Mexico State; Texas A&M,Vanderbilt,2025,11.7,1.225914206105594,0.8814814814814815,exact,100.0
+2026,BoerNa00,Nate Boerkircher,TE,Texas A&M; Nebraska,Texas A&M,2025,13.6,1.425445719621395,0.9407407407407408,exact,100.0
+2026,KleiMa00,Marlin Klein,TE,Michigan,Michigan,2025,11.4,1.1944092302873095,0.8740740740740741,exact,100.0
+2026,KlarMa00,Max Klare,TE,Ohio State; Purdue,Ohio State,2025,17.3,1.814007088046902,0.9851851851851852,exact,100.0
+2026,BeckCa01,Carson Beck,QB,,,2025,,,,unmatched,
+2026,RousSa00,Sam Roush,TE,Stanford,Stanford,2025,3.8,0.3962831762241061,0.5777777777777777,exact,100.0
+2026,WillAn04,Antonio Williams,WR,Clemson,Clemson,2025,7.1,0.742837910225234,0.7481481481481482,exact,100.0
+2026,DelpOs01,Oscar Delp,TE,,,2025,,,,unmatched,
+2026,FielMa00,Malachi Fields,WR,Notre Dame; Virginia,Notre Dame,2025,12.9,1.3519341093787316,0.9037037037037036,exact,100.0
+2026,DougCa00,Caleb Douglas,WR,Texas Tech; Florida,Texas Tech,2025,13.1,1.372937426590921,0.9111111111111112,exact,100.0
+2026,AllaDr00,Drew Allar,QB,Penn State,Penn State,2025,13.2,1.3834390851970155,0.9185185185185184,exact,100.0
+2026,BranZa00,Zachariah Branch,WR,Georgia; USC,Georgia,2025,14.0,1.4674523540457742,0.962962962962963,exact,100.0
+2026,LaneJa01,Ja'Kobi Lane,WR,USC,USC,2025,12.3,1.2889241577421628,0.8962962962962963,exact,100.0
+2026,BrazCh01,Chris Brazzell II,WR,Tennessee; Tulane,Tennessee,2025,9.8,1.0263826925897932,0.8074074074074074,exact,100.0
+2026,HursTe00,Ted Hurst,WR,Georgia State; Valdosta State,Georgia State,2025,-10.1,-1.063447370023069,0.1999999999999999,exact,100.0
+2026,KacmWi00,Will Kacmarek,TE,Ohio State; Ohio,Ohio State,2025,17.3,1.814007088046902,0.9851851851851852,exact,100.0
+2026,ThomZa05,Zavion Thomas,WR,LSU; Mississippi State,LSU,2025,11.4,1.1944092302873095,0.8666666666666667,exact,100.0
+2026,BlacKa00,Kaelon Black,RB,Indiana; James Madison,Indiana,2025,20.6,2.16056182204803,1.0,exact,100.0
+2026,BellCh00,Chris Bell,WR,Louisville,Louisville,2025,6.3,0.6588246413764758,0.6814814814814815,exact,100.0
+2026,RariEl00,Eli Raridon,TE,Notre Dame,Notre Dame,2025,12.9,1.3519341093787316,0.9037037037037036,exact,100.0
+2026,ThomBr07,Brenen Thompson,WR,Mississippi State; Texas,Mississippi State,2025,8.1,0.8478544962861818,0.762962962962963,exact,100.0
+2026,ColeJo00,Jonah Coleman,RB,Washington; Arizona,Washington,2025,9.5,0.9948777167715088,0.7851851851851852,exact,100.0
+2026,KlubCa00,Cade Klubnik,QB,Clemson,Clemson,2025,7.1,0.742837910225234,0.7481481481481482,exact,100.0
+2026,SarrEl00,Elijah Sarratt,WR,Indiana; James Madison; St. Francis PA,Indiana,2025,20.6,2.16056182204803,1.0,exact,100.0
+2026,WetjKa00,Kaden Wetjen,WR,Iowa; Iowa Western CC,Iowa,2025,13.7,1.43594737822749,0.9481481481481482,exact,100.0
+2026,WashMi00,Mike Washington Jr.,RB,Arkansas; New Mexico State; Buffalo,Arkansas,2025,10.7,1.120897620044646,0.837037037037037,exact,100.0
+2026,BellSk00,Skyler Bell,WR,Connecticut; Wisconsin,Connecticut,2025,-9.6,-1.0109390769925952,0.2222222222222222,exact,100.0
+2026,HibnMa00,Matthew Hibner,TE,SMU; Michigan,SMU,2025,6.2,0.648322982770381,0.674074074074074,exact,100.0
+2026,LancBr00,Bryce Lance,WR,North Dakota State,North Dakota State,2025,,,,unmatched,
+2026,YounCo01,Colbie Young,WR,,,2025,,,,unmatched,
+2026,VirgRe00,Reggie Virgil,WR,Texas Tech; Miami (Ohio),Texas Tech,2025,13.1,1.372937426590921,0.9111111111111112,exact,100.0
+2026,JolyJu00,Justin Joly,TE,N.C. State; Connecticut,N.C. State,2025,7.0,0.7323362516191393,0.7259259259259259,exact,100.0
+2026,BredMa00,Max Bredeson,TE,Michigan,Michigan,2025,11.4,1.1944092302873095,0.8740740740740741,exact,100.0
+2026,JohnEm01,Emmett Johnson,RB,Nebraska,Nebraska,2025,7.8,0.8163495204678975,0.7555555555555555,exact,100.0
+2026,KoziTa00,Tanner Koziol,TE,Houston; Ball State,Houston,2025,3.0,0.3122699073753478,0.5629629629629629,exact,100.0
+2026,SingNi01,Nicholas Singleton,RB,,,2025,,,,unmatched,
+2026,LawxKe00,Kendrick Law,WR,Kentucky; Alabama,Kentucky,2025,9.5,0.9948777167715088,0.7925925925925926,exact,100.0
+2026,NowaRi00,Riley Nowakowski,TE,Indiana; Wisconsin,Indiana,2025,20.6,2.16056182204803,1.0,exact,100.0
+2026,RoyeJo01,Joe Royer,TE,,,2025,,,,unmatched,
+2026,CuevJo00,Josh Cuevas,TE,Alabama; Washington; Pomona State,Alabama,2025,16.7,1.7509971364103334,0.9777777777777776,exact,100.0
+2026,RandAd00,Adam Randall,RB,Clemson,Clemson,2025,7.1,0.742837910225234,0.7481481481481482,exact,100.0
+2026,AlleCy00,Cyrus Allen,WR,Cincinnati; Texas A&M; Louisiana Tech,Cincinnati,2025,5.0,0.5223030794972436,0.6074074074074074,exact,100.0
+2026,ColeKe03,Kevin Coleman Jr.,WR,Missouri; Mississippi State; Louisville; Jackson State University,Missouri,2025,10.1,1.0578876684080776,0.8148148148148149,exact,100.0
+2026,PaytCo00,Cole Payton,QB,North Dakota State,North Dakota State,2025,,,,unmatched,
+2026,TraoSe00,Seydou Traore,TE,Mississippi State; Arkansas State,Mississippi State,2025,8.1,0.8478544962861818,0.762962962962963,exact,100.0
+2026,GreeTa00,Taylen Green,QB,Arkansas; Boise State,Arkansas,2025,10.7,1.120897620044646,0.837037037037037,exact,100.0
+2026,SharBa00,Bauer Sharp,TE,LSU; Oklahoma; Southeastern Louisiana,LSU,2025,11.4,1.1944092302873095,0.8666666666666667,exact,100.0
+2026,AlleKa01,Kaytron Allen,RB,Penn State,Penn State,2025,13.2,1.3834390851970155,0.9185185185185184,exact,100.0
+2026,BrowBa02,Barion Brown,WR,LSU; Kentucky,LSU,2025,11.4,1.1944092302873095,0.8666666666666667,exact,100.0
+2026,CameJo01,Josh Cameron,WR,Baylor,Baylor,2025,6.6,0.6903296171947602,0.7037037037037037,exact,100.0
+2026,BensMa00,Malik Benson,WR,Oregon; Florida State; Alabama; Hutchinson CC,Oregon,2025,18.3,1.91902367410785,0.9925925925925926,exact,100.0
+2026,DaniCJ00,CJ Daniels,WR,Miami; LSU; Liberty,Miami,2025,16.7,1.7509971364103334,0.9703703703703704,exact,100.0
+2026,ClaiDe00,Demond Claiborne,RB,Wake Forest,Wake Forest,2025,1.7,0.1757483454961156,0.5185185185185186,exact,100.0
+2026,HendEm00,Emmanuel Henderson Jr.,WR,Kansas; Alabama,Kansas,2025,6.1,0.6378213241642862,0.6592592592592592,exact,100.0
+2026,WillCJ00,CJ Williams,WR,Stanford; Wisconsin,Stanford,2025,3.8,0.3962831762241061,0.5777777777777777,exact,100.0
+2026,BondLe00,Lewis Bond,WR,Boston College,Boston College,2025,2.4,0.2492599557387791,0.5407407407407407,exact,100.0
+2026,SmitAn05,Anthony Smith,WR,East Carolina; N.C. State,East Carolina,2025,-1.1,-0.1182980954745383,0.4592592592592592,exact,100.0
+2026,EndrJa00,Jack Endries,TE,Texas; California,Texas,2025,13.8,1.4464490368335847,0.9555555555555556,exact,100.0
+2026,KaliAt00,Athan Kaliakmanis,QB,Rutgers; Minnesota,Rutgers,2025,6.8,0.7113329344069498,0.7185185185185186,exact,100.0
+2026,KanaJa00,Jaren Kanak,TE,Oklahoma,Oklahoma,2025,13.3,1.3939407438031108,0.925925925925926,exact,100.0
+2026,HeidEl00,Eli Heidenreich,RB,Navy,Navy,2025,-2.2,-0.233816340141581,0.4518518518518518,exact,100.0
+2026,MortBe00,Behren Morton,QB,Texas Tech,Texas Tech,2025,13.1,1.372937426590921,0.9111111111111112,exact,100.0
+2026,McGoSe01,Seth McGowan,RB,Kentucky; New Mexico State; Butler University; Oklahoma,Kentucky,2025,9.5,0.9948777167715088,0.7925925925925926,exact,100.0
+2026,MillJa03,Jam Miller,RB,Alabama,Alabama,2025,16.7,1.7509971364103334,0.9777777777777776,exact,100.0
+2026,RyanCa00,Carsen Ryan,TE,BYU; Utah; UCLA,BYU,2025,11.1,1.1629042544690251,0.8592592592592593,exact,100.0
+2026,NussGa00,Garrett Nussmeier,QB,LSU,LSU,2025,11.4,1.1944092302873095,0.8666666666666667,exact,100.0
+2026,BurkDe02,Deion Burks,WR,,,2025,,,,unmatched,
+2026,BentDa00,Dallen Bentley,TE,Utah; Snow,Utah,2025,9.7,1.0158810339836983,0.8,exact,100.0

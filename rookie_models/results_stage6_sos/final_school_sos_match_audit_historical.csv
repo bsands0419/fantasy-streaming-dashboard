@@ -1,0 +1,519 @@
+college_season,final_school,school_key,matched_team_key,match_score,match_method
+2013,UCF,ucf,ucf,100.0,exact
+2013,Clemson,clemson,clemson,100.0,exact
+2013,Texas A&M,texasaandm,texasaandm,100.0,exact
+2013,North Carolina,northcarolina,northcarolina,100.0,exact
+2013,LSU,lsu,lsu,100.0,exact
+2013,Oregon State,oregonst,oregonst,100.0,exact
+2013,Florida State,floridast,floridast,100.0,exact
+2013,Louisville,louisville,louisville,100.0,exact
+2013,Fresno State,fresnost,fresnost,100.0,exact
+2013,Washington,washington,washington,100.0,exact
+2013,USC,usc,usc,100.0,exact
+2013,Vanderbilt,vanderbilt,vanderbilt,100.0,exact
+2013,Colorado,colorado,colorado,100.0,exact
+2013,Texas Tech,texastech,texastech,100.0,exact
+2013,Notre Dame,notredame,notredame,100.0,exact
+2013,Indiana,indiana,indiana,100.0,exact
+2013,Ohio State,ohiost,ohiost,100.0,exact
+2013,Penn State,pennst,pennst,100.0,exact
+2013,Eastern Illinois,easternillinois,,,unmatched
+2013,Iowa,iowa,iowa,100.0,exact
+2013,West Virginia,westvirginia,westvirginia,100.0,exact
+2013,Auburn,auburn,auburn,100.0,exact
+2013,Oregon,oregon,oregon,100.0,exact
+2013,Mississippi,mississippi,mississippi,100.0,exact
+2013,Pittsburg State (KS),pittsburgstateks,,,unmatched
+2013,Towson State,towsonstate,,,unmatched
+2013,Georgia Southern,georgiaso,georgiast,88.88888888888889,fuzzy
+2013,Kent State,kentst,kentst,100.0,exact
+2013,California,california,california,100.0,exact
+2013,Colorado State,coloradost,coloradost,100.0,exact
+2013,Oklahoma,oklahoma,oklahoma,100.0,exact
+2013,South Carolina,southcarolina,southcarolina,100.0,exact
+2013,Boston College,bostoncollege,bostoncollege,100.0,exact
+2013,UCLA,ucla,ucla,100.0,exact
+2013,Arizona,arizona,arizona,100.0,exact
+2013,Virginia Tech,virginiatech,virginiatech,100.0,exact
+2013,Alabama,alabama,alabama,100.0,exact
+2013,Wisconsin,wisconsin,wisconsin,100.0,exact
+2013,Pittsburgh,pittsburgh,pittsburgh,100.0,exact
+2013,Coastal Carolina,coastalcar,,,unmatched
+2013,Tulane,tulane,tulane,100.0,exact
+2013,Georgia,georgia,georgia,100.0,exact
+2013,San Jose State,sanjosest,sanjosest,100.0,exact
+2013,Wyoming,wyoming,wyoming,100.0,exact
+2013,Baylor,baylor,baylor,100.0,exact
+2013,Ball State,ballst,ballst,100.0,exact
+2013,Murray State,murraystate,,,unmatched
+2013,Arizona State,arizonast,arizonast,100.0,exact
+2013,Stanford,stanford,stanford,100.0,exact
+2013,Nebraska,nebraska,nebraska,100.0,exact
+2013,,,,,unmatched
+2013,SMU,smu,smu,100.0,exact
+2013,Wake Forest,wakeforest,wakeforest,100.0,exact
+2013,Arkansas,arkansas,arkansas,100.0,exact
+2013,UMass Amherst,umassamherst,,,unmatched
+2013,Saginaw Valley State,saginawvalleystate,,,unmatched
+2014,Florida State,floridast,floridast,100.0,exact
+2014,Oregon,oregon,oregon,100.0,exact
+2014,Alabama,alabama,alabama,100.0,exact
+2014,West Virginia,westvirginia,westvirginia,100.0,exact
+2014,Georgia,georgia,georgia,100.0,exact
+2014,Louisville,louisville,louisville,100.0,exact
+2014,Wisconsin,wisconsin,wisconsin,100.0,exact
+2014,USC,usc,usc,100.0,exact
+2014,UCF,ucf,ucf,100.0,exact
+2014,Miami,miami,miami,100.0,exact
+2014,Ohio State,ohiost,ohiost,100.0,exact
+2014,Oklahoma,oklahoma,oklahoma,100.0,exact
+2014,Michigan,michigan,michigan,100.0,exact
+2014,Nebraska,nebraska,nebraska,100.0,exact
+2014,Minnesota,minnesota,minnesota,100.0,exact
+2014,Kansas State,kansasst,kansasst,100.0,exact
+2014,Arizona State,arizonast,arizonast,100.0,exact
+2014,Indiana,indiana,indiana,100.0,exact
+2014,Colorado State,coloradost,coloradost,100.0,exact
+2014,Rutgers,rutgers,rutgers,100.0,exact
+2014,Northern Iowa,northerniowa,,,unmatched
+2014,Auburn,auburn,auburn,100.0,exact
+2014,Oregon State,oregonst,oregonst,100.0,exact
+2014,Stanford,stanford,stanford,100.0,exact
+2014,Florida,florida,florida,100.0,exact
+2014,Baylor,baylor,baylor,100.0,exact
+2014,Duke,duke,duke,100.0,exact
+2014,Michigan State,michiganst,michiganst,100.0,exact
+2014,East Carolina,ecarolina,ecarolina,100.0,exact
+2014,Washington State,washingtonst,washingtonst,100.0,exact
+2014,South Carolina,southcarolina,southcarolina,100.0,exact
+2014,Georgia Tech,georgiatech,georgiatech,100.0,exact
+2014,Southern Illinois,southernillinois,,,unmatched
+2014,Maryland,maryland,maryland,100.0,exact
+2014,UCLA,ucla,ucla,100.0,exact
+2014,Boise State,boisest,boisest,100.0,exact
+2014,UAB,uab,uab,100.0,exact
+2014,Penn State,pennst,pennst,100.0,exact
+2014,Delaware,delaware,,,unmatched
+2014,Illinois State,illinoisstate,,,unmatched
+2014,Utah,utah,utah,100.0,exact
+2014,Connecticut,uconn,uconn,100.0,exact
+2014,Mississippi State,mississippist,mississippist,100.0,exact
+2014,,,,,unmatched
+2014,Arkansas,arkansas,arkansas,100.0,exact
+2014,Monmouth,monmouth,,,unmatched
+2014,Notre Dame,notredame,notredame,100.0,exact
+2014,Missouri,missouri,missouri,100.0,exact
+2014,Hawaii,hawaii,hawaii,100.0,exact
+2014,Northern Illinois,nillinois,nillinois,100.0,exact
+2014,Central Arkansas,centralarkansas,,,unmatched
+2014,LSU,lsu,lsu,100.0,exact
+2014,William & Mary,williamandmary,,,unmatched
+2014,Texas,texas,texas,100.0,exact
+2014,Northwestern,northwestern,northwestern,100.0,exact
+2015,California,california,california,100.0,exact
+2015,North Dakota State,northdakotastate,,,unmatched
+2015,Ohio State,ohiost,ohiost,100.0,exact
+2015,Baylor,baylor,baylor,100.0,exact
+2015,Notre Dame,notredame,notredame,100.0,exact
+2015,TCU,tcu,tcu,100.0,exact
+2015,Mississippi,mississippi,mississippi,100.0,exact
+2015,Memphis,memphis,memphis,100.0,exact
+2015,Arkansas,arkansas,arkansas,100.0,exact
+2015,Oklahoma,oklahoma,oklahoma,100.0,exact
+2015,Alabama,alabama,alabama,100.0,exact
+2015,Penn State,pennst,pennst,100.0,exact
+2015,Pittsburgh,pittsburgh,pittsburgh,100.0,exact
+2015,Stanford,stanford,stanford,100.0,exact
+2015,Rutgers,rutgers,rutgers,100.0,exact
+2015,N.C. State,ncstate,ncstate,100.0,exact
+2015,USC,usc,usc,100.0,exact
+2015,Michigan State,michiganst,michiganst,100.0,exact
+2015,Cincinnati,cincinnati,cincinnati,100.0,exact
+2015,Western Kentucky,wkentucky,wkentucky,100.0,exact
+2015,Georgia,georgia,georgia,100.0,exact
+2015,Auburn,auburn,auburn,100.0,exact
+2015,South Carolina,southcarolina,southcarolina,100.0,exact
+2015,San Jose State,sanjosest,sanjosest,100.0,exact
+2015,Florida,florida,florida,100.0,exact
+2015,Louisiana Tech,louisianatech,louisianatech,100.0,exact
+2015,Mississippi State,mississippist,mississippist,100.0,exact
+2015,Utah,utah,utah,100.0,exact
+2015,Princeton,princeton,,,unmatched
+2015,UMass Amherst,umassamherst,,,unmatched
+2015,Texas Tech,texastech,texastech,100.0,exact
+2015,UCLA,ucla,ucla,100.0,exact
+2015,Indiana,indiana,indiana,100.0,exact
+2015,West Virginia,westvirginia,westvirginia,100.0,exact
+2015,West Alabama,westalabama,,,unmatched
+2015,Colorado State,coloradost,coloradost,100.0,exact
+2015,Nebraska,nebraska,nebraska,100.0,exact
+2015,South Carolina State,southcarolinastate,,,unmatched
+2015,,,,,unmatched
+2015,Navy,navy,navy,100.0,exact
+2015,Texas-San Antonio,utsa,utsa,100.0,exact
+2015,Michigan,michigan,michigan,100.0,exact
+2015,Northwestern,northwestern,northwestern,100.0,exact
+2015,Wisconsin,wisconsin,wisconsin,100.0,exact
+2015,Southern Mississippi,southernmississippi,,,unmatched
+2015,Eastern Michigan,emichigan,emichigan,100.0,exact
+2015,Arizona State,arizonast,arizonast,100.0,exact
+2015,Houston,houston,houston,100.0,exact
+2015,Western Michigan,wmichigan,wmichigan,100.0,exact
+2015,Washington,washington,washington,100.0,exact
+2015,Clemson,clemson,clemson,100.0,exact
+2015,Montana State,montanastate,,,unmatched
+2016,North Carolina,northcarolina,northcarolina,100.0,exact
+2016,LSU,lsu,lsu,100.0,exact
+2016,Western Michigan,wmichigan,wmichigan,100.0,exact
+2016,Clemson,clemson,clemson,100.0,exact
+2016,Stanford,stanford,stanford,100.0,exact
+2016,Washington,washington,washington,100.0,exact
+2016,Texas Tech,texastech,texastech,100.0,exact
+2016,Alabama,alabama,alabama,100.0,exact
+2016,Mississippi,mississippi,mississippi,100.0,exact
+2016,Miami,miami,miami,100.0,exact
+2016,East Carolina,ecarolina,ecarolina,100.0,exact
+2016,Ohio State,ohiost,ohiost,100.0,exact
+2016,Florida State,floridast,floridast,100.0,exact
+2016,South Alabama,salabama,salabama,100.0,exact
+2016,Ashland,ashland,,,unmatched
+2016,Oklahoma,oklahoma,oklahoma,100.0,exact
+2016,Notre Dame,notredame,notredame,100.0,exact
+2016,USC,usc,usc,100.0,exact
+2016,Tennessee,tennessee,tennessee,100.0,exact
+2016,Eastern Washington,easternwashington,,,unmatched
+2016,Western Kentucky,wkentucky,wkentucky,100.0,exact
+2016,Louisiana Tech,louisianatech,louisianatech,100.0,exact
+2016,Penn State,pennst,pennst,100.0,exact
+2016,Toledo,toledo,toledo,100.0,exact
+2016,California,california,california,100.0,exact
+2016,Texas,texas,texas,100.0,exact
+2016,Northern Illinois,nillinois,nillinois,100.0,exact
+2016,Grambling State,gramblingstate,,,unmatched
+2016,Florida International,floridaintl,floridaintl,100.0,exact
+2016,Iowa,iowa,iowa,100.0,exact
+2016,Pittsburgh,pittsburgh,pittsburgh,100.0,exact
+2016,Michigan,michigan,michigan,100.0,exact
+2016,Texas A&M,texasaandm,texasaandm,100.0,exact
+2016,North Carolina A&T,northcarolinaaandt,,,unmatched
+2016,Utah,utah,utah,100.0,exact
+2016,San Diego State,sandiegost,sandiegost,100.0,exact
+2016,BYU,byu,byu,100.0,exact
+2016,University of South Florida,ofsouthflorida,,,unmatched
+2016,Arkansas,arkansas,arkansas,100.0,exact
+2016,Wyoming,wyoming,wyoming,100.0,exact
+2016,Boise State,boisest,boisest,100.0,exact
+2016,West Virginia,westvirginia,westvirginia,100.0,exact
+2016,Georgia,georgia,georgia,100.0,exact
+2016,Drake,drake,,,unmatched
+2016,Purdue,purdue,purdue,100.0,exact
+2016,Texas-El Paso,utep,utep,100.0,exact
+2016,Louisiana-Lafayette,louisianalafayette,,,unmatched
+2016,West Georgia,westgeorgia,,,unmatched
+2016,Virginia Tech,virginiatech,virginiatech,100.0,exact
+2016,Coastal Carolina,coastalcar,,,unmatched
+2016,Houston,houston,houston,100.0,exact
+2016,Georgia State,georgiast,georgiast,100.0,exact
+2016,East Central,eastcentral,,,unmatched
+2016,Utah State,utahst,utahst,100.0,exact
+2016,Oklahoma State,oklahomast,oklahomast,100.0,exact
+2016,Buffalo,buffalo,buffalo,100.0,exact
+2016,N.C. State,ncstate,ncstate,100.0,exact
+2017,Oklahoma,oklahoma,oklahoma,100.0,exact
+2017,Penn State,pennst,pennst,100.0,exact
+2017,USC,usc,usc,100.0,exact
+2017,Wyoming,wyoming,wyoming,100.0,exact
+2017,UCLA,ucla,ucla,100.0,exact
+2017,Maryland,maryland,maryland,100.0,exact
+2017,South Carolina,southcarolina,southcarolina,100.0,exact
+2017,Alabama,alabama,alabama,100.0,exact
+2017,San Diego State,sandiegost,sandiegost,100.0,exact
+2017,Georgia,georgia,georgia,100.0,exact
+2017,Louisville,louisville,louisville,100.0,exact
+2017,SMU,smu,smu,100.0,exact
+2017,Auburn,auburn,auburn,100.0,exact
+2017,Washington,washington,washington,100.0,exact
+2017,Texas A&M,texasaandm,texasaandm,100.0,exact
+2017,South Dakota State,southdakotastate,,,unmatched
+2017,Memphis,memphis,memphis,100.0,exact
+2017,LSU,lsu,lsu,100.0,exact
+2017,Oklahoma State,oklahomast,oklahomast,100.0,exact
+2017,Oregon,oregon,oregon,100.0,exact
+2017,Colorado State,coloradost,coloradost,100.0,exact
+2017,UCF,ucf,ucf,100.0,exact
+2017,Indiana,indiana,indiana,100.0,exact
+2017,Texas Tech,texastech,texastech,100.0,exact
+2017,N.C. State,ncstate,ncstate,100.0,exact
+2017,Florida,florida,florida,100.0,exact
+2017,Miami,miami,miami,100.0,exact
+2017,Richmond,richmond,,,unmatched
+2017,Notre Dame,notredame,notredame,100.0,exact
+2017,Southern Mississippi,southernmississippi,,,unmatched
+2017,Arizona State,arizonast,arizonast,100.0,exact
+2017,New Mexico State,newmexicost,newmexicost,100.0,exact
+2017,Missouri,missouri,missouri,100.0,exact
+2017,Fordham,fordham,,,unmatched
+2017,Stanford,stanford,stanford,100.0,exact
+2017,Penn,penn,,,unmatched
+2017,Wisconsin,wisconsin,wisconsin,100.0,exact
+2017,Central Michigan,cmichigan,cmichigan,100.0,exact
+2017,Northern Iowa,northerniowa,,,unmatched
+2017,Mississippi,mississippi,mississippi,100.0,exact
+2017,Western Kentucky,wkentucky,wkentucky,100.0,exact
+2017,University of South Florida,ofsouthflorida,,,unmatched
+2017,Tennessee,tennessee,tennessee,100.0,exact
+2017,Clemson,clemson,clemson,100.0,exact
+2017,Central Arkansas,centralarkansas,,,unmatched
+2017,Washington State,washingtonst,washingtonst,100.0,exact
+2017,Louisiana Tech,louisianatech,louisianatech,100.0,exact
+2017,Nebraska,nebraska,nebraska,100.0,exact
+2017,Virginia State,virginiastate,,,unmatched
+2017,Boise State,boisest,boisest,100.0,exact
+2017,Mississippi State,mississippist,mississippist,100.0,exact
+2017,Florida International,floridaintl,floridaintl,100.0,exact
+2017,,,,,unmatched
+2017,Middle Tennessee State,middletennesseestate,,,unmatched
+2017,Toledo,toledo,toledo,100.0,exact
+2017,Florida State,floridast,floridast,100.0,exact
+2017,Northwestern,northwestern,northwestern,100.0,exact
+2017,North Carolina,northcarolina,northcarolina,100.0,exact
+2018,Oklahoma,oklahoma,oklahoma,100.0,exact
+2018,Duke,duke,duke,100.0,exact
+2018,Iowa,iowa,iowa,100.0,exact
+2018,Ohio State,ohiost,ohiost,100.0,exact
+2018,Alabama,alabama,alabama,100.0,exact
+2018,Arizona State,arizonast,arizonast,100.0,exact
+2018,South Carolina,southcarolina,southcarolina,100.0,exact
+2018,Missouri,missouri,missouri,100.0,exact
+2018,Mississippi,mississippi,mississippi,100.0,exact
+2018,Washington,washington,washington,100.0,exact
+2018,Penn State,pennst,pennst,100.0,exact
+2018,Georgia,georgia,georgia,100.0,exact
+2018,Stanford,stanford,stanford,100.0,exact
+2018,UMass Amherst,umassamherst,,,unmatched
+2018,Toledo,toledo,toledo,100.0,exact
+2018,Baylor,baylor,baylor,100.0,exact
+2018,San Jose State,sanjosest,sanjosest,100.0,exact
+2018,Memphis,memphis,memphis,100.0,exact
+2018,Iowa State,iowast,iowast,100.0,exact
+2018,Florida Atlantic,floridaatlantic,floridaatlantic,100.0,exact
+2018,Texas A&M,texasaandm,texasaandm,100.0,exact
+2018,San Diego State,sandiegost,sandiegost,100.0,exact
+2018,Notre Dame,notredame,notredame,100.0,exact
+2018,West Virginia,westvirginia,westvirginia,100.0,exact
+2018,Boise State,boisest,boisest,100.0,exact
+2018,N.C. State,ncstate,ncstate,100.0,exact
+2018,Oklahoma State,oklahomast,oklahomast,100.0,exact
+2018,Kentucky,kentucky,kentucky,100.0,exact
+2018,Auburn,auburn,auburn,100.0,exact
+2018,LSU,lsu,lsu,100.0,exact
+2018,Temple,temple,temple,100.0,exact
+2018,Michigan,michigan,michigan,100.0,exact
+2018,Clemson,clemson,clemson,100.0,exact
+2018,Pittsburgh,pittsburgh,pittsburgh,100.0,exact
+2018,Florida,florida,florida,100.0,exact
+2018,North Dakota State,northdakotastate,,,unmatched
+2018,Northwestern,northwestern,northwestern,100.0,exact
+2018,Fresno State,fresnost,fresnost,100.0,exact
+2018,Washington State,washingtonst,washingtonst,100.0,exact
+2018,Old Dominion,olddominion,olddominion,100.0,exact
+2018,Minnesota,minnesota,minnesota,100.0,exact
+2018,Colorado,colorado,colorado,100.0,exact
+2018,Louisiana-Monroe,ulmonroe,ulmonroe,100.0,exact
+2018,Miami,miami,miami,100.0,exact
+2018,Bowling Green,bowlinggreen,bowlinggreen,100.0,exact
+2018,Utah State,utahst,utahst,100.0,exact
+2018,Boston College,bostoncollege,bostoncollege,100.0,exact
+2018,Hawaii,hawaii,hawaii,100.0,exact
+2018,Oregon,oregon,oregon,100.0,exact
+2018,Colorado State,coloradost,coloradost,100.0,exact
+2018,UCLA,ucla,ucla,100.0,exact
+2019,LSU,lsu,lsu,100.0,exact
+2019,Alabama,alabama,alabama,100.0,exact
+2019,Oregon,oregon,oregon,100.0,exact
+2019,Oklahoma,oklahoma,oklahoma,100.0,exact
+2019,TCU,tcu,tcu,100.0,exact
+2019,Arizona State,arizonast,arizonast,100.0,exact
+2019,Utah State,utahst,utahst,100.0,exact
+2019,Clemson,clemson,clemson,100.0,exact
+2019,USC,usc,usc,100.0,exact
+2019,Georgia,georgia,georgia,100.0,exact
+2019,Wisconsin,wisconsin,wisconsin,100.0,exact
+2019,Colorado,colorado,colorado,100.0,exact
+2019,Notre Dame,notredame,notredame,100.0,exact
+2019,Penn State,pennst,pennst,100.0,exact
+2019,Florida State,floridast,floridast,100.0,exact
+2019,Ohio State,ohiost,ohiost,100.0,exact
+2019,Florida,florida,florida,100.0,exact
+2019,Baylor,baylor,baylor,100.0,exact
+2019,Boston College,bostoncollege,bostoncollege,100.0,exact
+2019,Memphis,memphis,memphis,100.0,exact
+2019,Vanderbilt,vanderbilt,vanderbilt,100.0,exact
+2019,Kentucky,kentucky,kentucky,100.0,exact
+2019,South Carolina,southcarolina,southcarolina,100.0,exact
+2019,Utah,utah,utah,100.0,exact
+2019,UCLA,ucla,ucla,100.0,exact
+2019,Texas,texas,texas,100.0,exact
+2019,Appalachian State,appstate,appstate,100.0,exact
+2019,Cincinnati,cincinnati,cincinnati,100.0,exact
+2019,Virginia Tech,virginiatech,virginiatech,100.0,exact
+2019,Dayton,dayton,,,unmatched
+2019,Florida Atlantic,floridaatlantic,floridaatlantic,100.0,exact
+2019,Missouri,missouri,missouri,100.0,exact
+2019,Washington,washington,washington,100.0,exact
+2019,Maryland,maryland,maryland,100.0,exact
+2019,Florida International,floridaintl,floridaintl,100.0,exact
+2019,UCF,ucf,ucf,100.0,exact
+2019,Stanford,stanford,stanford,100.0,exact
+2019,Purdue,purdue,purdue,100.0,exact
+2019,Liberty,liberty,liberty,100.0,exact
+2019,Miami,miami,miami,100.0,exact
+2019,Virginia,virginia,virginia,100.0,exact
+2019,Minnesota,minnesota,minnesota,100.0,exact
+2019,Boise State,boisest,boisest,100.0,exact
+2019,Rhode Island,rhodeisland,,,unmatched
+2019,New Mexico State,newmexicost,newmexicost,100.0,exact
+2019,Tulane,tulane,tulane,100.0,exact
+2019,Michigan,michigan,michigan,100.0,exact
+2019,Oregon State,oregonst,oregonst,100.0,exact
+2019,Southern Mississippi,southernmississippi,,,unmatched
+2019,SMU,smu,smu,100.0,exact
+2019,Georgia Tech,georgiatech,georgiatech,100.0,exact
+2019,Washington State,washingtonst,washingtonst,100.0,exact
+2019,Tennessee,tennessee,tennessee,100.0,exact
+2019,,,,,unmatched
+2019,James Madison,jmadison,,,unmatched
+2019,Mississippi State,mississippist,mississippist,100.0,exact
+2019,Iowa,iowa,iowa,100.0,exact
+2019,Louisiana-Lafayette,louisianalafayette,,,unmatched
+2019,Navy,navy,navy,100.0,exact
+2020,Clemson,clemson,clemson,100.0,exact
+2020,BYU,byu,byu,100.0,exact
+2020,North Dakota State,northdakotastate,,,unmatched
+2020,Florida,florida,florida,100.0,exact
+2020,LSU,lsu,lsu,100.0,exact
+2020,Alabama,alabama,alabama,100.0,exact
+2020,Ohio State,ohiost,ohiost,100.0,exact
+2020,Minnesota,minnesota,minnesota,100.0,exact
+2020,Mississippi,mississippi,mississippi,100.0,exact
+2020,North Carolina,northcarolina,northcarolina,100.0,exact
+2020,Purdue,purdue,purdue,100.0,exact
+2020,Penn State,pennst,pennst,100.0,exact
+2020,Western Michigan,wmichigan,wmichigan,100.0,exact
+2020,Louisville,louisville,louisville,100.0,exact
+2020,Texas A&M,texasaandm,texasaandm,100.0,exact
+2020,Stanford,stanford,stanford,100.0,exact
+2020,Tennessee,tennessee,tennessee,100.0,exact
+2020,Boston College,bostoncollege,bostoncollege,100.0,exact
+2020,Notre Dame,notredame,notredame,100.0,exact
+2020,Michigan,michigan,michigan,100.0,exact
+2020,Auburn,auburn,auburn,100.0,exact
+2020,Georgia,georgia,georgia,100.0,exact
+2020,USC,usc,usc,100.0,exact
+2020,Iowa State,iowast,iowast,100.0,exact
+2020,Oklahoma,oklahoma,oklahoma,100.0,exact
+2020,Boise State,boisest,boisest,100.0,exact
+2020,Oklahoma State,oklahomast,oklahomast,100.0,exact
+2020,SMU,smu,smu,100.0,exact
+2020,North Texas,ntexas,ntexas,100.0,exact
+2020,UCF,ucf,ucf,100.0,exact
+2020,Miami,miami,miami,100.0,exact
+2020,Memphis,memphis,memphis,100.0,exact
+2020,Iowa,iowa,iowa,100.0,exact
+2020,Duke,duke,duke,100.0,exact
+2020,Central Missouri,centralmissouri,,,unmatched
+2020,Arizona State,arizonast,arizonast,100.0,exact
+2020,Louisiana-Lafayette,louisianalafayette,,,unmatched
+2020,Arizona,arizona,arizona,100.0,exact
+2020,Missouri,missouri,missouri,100.0,exact
+2020,Houston,houston,houston,100.0,exact
+2020,South Carolina,southcarolina,southcarolina,100.0,exact
+2020,Georgia Tech,georgiatech,georgiatech,100.0,exact
+2020,UCLA,ucla,ucla,100.0,exact
+2020,Virginia Tech,virginiatech,virginiatech,100.0,exact
+2020,Texas,texas,texas,100.0,exact
+2020,Charleston,charleston,,,unmatched
+2020,Maryland,maryland,maryland,100.0,exact
+2020,Cincinnati,cincinnati,cincinnati,100.0,exact
+2020,South Alabama,salabama,salabama,100.0,exact
+2020,Mississippi State,mississippist,mississippist,100.0,exact
+2020,Oregon State,oregonst,oregonst,100.0,exact
+2021,USC,usc,usc,100.0,exact
+2021,Ohio State,ohiost,ohiost,100.0,exact
+2021,Alabama,alabama,alabama,100.0,exact
+2021,Penn State,pennst,pennst,100.0,exact
+2021,Arkansas,arkansas,arkansas,100.0,exact
+2021,Pittsburgh,pittsburgh,pittsburgh,100.0,exact
+2021,North Dakota State,northdakotastate,,,unmatched
+2021,Iowa State,iowast,iowast,100.0,exact
+2021,Michigan State,michiganst,michiganst,100.0,exact
+2021,Kentucky,kentucky,kentucky,100.0,exact
+2021,Baylor,baylor,baylor,100.0,exact
+2021,Georgia,georgia,georgia,100.0,exact
+2021,Cincinnati,cincinnati,cincinnati,100.0,exact
+2021,Western Michigan,wmichigan,wmichigan,100.0,exact
+2021,Colorado State,coloradost,coloradost,100.0,exact
+2021,Tennessee,tennessee,tennessee,100.0,exact
+2021,Virginia,virginia,virginia,100.0,exact
+2021,UCLA,ucla,ucla,100.0,exact
+2021,Liberty,liberty,liberty,100.0,exact
+2021,South Alabama,salabama,salabama,100.0,exact
+2021,Arizona State,arizonast,arizonast,100.0,exact
+2021,LSU,lsu,lsu,100.0,exact
+2021,Mississippi,mississippi,mississippi,100.0,exact
+2021,Purdue,purdue,purdue,100.0,exact
+2021,SMU,smu,smu,100.0,exact
+2021,Washington,washington,washington,100.0,exact
+2021,Florida,florida,florida,100.0,exact
+2021,San Diego State,sandiegost,sandiegost,100.0,exact
+2021,Texas A&M,texasaandm,texasaandm,100.0,exact
+2021,Texas Tech,texastech,texastech,100.0,exact
+2021,South Dakota State,southdakotastate,,,unmatched
+2021,Wisconsin,wisconsin,wisconsin,100.0,exact
+2021,Michigan,michigan,michigan,100.0,exact
+2021,Nevada,nevada,nevada,100.0,exact
+2021,Western Kentucky,wkentucky,wkentucky,100.0,exact
+2021,Memphis,memphis,memphis,100.0,exact
+2021,Coastal Carolina,coastalcar,coastalcar,100.0,exact
+2021,Maryland,maryland,maryland,100.0,exact
+2021,North Carolina,northcarolina,northcarolina,100.0,exact
+2021,Boise State,boisest,boisest,100.0,exact
+2021,BYU,byu,byu,100.0,exact
+2021,Wake Forest,wakeforest,wakeforest,100.0,exact
+2021,Notre Dame,notredame,notredame,100.0,exact
+2021,Oregon State,oregonst,oregonst,100.0,exact
+2021,Virginia Tech,virginiatech,virginiatech,100.0,exact
+2021,South Carolina,southcarolina,southcarolina,100.0,exact
+2021,Missouri,missouri,missouri,100.0,exact
+2021,Oklahoma,oklahoma,oklahoma,100.0,exact
+2021,Rutgers,rutgers,rutgers,100.0,exact
+2021,Kansas State,kansasst,kansasst,100.0,exact
+2022,Alabama,alabama,alabama,100.0,exact
+2022,Ohio State,ohiost,ohiost,100.0,exact
+2022,Florida,florida,florida,100.0,exact
+2022,Texas,texas,texas,100.0,exact
+2022,TCU,tcu,tcu,100.0,exact
+2022,Boston College,bostoncollege,bostoncollege,100.0,exact
+2022,USC,usc,usc,100.0,exact
+2022,Utah,utah,utah,100.0,exact
+2022,Kentucky,kentucky,kentucky,100.0,exact
+2022,Iowa,iowa,iowa,100.0,exact
+2022,Notre Dame,notredame,notredame,100.0,exact
+2022,Mississippi,mississippi,mississippi,100.0,exact
+2022,Oregon State,oregonst,oregonst,100.0,exact
+2022,Michigan State,michiganst,michiganst,100.0,exact
+2022,UCLA,ucla,ucla,100.0,exact
+2022,SMU,smu,smu,100.0,exact
+2022,Michigan,michigan,michigan,100.0,exact
+2022,Penn State,pennst,pennst,100.0,exact
+2022,Oklahoma,oklahoma,oklahoma,100.0,exact
+2022,Tennessee,tennessee,tennessee,100.0,exact
+2022,Houston,houston,houston,100.0,exact
+2022,South Dakota State,southdakotastate,,,unmatched
+2022,North Carolina,northcarolina,northcarolina,100.0,exact
+2022,Tulane,tulane,tulane,100.0,exact
+2022,Texas A&M,texasaandm,texasaandm,100.0,exact
+2022,Auburn,auburn,auburn,100.0,exact
+2022,Georgia,georgia,georgia,100.0,exact
+2022,Stanford,stanford,stanford,100.0,exact
+2022,Cincinnati,cincinnati,cincinnati,100.0,exact

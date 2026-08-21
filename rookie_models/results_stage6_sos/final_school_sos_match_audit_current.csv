@@ -1,0 +1,46 @@
+college_season,final_school,school_key,matched_team_key,match_score,match_method
+2025,Indiana,indiana,indiana,100.0,exact
+2025,Notre Dame,notredame,notredame,100.0,exact
+2025,Ohio State,ohiost,ohiost,100.0,exact
+2025,Arizona State,arizonast,arizonast,100.0,exact
+2025,Alabama,alabama,alabama,100.0,exact
+2025,Oregon,oregon,oregon,100.0,exact
+2025,USC,usc,usc,100.0,exact
+2025,Texas A&M,texasaandm,texasaandm,100.0,exact
+2025,,,,,unmatched
+2025,Washington,washington,washington,100.0,exact
+2025,Vanderbilt,vanderbilt,vanderbilt,100.0,exact
+2025,Michigan,michigan,michigan,100.0,exact
+2025,Stanford,stanford,stanford,100.0,exact
+2025,Clemson,clemson,clemson,100.0,exact
+2025,Texas Tech,texastech,texastech,100.0,exact
+2025,Penn State,pennst,pennst,100.0,exact
+2025,Georgia,georgia,georgia,100.0,exact
+2025,Tennessee,tennessee,tennessee,100.0,exact
+2025,Georgia State,georgiast,georgiast,100.0,exact
+2025,LSU,lsu,lsu,100.0,exact
+2025,Louisville,louisville,louisville,100.0,exact
+2025,Mississippi State,mississippist,mississippist,100.0,exact
+2025,Iowa,iowa,iowa,100.0,exact
+2025,Arkansas,arkansas,arkansas,100.0,exact
+2025,Connecticut,uconn,uconn,100.0,exact
+2025,SMU,smu,smu,100.0,exact
+2025,North Dakota State,northdakotastate,,,unmatched
+2025,N.C. State,ncstate,ncstate,100.0,exact
+2025,Nebraska,nebraska,nebraska,100.0,exact
+2025,Houston,houston,houston,100.0,exact
+2025,Kentucky,kentucky,kentucky,100.0,exact
+2025,Cincinnati,cincinnati,cincinnati,100.0,exact
+2025,Missouri,missouri,missouri,100.0,exact
+2025,Baylor,baylor,baylor,100.0,exact
+2025,Miami,miami,miami,100.0,exact
+2025,Wake Forest,wakeforest,wakeforest,100.0,exact
+2025,Kansas,kansas,kansas,100.0,exact
+2025,Boston College,bostoncollege,bostoncollege,100.0,exact
+2025,East Carolina,ecarolina,ecarolina,100.0,exact
+2025,Texas,texas,texas,100.0,exact
+2025,Rutgers,rutgers,rutgers,100.0,exact
+2025,Oklahoma,oklahoma,oklahoma,100.0,exact
+2025,Navy,navy,navy,100.0,exact
+2025,BYU,byu,byu,100.0,exact
+2025,Utah,utah,utah,100.0,exact
