@@ -1,0 +1,56 @@
+name: Stage 6 Final Recovery Audit
+on:
+  push:
+    branches: [stage6-final-refit]
+    paths:
+      - '.github/workflows/stage6-final-recovery-run.yml'
+      - 'rookie_models/stage6_reproduction_gate.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install exact recovery dependencies
+        run: |
+          pip install -r rookie_models/requirements_v3.txt
+          pip install catboost==1.2.8 tabulate
+      - name: Run historical regression implementation
+        run: |
+          mkdir -p rookie_models/results_stage6_newmodels/original_branch
+          set +e
+          python rookie_models/stage6_original_models.py > rookie_models/results_stage6_newmodels/original_branch/run.log 2>&1
+          echo $? > rookie_models/results_stage6_newmodels/original_branch/exit_code.txt
+          set -e
+      - name: Run historical classifier implementation
+        run: |
+          mkdir -p rookie_models/results_stage6_newmodels/original_classifiers
+          set +e
+          python rookie_models/stage6_original_classifiers.py > rookie_models/results_stage6_newmodels/original_classifiers/run.log 2>&1
+          echo $? > rookie_models/results_stage6_newmodels/original_classifiers/exit_code.txt
+          set -e
+      - name: Run strict OOF checksum gate
+        run: |
+          set +e
+          python rookie_models/stage6_reproduction_gate.py \
+            --reg-candidate rookie_models/results_stage6_newmodels/original_branch/selected_validation_oof.csv \
+            --clf-candidate rookie_models/results_stage6_newmodels/original_classifiers/selected_validation_oof.csv \
+            > rookie_models/results_stage6_newmodels/reproduction_gate/run.log 2>&1
+          echo $? > rookie_models/results_stage6_newmodels/reproduction_gate/exit_code.txt
+          set -e
+      - name: Publish recovery outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rookie_models/results_stage6_newmodels/original_branch/ \
+                  rookie_models/results_stage6_newmodels/original_classifiers/ \
+                  rookie_models/results_stage6_newmodels/reproduction_gate/
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Publish Stage 6 final recovery audit"
+          git push
