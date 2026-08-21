@@ -1,4 +1,5 @@
 from __future__ import annotations
+# production export trigger
 import io, json, re, unicodedata
 from pathlib import Path
 import pandas as pd
@@ -35,9 +36,6 @@ def load_kind(kind, years=range(2020,2026)):
         frames.append(d)
     return pd.concat(frames,ignore_index=True,sort=False)
 
-def num(d,c):
-    return pd.to_numeric(d[c],errors='coerce') if c in d else pd.Series(0.0,index=d.index)
-
 def prep(d,namecol):
     d=d.copy(); d['name_norm']=d[namecol].map(norm_name)
     return d
@@ -62,9 +60,7 @@ def main():
     all_names=set(pa.name_norm)|set(ra.name_norm)|set(ca.name_norm)
     rows=[]
     for _,pr in pool.iterrows():
-        nn=pr.name_norm
-        key=nn if nn in all_names else None
-        method='exact'
+        nn=pr.name_norm; key=nn if nn in all_names else None; method='exact'
         if key is None:
             m=process.extractOne(nn,list(all_names),scorer=fuzz.ratio,score_cutoff=91)
             if m: key=m[0]; method='fuzzy'
@@ -74,25 +70,16 @@ def main():
         cand=[]
         for y in seasons:
             if y>2025: continue
-            pp=pa[(pa.name_norm==key)&(pa.season==y)]
-            rr=ra[(ra.name_norm==key)&(ra.season==y)]
-            cc=ca[(ca.name_norm==key)&(ca.season==y)]
+            pp=pa[(pa.name_norm==key)&(pa.season==y)]; rr=ra[(ra.name_norm==key)&(ra.season==y)]; cc=ca[(ca.name_norm==key)&(ca.season==y)]
             def one(df,col): return float(df[col].iloc[0]) if (not df.empty and col in df and pd.notna(df[col].iloc[0])) else 0.0
             games=max(one(pp,'pass_games'),one(rr,'rush_games'),one(cc,'rec_games'))
             if games<=0: continue
-            # Pahowdy labels college PPG as PPR scoring. Historical QB rows align closely with 5-pt passing TD scoring.
-            pts=(one(pp,'pass_yards')*0.04 + one(pp,'pass_td')*5 - one(pp,'pass_int')*2 +
-                 one(rr,'rush_yards')*0.1 + one(rr,'rush_td')*6 +
-                 one(cc,'rec_yards')*0.1 + one(cc,'rec_td')*6 + one(cc,'receptions'))
+            pts=(one(pp,'pass_yards')*0.04 + one(pp,'pass_td')*5 - one(pp,'pass_int')*2 + one(rr,'rush_yards')*0.1 + one(rr,'rush_td')*6 + one(cc,'rec_yards')*0.1 + one(cc,'rec_td')*6 + one(cc,'receptions'))
             cand.append((pts/games,y,pts,games))
         if not cand:
             rows.append({'pfr_name':pr.pfr_name,'position':pr.position,'peak_college_season':None,'peak_college_ppg':None,'match_method':'matched_no_games'}); continue
-        cand.sort(reverse=True)
-        ppg,y,pts,games=cand[0]
+        cand.sort(reverse=True); ppg,y,pts,games=cand[0]
         rows.append({'pfr_name':pr.pfr_name,'position':pr.position,'peak_college_season':int(y),'peak_college_ppg':round(ppg,3),'match_method':method,'matched_name_norm':key,'peak_points':round(pts,2),'peak_games':int(games)})
-    out=pd.DataFrame(rows)
-    out.to_csv(OUT/'peak_college_ppg_2026.csv',index=False)
-    print(out[['position','match_method']].value_counts(dropna=False))
-    print('rows',len(out),'peak years',out.peak_college_season.value_counts(dropna=False).sort_index().to_dict())
-
+    out=pd.DataFrame(rows); out.to_csv(OUT/'peak_college_ppg_2026.csv',index=False)
+    print(out[['position','match_method']].value_counts(dropna=False)); print('rows',len(out),'peak years',out.peak_college_season.value_counts(dropna=False).sort_index().to_dict())
 if __name__=='__main__': main()
