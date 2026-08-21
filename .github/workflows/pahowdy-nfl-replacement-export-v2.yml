@@ -1,0 +1,47 @@
+name: Pahowdy NFL Replacement Export V2
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pahowdy-nfl-replacement-export-v2.yml'
+permissions:
+  contents: write
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install nflreadpy polars pyarrow
+      - name: Download and export NFLverse sources
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import polars as pl
+          from nflreadpy import load_player_stats, load_pfr_advstats, load_nextgen_stats, load_players
+          out=Path('nfl_replacement_export_v2'); out.mkdir(exist_ok=True)
+          for y in range(2021, 2026):
+              d=load_player_stats(seasons=y, summary_level='reg')
+              d.write_csv(out/f'stats_player_reg_{y}.csv')
+          load_pfr_advstats(seasons=list(range(2021,2026)), stat_type='rec', summary_level='season').write_csv(out/'advstats_season_rec_2021_2025.csv')
+          load_pfr_advstats(seasons=list(range(2021,2026)), stat_type='rush', summary_level='season').write_csv(out/'advstats_season_rush_2021_2025.csv')
+          load_nextgen_stats(seasons=list(range(2021,2026)), stat_type='receiving').write_csv(out/'ngs_receiving_2021_2025.csv')
+          load_nextgen_stats(seasons=list(range(2021,2026)), stat_type='rushing').write_csv(out/'ngs_rushing_2021_2025.csv')
+          load_players().write_csv(out/'players.csv')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pahowdy-nfl-replacement-sources-v2
+          path: nfl_replacement_export_v2/
+          retention-days: 7
+      - name: Publish run id
+        run: |
+          echo "$GITHUB_RUN_ID" > rookie_models/pahowdy_nfl_replacement_run_id_v2.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rookie_models/pahowdy_nfl_replacement_run_id_v2.txt
+          git commit -m "Publish Pahowdy NFL replacement v2 run id" || true
+          git push
