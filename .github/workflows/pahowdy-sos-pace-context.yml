@@ -1,0 +1,28 @@
+name: Pahowdy SOS Pace Context Export
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'rookie_models/pahowdy_sos_pace_context.py'
+      - '.github/workflows/pahowdy-sos-pace-context.yml'
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pandas numpy requests beautifulsoup4
+      - name: Build SOS and pace context
+        run: python rookie_models/pahowdy_sos_pace_context.py
+      - name: Upload context artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pahowdy-sos-pace-context
+          path: rookie_models/results_pahowdy_context/
+          retention-days: 7
