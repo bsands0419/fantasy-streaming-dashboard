@@ -47,7 +47,6 @@ def candidate_features(df,pos):
                 union.append(c)
             if 'capital' in name.lower() and c in df.columns and c not in capital:
                 capital.append(c)
-    # Explicitly block labels/model outputs even if a future group definition changes.
     forbidden=('primary_ppg','peak3_ppg','rookie_ppg','avg3_ppg','total3_ppr','hit3','star3','best_rank3','target_valid','prospect_model','outcome_percentile','pred_')
     union=[c for c in union if not any(x in c.lower() for x in forbidden)]
     capital=[c for c in capital if c in union]
@@ -97,15 +96,7 @@ def score_rows(o):
     ys=[]
     for _,g in o.groupby('season'):
         ys.append(safe_sp(g.y,g.pred))
-    return {
-        'n':len(o),
-        'mae':mean_absolute_error(o.y,o.pred),
-        'rmse':mean_squared_error(o.y,o.pred)**.5,
-        'spearman':safe_sp(o.y,o.pred),
-        'pearson':float(pearsonr(o.y,o.pred).statistic) if len(o)>2 else np.nan,
-        'mean_year_spearman':float(np.nanmean(ys)),
-        'min_year_spearman':float(np.nanmin(ys)),
-    }
+    return {'n':len(o),'mae':mean_absolute_error(o.y,o.pred),'rmse':mean_squared_error(o.y,o.pred)**.5,'spearman':safe_sp(o.y,o.pred),'pearson':float(pearsonr(o.y,o.pred).statistic) if len(o)>2 else np.nan,'mean_year_spearman':float(np.nanmean(ys)),'min_year_spearman':float(np.nanmin(ys))}
 
 
 def walk(df,pos,fs,kind,years):
@@ -126,13 +117,12 @@ def main():
     d['season']=pd.to_numeric(d.season,errors='coerce')
     d['target_valid']=pd.to_numeric(d.target_valid,errors='coerce').fillna(0)
     d['primary_ppg']=pd.to_numeric(d.primary_ppg,errors='coerce')
-    metrics=[]; all_oof=[]; selected=[]; confirms=[]; future=[]; audits=[]
+    metrics=[]; all_oof=[]; selected=[]; confirms=[]; confirm_preds=[]; future=[]; audits=[]
     kinds=['ridge30','xgb1','xgb2','cat3','cat4']
     for pos in POSITIONS:
         sets,groups=feature_sets(d,pos)
         for name,fs in sets.items():
             audits.append({'position':pos,'feature_set':name,'n_features':len(fs),'features':'|'.join(fs)})
-        # Keep search compact: full observed set is allowed only for heavily regularized tree models.
         for sname,fs in sets.items():
             usek=kinds if sname!='all_dev_observed' else ['xgb1','cat3']
             for kind in usek:
@@ -145,8 +135,8 @@ def main():
         win=mm.sort_values(['selection_score','mae','spearman'],ascending=[True,True,False]).iloc[0]
         selected.append(win.to_dict())
         fs=sets[win.feature_set];kind=win.kind
-        co=walk(d,pos,fs,kind,[CONFIRM]);cr=score_rows(co);cr.update(position=pos,feature_set=win.feature_set,kind=kind,n_features=len(fs));confirms.append(cr)
-        # Final prediction-only scoring after architecture is frozen.
+        co=walk(d,pos,fs,kind,[CONFIRM]);co['feature_set']=win.feature_set;co['kind']=kind;confirm_preds.append(co.copy())
+        cr=score_rows(co);cr.update(position=pos,feature_set=win.feature_set,kind=kind,n_features=len(fs));confirms.append(cr)
         tr=d[(d.position.eq(pos)) & d.season.le(CONFIRM) & d.target_valid.eq(1) & d.primary_ppg.notna()].copy()
         va=d[(d.position.eq(pos)) & d.season.between(2024,2026)].copy()
         use=[c for c in fs if pd.to_numeric(tr[c],errors='coerce').notna().any()]
@@ -158,12 +148,10 @@ def main():
     pd.concat(all_oof,ignore_index=True).to_csv(OUT/'validation_oof_all.csv',index=False)
     pd.DataFrame(selected).to_csv(OUT/'selected_models.csv',index=False)
     pd.DataFrame(confirms).to_csv(OUT/'confirmation_2023.csv',index=False)
+    pd.concat(confirm_preds,ignore_index=True).to_csv(OUT/'confirmation_2023_predictions.csv',index=False)
     pd.DataFrame(audits).to_csv(OUT/'feature_set_audit.csv',index=False)
     if future: pd.concat(future,ignore_index=True).to_csv(OUT/'predictions_2024_2026.csv',index=False)
-    # Small selected-OOF files are easy to transfer without exposing any licensed advanced source data.
-    oo=pd.concat(all_oof,ignore_index=True)
-    ss=pd.DataFrame(selected)
-    picked=[]
+    oo=pd.concat(all_oof,ignore_index=True);ss=pd.DataFrame(selected);picked=[]
     for _,r in ss.iterrows():
         picked.append(oo[(oo.position.eq(r.position)) & oo.kind.eq(r.kind) & oo.feature_set.eq(r.feature_set)].copy())
     pd.concat(picked,ignore_index=True).to_csv(OUT/'selected_validation_oof.csv',index=False)
