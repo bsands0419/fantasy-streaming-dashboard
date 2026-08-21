@@ -5,8 +5,8 @@ on:
     branches: [main]
     paths:
       - 'rookie_models/stage6_all_data_ensemble_v2.py'
-      - 'rookie_models/results_stage6_newmodels/advanced_selected_validation_regression_oof.csv'
-      - 'rookie_models/results_stage6_newmodels/advanced_selected_2023_regression.csv'
+      - 'rookie_models/results_stage6_newmodels/advanced_selected_validation_regression_oof.b64'
+      - 'rookie_models/results_stage6_newmodels/advanced_selected_confirmation_2023_regression.csv'
       - 'rookie_models/results_stage6_newmodels/original_branch/selected_validation_oof.csv'
       - 'rookie_models/results_stage6_newmodels/original_branch/confirmation_2023_predictions.csv'
       - 'rookie_models/results_stage6_newmodels/original_fast/selected_validation_oof.csv'
