@@ -1,0 +1,13 @@
+position,task,selected_sos_policy,validation_n,validation_metric_1,validation_value_1,validation_metric_2,validation_value_2,confirmation_2023_n,confirmation_metric_1,confirmation_value_1,confirmation_metric_2,confirmation_value_2,decision
+QB,regression,no_sos,42,MAE,3.638185,Spearman,0.727635,5,MAE,3.469145,Spearman,0.900000,retain_new_no_sos
+RB,regression,no_sos,86,MAE,2.691814,Spearman,0.726652,7,MAE,3.894667,Spearman,0.928571,retain_new_no_sos
+WR,regression,no_sos_robust_blend,126,MAE,3.242626,Spearman,0.622927,14,MAE,3.834810,Spearman,0.626374,retain_robust_new_no_sos
+TE,regression,standalone_teamrankings_sos,58,MAE,1.772091,Spearman,0.599243,9,MAE,2.499808,Spearman,0.533333,retain_sos
+QB,hit3,no_sos,42,AUC,0.836735,Brier,0.114089,5,AUC,0.250000,Brier,0.232574,retain_baseline_no_sos_small_2023_sample
+QB,star3,no_sos,42,AUC,0.824074,Brier,0.108479,5,AUC,,Brier,,reject_sos_complexity_no_2023_positive_stars
+RB,hit3,sos_plus_production_interactions,86,AUC,0.928485,Brier,0.067678,7,AUC,1.000000,Brier,0.079854,retain_sos_interactions
+RB,star3,no_sos,86,AUC,0.958333,Brier,0.046819,7,AUC,1.000000,Brier,0.114578,retain_baseline_no_sos
+WR,hit3,no_sos,126,AUC,0.834967,Brier,0.123883,14,AUC,0.725000,Brier,0.169407,reject_sos
+WR,star3,no_sos,126,AUC,0.743622,Brier,0.091582,14,AUC,0.636364,Brier,0.165730,reject_sos
+TE,hit3,no_sos,58,AUC,0.905000,Brier,0.069275,9,AUC,0.722222,Brier,0.172336,reject_sos_interactions_after_2023_confirmation
+TE,star3,no_sos,58,AUC,0.939394,Brier,0.030006,9,AUC,0.750000,Brier,0.153405,reject_sos_complexity_tiny_positive_sample
