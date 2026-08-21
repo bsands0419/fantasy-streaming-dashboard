@@ -14,6 +14,14 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+      - name: Publish run id
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          echo "${GITHUB_RUN_ID}" > rookie_models/peak_college_ppg_2026_run_id.txt
+          git add rookie_models/peak_college_ppg_2026_run_id.txt
+          git commit -m "Publish peak college PPG run id" || true
+          git push || true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
