@@ -20,8 +20,14 @@ jobs:
           cache: 'pip'
           cache-dependency-path: rookie_models/requirements_v3.txt
       - run: pip install -r rookie_models/requirements_v3.txt
-      - name: Run fast original-data search
-        run: python rookie_models/stage6_original_models_fast.py
+      - name: Run fast original-data search with diagnostics
+        run: |
+          mkdir -p rookie_models/results_stage6_newmodels/original_fast
+          set +e
+          python rookie_models/stage6_original_models_fast.py > rookie_models/results_stage6_newmodels/original_fast/run.log 2>&1
+          code=$?
+          echo "$code" > rookie_models/results_stage6_newmodels/original_fast/exit_code.txt
+          exit 0
       - name: Publish fast original-data results
         run: |
           git config user.name "github-actions[bot]"
@@ -30,4 +36,4 @@ jobs:
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Publish Stage 6 fast original-data search"
           git push
-# trigger 2026-08-21T09:15Z
+# diagnostics trigger 2026-08-21T09:20Z
