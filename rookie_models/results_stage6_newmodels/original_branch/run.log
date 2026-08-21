@@ -1,4 +1,12 @@
-Traceback (most recent call last):
-  File "/home/runner/work/fantasy-streaming-dashboard/fantasy-streaming-dashboard/rookie_models/stage6_original_models.py", line 17, in <module>
-    from catboost import CatBoostRegressor
-ModuleNotFoundError: No module named 'catboost'
+SELECTED
+position kind        feature_set  n_features      mae     rmse  spearman  mean_year_spearman  min_year_spearman  selection_score
+      QB cat3 capital_plus_top16        1017 1.316165 2.142239  0.945512            0.948380           0.933943              9.2
+      RB cat3  capital_plus_top8        1126 1.019320 1.570075  0.953017            0.946386           0.921670             12.2
+      WR cat3 capital_plus_top16         598 0.963486 1.432643  0.966440            0.957333           0.923714              7.8
+      TE cat3  capital_plus_top8         598 0.665977 0.980371  0.912899            0.907885           0.872727             12.2
+2023 CONFIRM
+ n      mae     rmse  spearman  pearson  mean_year_spearman  min_year_spearman position        feature_set kind  n_features
+ 5 1.116507 1.526873  0.800000 0.980084            0.800000           0.800000       QB capital_plus_top16 cat3        1017
+ 7 4.223926 5.156061  0.928571 0.838785            0.928571           0.928571       RB  capital_plus_top8 cat3        1126
+14 1.305737 1.621479  0.890110 0.946679            0.890110           0.890110       WR capital_plus_top16 cat3         598
+ 9 1.216026 1.638201  0.883333 0.887158            0.883333           0.883333       TE  capital_plus_top8 cat3         598
