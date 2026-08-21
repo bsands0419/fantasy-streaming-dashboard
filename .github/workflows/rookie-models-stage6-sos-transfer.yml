@@ -23,3 +23,4 @@ jobs:
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Publish SOS transfer chunks"
           git push
+# trigger
