@@ -1,5 +1,6 @@
 from pathlib import Path
 import base64
+import gzip
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent
@@ -9,12 +10,14 @@ OUT.mkdir(parents=True, exist_ok=True)
 
 
 def write_transfer_chunks(text: str, stem: str, chunk_size: int = 3500):
-    enc = base64.b64encode(text.encode('utf-8')).decode('ascii')
+    payload = gzip.compress(text.encode('utf-8'), compresslevel=9)
+    enc = base64.b64encode(payload).decode('ascii')
     for p in OUT.glob(f'{stem}_chunk_*.txt'):
         p.unlink()
     for i in range(0, len(enc), chunk_size):
         (OUT / f'{stem}_chunk_{i // chunk_size + 1:02d}.txt').write_text(enc[i:i+chunk_size])
     (OUT / f'{stem}_chunk_count.txt').write_text(str((len(enc) + chunk_size - 1) // chunk_size))
+    (OUT / f'{stem}_compressed_chars.txt').write_text(str(len(enc)))
 
 
 def main():
