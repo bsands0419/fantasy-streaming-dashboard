@@ -6,7 +6,7 @@ on:
     paths:
       - '.github/workflows/rookie-master-data-export.yml'
 permissions:
-  contents: read
+  contents: write
 jobs:
   export:
     runs-on: ubuntu-latest
@@ -25,3 +25,11 @@ jobs:
           name: rookie-master-data-inputs
           path: master_data_export/
           retention-days: 7
+      - name: Publish run id
+        run: |
+          echo "$GITHUB_RUN_ID" > rookie_models/master_data_export_run_id.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rookie_models/master_data_export_run_id.txt
+          git commit -m "Publish rookie master data export run id" || true
+          git push
