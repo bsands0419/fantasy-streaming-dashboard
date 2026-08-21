@@ -1,0 +1,29 @@
+name: TeamRankings PPP Margin Export
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'rookie_models/teamrankings_ppp_margin_export.py'
+      - '.github/workflows/teamrankings-ppp-margin-export.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pandas requests beautifulsoup4
+      - run: python rookie_models/teamrankings_ppp_margin_export.py
+      - name: Publish outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rookie_models/results_pahowdy_context/teamrankings_points_per_play_margin_2004_2025.csv rookie_models/results_pahowdy_context/teamrankings_points_per_play_margin_audit.csv
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Publish TeamRankings points per play margin"
+          git push
