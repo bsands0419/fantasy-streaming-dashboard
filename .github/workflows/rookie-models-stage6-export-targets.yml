@@ -37,3 +37,5 @@ jobs:
             git commit -m "Publish Stage 6 completed outcome targets"
             git push
           fi
+
+# trigger
