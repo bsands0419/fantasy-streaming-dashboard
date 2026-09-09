@@ -1,0 +1,94 @@
+{
+  "DST": {
+    "promote": false,
+    "baseline": {
+      "n": 1088,
+      "mae": 4.052409964783519,
+      "rmse": 5.143590650532701,
+      "pearson": 0.33338536521749773,
+      "weekly_spearman": 0.33480088480735287,
+      "top1": 10.61111068725586,
+      "top3": 9.44444465637207,
+      "top5": 9.03888988494873
+    },
+    "candidate": {
+      "n": 1088,
+      "mae": 4.068239891220359,
+      "rmse": 5.155578063397328,
+      "pearson": 0.3288906542023022,
+      "weekly_spearman": 0.3290637231528335,
+      "top1": 10.083333015441895,
+      "top3": 9.370370864868164,
+      "top5": 8.772222518920898
+    },
+    "bootstrap": {
+      "mae_candidate_minus_baseline": {
+        "ci95": [
+          0.007632988020499181,
+          0.024241897581215373
+        ],
+        "bootstrap_fraction_improving": 0.0
+      },
+      "rmse_candidate_minus_baseline": {
+        "ci95": [
+          0.004358475127279759,
+          0.01960059079784477
+        ],
+        "bootstrap_fraction_improving": 0.001
+      },
+      "weekly_spearman_candidate_minus_baseline": {
+        "ci95": [
+          -0.012080129660853055,
+          0.0005949551992008066
+        ],
+        "bootstrap_fraction_improving": 0.039
+      }
+    }
+  },
+  "K": {
+    "promote": false,
+    "baseline": {
+      "n": 1086,
+      "mae": 3.665782172023173,
+      "rmse": 4.631183509026992,
+      "pearson": 0.21793327267089055,
+      "weekly_spearman": 0.2181897631631346,
+      "top1": 10.86111068725586,
+      "top3": 10.222223281860352,
+      "top5": 9.877778053283691
+    },
+    "candidate": {
+      "n": 1086,
+      "mae": 3.673389257726914,
+      "rmse": 4.6355153008690175,
+      "pearson": 0.21635884926327098,
+      "weekly_spearman": 0.21279889955740736,
+      "top1": 10.027777671813965,
+      "top3": 10.250000953674316,
+      "top5": 9.86111068725586
+    },
+    "bootstrap": {
+      "mae_candidate_minus_baseline": {
+        "ci95": [
+          0.002877688903058848,
+          0.01248325209766314
+        ],
+        "bootstrap_fraction_improving": 0.0006
+      },
+      "rmse_candidate_minus_baseline": {
+        "ci95": [
+          -0.001432221811824097,
+          0.010109599018359925
+        ],
+        "bootstrap_fraction_improving": 0.0738
+      },
+      "weekly_spearman_candidate_minus_baseline": {
+        "ci95": [
+          -0.014735208353199646,
+          0.0034872537501072515
+        ],
+        "bootstrap_fraction_improving": 0.1258
+      }
+    }
+  }
+}
