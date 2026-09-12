@@ -1,0 +1,18 @@
+{
+  "date": "2026-09-09",
+  "prior_audit_commit": "14744c9",
+  "production_base_commit": "d76f01c839b537354772402b68a0953e63b030e5",
+  "python": "3.12.14",
+  "additional_challenger_variants": 200,
+  "new_tests_passed": 5,
+  "existing_tests_passed": 9,
+  "decision": "No model promoted; preserve kicker secondary candidate for research.",
+  "sources": "../pbp_sources.json",
+  "scripts": {
+    "sequential_search.py": "689c363cff6e0aa642addfc30190518bbf5593531ad728ffd422ee3d3354787b",
+    "ranking_search.py": "7927d2eded5c2afd3be1e225843482af4d609a142db14f1c84c80937d6448f28",
+    "rank_tradeoff.py": "8179717013820df09949e9063f6f0f63ee3e1b136bea40312bd6c12a566d3bb4",
+    "test_sequential.py": "6d2f0728922de2c14e03b3af5d46cc234ffa086c533ab713b43110943b565714"
+  },
+  "bundle_sha256": "1f09c6a144fd20375eb48fc6976e15a11596a4849aa89dbb11c1a0597955f5f4"
+}
