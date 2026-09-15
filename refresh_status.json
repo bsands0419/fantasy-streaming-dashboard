@@ -1,8 +1,8 @@
 {
   "current_stats": {
-    "kicker_games": 30,
+    "kicker_games": 32,
     "source": "nflverse",
-    "team_games": 30
+    "team_games": 32
   },
   "kickers": {
     "players": 38,
@@ -18,14 +18,13 @@
   "season": 2026,
   "seed": 4216,
   "status": "success",
-  "updated_utc": "2026-09-15T00:36:56.174338+00:00",
+  "updated_utc": "2026-09-15T16:59:15.302296+00:00",
   "warnings": [
-    "ODDS_API_KEY not configured; using the latest lines carried by nflverse schedule.",
-    "No outdoor game weather forecasts were added; model will impute weather where unavailable."
+    "ODDS_API_KEY not configured; using the latest lines carried by nflverse schedule."
   ],
   "weather": {
-    "games_updated": 0,
+    "games_updated": 14,
     "source": "open-meteo"
   },
-  "week": 1
+  "week": 2
 }
