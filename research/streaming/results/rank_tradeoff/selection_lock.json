@@ -1,0 +1,33 @@
+{
+  "development": [
+    2022,
+    2023
+  ],
+  "confirmation": [
+    2024,
+    2025
+  ],
+  "secondary_exploratory_analysis": true,
+  "selection": "Highest weekly Spearman, tie break lowest RMSE then name, with <=1% higher MAE/RMSE and no top3 decline.",
+  "confirmation_gate": "Weekly Spearman improves in each year and pooled; pooled top3 does not decline; pooled MAE/RMSE <=1% worse.",
+  "caveat": "Specified after strict experiment review; retrospective confirmation is not an untouched holdout.",
+  "source_sha256": "8179717013820df09949e9063f6f0f63ee3e1b136bea40312bd6c12a566d3bb4",
+  "selected": {
+    "DST": {
+      "name": "ridge_combined_h18_a1000",
+      "method": "ridge",
+      "fs": "combined",
+      "half": 18,
+      "alpha": 1000
+    },
+    "K": {
+      "name": "ridge_qb_h18_a100_centered0.5",
+      "method": "ridge",
+      "fs": "qb",
+      "half": 18,
+      "alpha": 100,
+      "center": true,
+      "weight": 0.5
+    }
+  }
+}
