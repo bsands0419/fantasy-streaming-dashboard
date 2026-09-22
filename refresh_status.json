@@ -18,7 +18,7 @@
   "season": 2026,
   "seed": 4216,
   "status": "success",
-  "updated_utc": "2026-09-21T18:12:54.378257+00:00",
+  "updated_utc": "2026-09-22T00:49:09.095262+00:00",
   "warnings": [
     "ODDS_API_KEY not configured; using the latest lines carried by nflverse schedule.",
     "No outdoor game weather forecasts were added; model will impute weather where unavailable."
