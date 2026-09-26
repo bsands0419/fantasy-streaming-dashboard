@@ -1,0 +1,14 @@
+test_adjusted_rate_reconstruction_matches_frozen_definitions (__main__.IntegrityTests.test_adjusted_rate_reconstruction_matches_frozen_definitions) ... ok
+test_adjusted_rates_preserve_frozen_seasons (__main__.IntegrityTests.test_adjusted_rates_preserve_frozen_seasons) ... ok
+test_current_and_future_outcomes_cannot_change_prior_new_features (__main__.IntegrityTests.test_current_and_future_outcomes_cannot_change_prior_new_features) ... ok
+test_deterministic_baseline_agrees_with_large_simulation (__main__.IntegrityTests.test_deterministic_baseline_agrees_with_large_simulation) ... ok
+test_explosive_play_rates_and_defensive_mirroring (__main__.IntegrityTests.test_explosive_play_rates_and_defensive_mirroring) ... ok
+test_kickoff_timezone_domestic_and_international (__main__.IntegrityTests.test_kickoff_timezone_domestic_and_international) ... ok
+test_midweek_kicker_refresh_excludes_same_week_results (__main__.IntegrityTests.test_midweek_kicker_refresh_excludes_same_week_results) ... ok
+test_scoring_target_agrees_with_components (__main__.IntegrityTests.test_scoring_target_agrees_with_components) ... ok
+test_weather_uses_forecast_nearest_actual_kickoff (__main__.IntegrityTests.test_weather_uses_forecast_nearest_actual_kickoff) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.502s
+
+OK
