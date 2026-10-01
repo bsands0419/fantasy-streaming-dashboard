@@ -18,12 +18,12 @@
   "season": 2026,
   "seed": 4216,
   "status": "success",
-  "updated_utc": "2026-09-30T18:01:35.825099+00:00",
+  "updated_utc": "2026-10-01T01:16:57.705463+00:00",
   "warnings": [
     "ODDS_API_KEY not configured; using the latest lines carried by nflverse schedule."
   ],
   "weather": {
-    "games_updated": 9,
+    "games_updated": 13,
     "source": "open-meteo"
   },
   "week": 4
