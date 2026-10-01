@@ -5,7 +5,7 @@
     "team_games": 96
   },
   "kickers": {
-    "players": 36,
+    "players": 37,
     "source": "sleeper",
     "teams": 32
   },
@@ -18,7 +18,7 @@
   "season": 2026,
   "seed": 4216,
   "status": "success",
-  "updated_utc": "2026-10-01T01:16:57.705463+00:00",
+  "updated_utc": "2026-10-01T18:26:20.803863+00:00",
   "warnings": [
     "ODDS_API_KEY not configured; using the latest lines carried by nflverse schedule."
   ],
