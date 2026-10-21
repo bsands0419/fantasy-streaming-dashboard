@@ -5,7 +5,7 @@
     "team_games": 186
   },
   "kickers": {
-    "players": 37,
+    "players": 38,
     "source": "sleeper",
     "teams": 32
   },
@@ -18,7 +18,7 @@
   "season": 2026,
   "seed": 4216,
   "status": "success",
-  "updated_utc": "2026-10-20T17:02:54.549253+00:00",
+  "updated_utc": "2026-10-21T00:36:30.937697+00:00",
   "warnings": [
     "ODDS_API_KEY not configured; using the latest lines carried by nflverse schedule.",
     "D/ST board has 28 rows instead of 32.",
