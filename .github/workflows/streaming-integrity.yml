@@ -1,0 +1,28 @@
+name: Streaming input integrity
+on:
+  pull_request:
+    paths:
+      - 'backend/**'
+      - 'research/streaming/**'
+      - '.github/workflows/refresh-model.yml'
+      - '.github/workflows/streaming-integrity.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      OPENBLAS_NUM_THREADS: '2'
+      OMP_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          mkdir -p backend/runtime
+          unzip -q backend/assets/v42_runtime_bundle.zip -d backend/runtime
+          python -m pip install -r backend/runtime/requirements.txt pyarrow==25.0.1
+      - run: python -W ignore research/streaming/test_integrity.py
