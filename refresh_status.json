@@ -18,7 +18,7 @@
   "season": 2026,
   "seed": 4216,
   "status": "success",
-  "updated_utc": "2026-11-07T01:53:52.871936+00:00",
+  "updated_utc": "2026-11-07T17:45:01.063311+00:00",
   "warnings": [
     "ODDS_API_KEY not configured; using the latest lines carried by nflverse schedule.",
     "D/ST board has 30 rows instead of 32.",
