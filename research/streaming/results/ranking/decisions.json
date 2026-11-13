@@ -1,0 +1,10 @@
+{
+  "DST": {
+    "promote": false,
+    "reason": "No challenger passed development."
+  },
+  "K": {
+    "promote": false,
+    "reason": "No challenger passed development."
+  }
+}

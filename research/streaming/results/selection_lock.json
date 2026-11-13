@@ -1,0 +1,72 @@
+{
+  "development_seasons": [
+    2021,
+    2022,
+    2023
+  ],
+  "confirmation_seasons": [
+    2024,
+    2025
+  ],
+  "evaluation": "Annual expanding training: fit all seasons strictly before the predicted season; inputs update from prior games.",
+  "selection": "Lowest development RMSE subject to MAE <= baseline + .005, weekly Spearman >= baseline, and top3 points >= baseline - .05.",
+  "confirmation_promotion": "Candidate must improve pooled RMSE and MAE, must not reduce weekly Spearman, and must not lose more than 0.1 top3 points. Report each year and week-block bootstrap uncertainty; no retuning on confirmation.",
+  "caveat": "2024/2025 were examined during earlier project development; these are retrospective confirmation seasons, not pristine holdouts.",
+  "candidate_variants_including_blends": 320,
+  "selected": {
+    "DST": {
+      "name": "extra16_extended@0.25",
+      "weights": {
+        "v42": 0.75,
+        "extra16_extended": 0.25
+      },
+      "development_metrics": {
+        "n": 1630,
+        "mae": 4.110183214304332,
+        "rmse": 5.345133880836535,
+        "pearson": 0.26901166423627043,
+        "weekly_spearman": 0.257784399517598,
+        "top1": 9.055555555555555,
+        "top3": 8.654320987654321,
+        "top5": 8.588888888888889
+      },
+      "baseline_metrics": {
+        "n": 1630,
+        "mae": 4.106140170769693,
+        "rmse": 5.354204275868538,
+        "pearson": 0.26710554666600833,
+        "weekly_spearman": 0.25730642845803026,
+        "top1": 9.38888888888889,
+        "top3": 8.574074074074074,
+        "top5": 8.511111111111111
+      }
+    },
+    "K": {
+      "name": "extra40_recent@0.25",
+      "weights": {
+        "v42": 0.75,
+        "extra40_recent": 0.25
+      },
+      "development_metrics": {
+        "n": 1630,
+        "mae": 3.5068079991544536,
+        "rmse": 4.378265274479022,
+        "pearson": 0.1510401780813268,
+        "weekly_spearman": 0.15598506854454738,
+        "top1": 9.555555555555555,
+        "top3": 9.012345679012347,
+        "top5": 8.733333333333333
+      },
+      "baseline_metrics": {
+        "n": 1630,
+        "mae": 3.50501152299565,
+        "rmse": 4.380874973729962,
+        "pearson": 0.14939284992583146,
+        "weekly_spearman": 0.150535597040985,
+        "top1": 9.462962962962964,
+        "top3": 9.06172839506173,
+        "top5": 8.896296296296295
+      }
+    }
+  }
+}
