@@ -1,8 +1,8 @@
 {
   "current_stats": {
-    "kicker_games": 303,
+    "kicker_games": 305,
     "source": "nflverse",
-    "team_games": 300
+    "team_games": 302
   },
   "kickers": {
     "players": 38,
@@ -18,7 +18,7 @@
   "season": 2026,
   "seed": 4216,
   "status": "success",
-  "updated_utc": "2026-11-20T03:07:53.043861+00:00",
+  "updated_utc": "2026-11-20T20:17:27.955396+00:00",
   "warnings": [
     "ODDS_API_KEY not configured; using the latest lines carried by nflverse schedule.",
     "D/ST board has 26 rows instead of 32.",
