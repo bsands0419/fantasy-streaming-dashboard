@@ -1,0 +1,76 @@
+{
+  "development": [
+    2022,
+    2023
+  ],
+  "warmup": [
+    2021
+  ],
+  "confirmation": [
+    2024,
+    2025
+  ],
+  "selection": "Lowest RMSE with MAE <= baseline and weekly Spearman >= baseline; top3 loss <= .1.",
+  "promotion": "Pooled confirmation RMSE and MAE improve; weekly Spearman does not decline; top3 loss <= .1; RMSE improves in both individual seasons.",
+  "caveat": "Retrospective confirmation, already examined in earlier research. No pristine holdout remains.",
+  "selected": {
+    "DST": {
+      "config": {
+        "name": "ridge_slope_h54_a100_centered0.5",
+        "method": "ridge",
+        "fs": "slope",
+        "half": 54,
+        "alpha": 100,
+        "center": true,
+        "weight": 0.5
+      },
+      "metrics": {
+        "n": 1086,
+        "mae": 4.0173429626188595,
+        "rmse": 5.288153200843284,
+        "pearson": 0.2545015099615694,
+        "weekly_spearman": 0.2512343652864474,
+        "top1": 8.027777777777779,
+        "top3": 8.50925925925926,
+        "top5": 8.43888888888889
+      },
+      "baseline": {
+        "n": 1086,
+        "mae": 4.019001765444786,
+        "rmse": 5.288932166559678,
+        "pearson": 0.25563787987280456,
+        "weekly_spearman": 0.2512343652864474,
+        "top1": 8.027777777777779,
+        "top3": 8.50925925925926,
+        "top5": 8.43888888888889
+      }
+    },
+    "K": {
+      "config": {
+        "name": "v42",
+        "method": "baseline"
+      },
+      "metrics": {
+        "n": 1088,
+        "mae": 3.4885965233889884,
+        "rmse": 4.40403611624283,
+        "pearson": 0.12821319736778453,
+        "weekly_spearman": 0.11562001205964052,
+        "top1": 8.555555555555555,
+        "top3": 8.88888888888889,
+        "top5": 8.83888888888889
+      },
+      "baseline": {
+        "n": 1088,
+        "mae": 3.4885965233889884,
+        "rmse": 4.40403611624283,
+        "pearson": 0.12821319736778453,
+        "weekly_spearman": 0.11562001205964052,
+        "top1": 8.555555555555555,
+        "top3": 8.88888888888889,
+        "top5": 8.83888888888889
+      }
+    }
+  },
+  "source_sha256": "689c363cff6e0aa642addfc30190518bbf5593531ad728ffd422ee3d3354787b"
+}
