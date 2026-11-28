@@ -1,0 +1,110 @@
+{
+  "DST": {
+    "passes_secondary_gate": false,
+    "config": {
+      "name": "ridge_combined_h18_a1000",
+      "method": "ridge",
+      "fs": "combined",
+      "half": 18,
+      "alpha": 1000
+    },
+    "baseline": {
+      "n": 1088,
+      "mae": 4.052409964783519,
+      "rmse": 5.143590650532701,
+      "pearson": 0.33338536521749773,
+      "weekly_spearman": 0.33480088480735287,
+      "top1": 10.61111111111111,
+      "top3": 9.444444444444445,
+      "top5": 9.038888888888888
+    },
+    "candidate": {
+      "n": 1088,
+      "mae": 4.0547781650393295,
+      "rmse": 5.138368463365775,
+      "pearson": 0.33223978906577784,
+      "weekly_spearman": 0.3309575488535571,
+      "top1": 10.75,
+      "top3": 9.61111111111111,
+      "top5": 9.116666666666667
+    },
+    "bootstrap": {
+      "mae_candidate_minus_baseline": {
+        "ci95": [
+          -0.017473189968273843,
+          0.024206169447283536
+        ],
+        "bootstrap_fraction_improving": 0.4254
+      },
+      "rmse_candidate_minus_baseline": {
+        "ci95": [
+          -0.028583935175688115,
+          0.018967350754512297
+        ],
+        "bootstrap_fraction_improving": 0.67
+      },
+      "weekly_spearman_candidate_minus_baseline": {
+        "ci95": [
+          -0.01570586148738482,
+          0.007679382777297608
+        ],
+        "bootstrap_fraction_improving": 0.2686
+      }
+    }
+  },
+  "K": {
+    "passes_secondary_gate": false,
+    "config": {
+      "name": "ridge_qb_h18_a100_centered0.5",
+      "method": "ridge",
+      "fs": "qb",
+      "half": 18,
+      "alpha": 100,
+      "center": true,
+      "weight": 0.5
+    },
+    "baseline": {
+      "n": 1086,
+      "mae": 3.665782172023173,
+      "rmse": 4.631183509026992,
+      "pearson": 0.21793327267089055,
+      "weekly_spearman": 0.2181897631631346,
+      "top1": 10.86111111111111,
+      "top3": 10.222222222222221,
+      "top5": 9.877777777777775
+    },
+    "candidate": {
+      "n": 1086,
+      "mae": 3.6572101040650336,
+      "rmse": 4.6211487698433595,
+      "pearson": 0.22573055008079276,
+      "weekly_spearman": 0.22605276030435295,
+      "top1": 10.583333333333334,
+      "top3": 10.018518518518517,
+      "top5": 9.855555555555553
+    },
+    "bootstrap": {
+      "mae_candidate_minus_baseline": {
+        "ci95": [
+          -0.028519766601358663,
+          0.010520671124101235
+        ],
+        "bootstrap_fraction_improving": 0.7984
+      },
+      "rmse_candidate_minus_baseline": {
+        "ci95": [
+          -0.028426117242528682,
+          0.008196846821923362
+        ],
+        "bootstrap_fraction_improving": 0.8484
+      },
+      "weekly_spearman_candidate_minus_baseline": {
+        "ci95": [
+          -0.01684074351974871,
+          0.03126958057121156
+        ],
+        "bootstrap_fraction_improving": 0.741
+      }
+    }
+  }
+}
